@@ -33,23 +33,29 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 
 ```
 Tarih          : 17.08.2026
-Aktif faz      : Faz 0 — Hesaplar ve kararlar
-Aktif görev    : F0-01 (GitHub organizasyonu) — başlanmadı
-Blokaj         : Faz 0'ın tamamı Mustafa'nın hesap açmasına ve bülten kararına bağlı
-Bir sonraki adım: Aşağıdaki "Mustafa'nın yapması gerekenler" listesi
-Kod durumu     : Henüz kod yok. Depo başlatılmadı (git init çalıştırılmadı).
+Aktif faz      : Faz 1 — Proje iskeleti
+Son biten      : F1-03 — ilk commit YuentIT/web deposuna push edildi (253893c)
+Aktif görev    : F1-04 (Vercel) — Mustafa'nın hesap açmasını bekliyor 🔐
+Paralel        : F1-05, F1-06, F1-07, F1-09 Vercel beklemeden yapılabilir
+Kod durumu     : Next.js 16.3.1 + React 19.2.8 + Tailwind 4.3.3 + TS 5.9.3 kurulu.
+                 build ✓  typecheck ✓  lint ✓
+Depo           : github.com/YuentIT/web (public, main)
 ```
 
-### Mustafa'nın yapması gerekenler (Faz 0 kilidi)
+### Mustafa'nın yapması gerekenler
 
-1. GitHub'da bir **organizasyon** aç (kişisel hesap değil), **Free plan yeterli**,
-   birincil e-posta `yuent@yeditepe.edu.tr`, en az 2 kişi Owner. Repo **public** olacak.
-2. `yuent@yeditepe.edu.tr` Google hesabına erişimi olan kişiyi belirle — **tüm formlar
-   ve Sheets bu hesapta olacak.**
-3. **Bülten kararını ver:** Seçenek A (ücretsiz bülten aracı, +1 hesap) veya
-   Seçenek B (Google Groups, 0 hesap). Detay: `SITE_PLAN.md` §5.
-   B'yi düşünüyorsan önce üniversite BT'ye "grup açabilir miyiz" diye sor.
-4. `yuent.co` alan adının kimin adına kayıtlı olduğunu ve yenileme tarihini öğren.
+- [x] GitHub organizasyonu → **`YuentIT`** açıldı, `ASTENYAN` Owner (admin)
+- [x] Depo → **`YuentIT/web`**, public, ilk commit atıldı
+- [ ] **Vercel hesabı aç** — F1-04 buna bağlı. `vercel.com/signup` → *Continue with Email*
+      (kulüp adresiyle, GitHub ile değil), **Hobby** planı, sonra Vercel GitHub App'ini
+      `YuentIT` organizasyonuna kur ve sadece `web` reposuna erişim ver
+- [ ] Kulüp Google hesabında **paylaşılan Drive klasörü** (F0-04) — Faz 5'e kadar vakit var
+- [ ] **Bülten kararı** (F0-05): Seçenek A (bülten aracı, +1 hesap) veya
+      Seçenek B (Google Groups, 0 hesap). Faz 6'ya kadar ertelenebilir.
+      B'yi düşünüyorsan üniversite BT'ye "Workspace'te grup açabilir miyiz" diye sor
+- [ ] `yuent.co` alan adı kimin adına kayıtlı, yenileme tarihi ne? (Wix → Domains)
+- [ ] Kulüp GitHub hesabı `YUENT-Yeditepe` için **2FA aç, kurtarma kodlarını kasaya koy**
+      ve ikinci e-posta olarak `yuent@yeditepe.edu.tr` ekle
 
 ---
 
@@ -57,8 +63,8 @@ Kod durumu     : Henüz kod yok. Depo başlatılmadı (git init çalıştırılm
 
 | Faz | Başlık | Görev | Durum |
 |---|---|---|---|
-| 0 | Hesaplar ve kararlar | 5 | ⬜ 0/5 |
-| 1 | Proje iskeleti | 9 | ⬜ 0/9 |
+| 0 | Hesaplar ve kararlar | 5 | 🟨 2/5 |
+| 1 | Proje iskeleti | 10 | 🟨 4/10 |
 | 2 | Tasarım sistemi | 8 | ⬜ 0/8 |
 | 3 | İçerik katmanı | 7 | ⬜ 0/7 |
 | 4 | Sayfalar | 15 | ⬜ 0/15 |
@@ -67,7 +73,7 @@ Kod durumu     : Henüz kod yok. Depo başlatılmadı (git init çalıştırılm
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **72** | **0/72** |
+| | **Toplam** | **73** | **6/73** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -78,7 +84,7 @@ Kod durumu     : Henüz kod yok. Depo başlatılmadı (git init çalıştırılm
 
 > Bu fazın tamamı 🔐. Amaç: proje ilk commit'ten önce devredilebilir olsun.
 
-- [ ] **F0-01** 🔐 **GitHub organizasyonu aç — Free plan yeterli**
+- [x] **F0-01** 🔐 **GitHub organizasyonu aç — Free plan yeterli** ✅ `YuentIT`
   Ad önerisi: `yuent` veya `lgk-yeditepe`. Birincil e-posta `yuent@yeditepe.edu.tr`.
   En az 2 kişi **Owner** (web sorumlusu + yönetim kurulu başkanı).
   Free plan bize fazlasıyla yetiyor: derlemeyi Vercel yaptığı için CI/CD dakikası
@@ -86,7 +92,7 @@ Kod durumu     : Henüz kod yok. Depo başlatılmadı (git init çalıştırılm
   ve site dönemler arası bakımsız kalacağı için en değerli özellik o.
   *Bitti sayılır:* Organizasyon var, 2 owner tanımlı, kişisel hesap owner değil.
 
-- [ ] **F0-02** 🔐 **Depoyu organizasyon altında oluştur — public olarak**
+- [x] **F0-02** 🔐 **Depoyu organizasyon altında oluştur — public olarak** ✅ `YuentIT/web`
   Depo adı: `web`. **Public.** Sebebi: Free planda korumalı dal kuralları yalnızca
   public repo'larda çalışıyor ve public repo'larda Actions dakikası sınırsız.
   ⚠️ Public olduğu için repoda **hiçbir gizli anahtar bulunmayacak** — tek olası anahtar
@@ -118,17 +124,17 @@ Kod durumu     : Henüz kod yok. Depo başlatılmadı (git init çalıştırılm
 
 # Faz 1 — Proje iskeleti
 
-- [ ] **F1-01** **Next.js projesini oluştur**
+- [x] **F1-01** **Next.js projesini oluştur** ✅ Next 16.3.1 / React 19.2.8 / Tailwind 4.3.3 / TS 5.9.3, sürümler sabitlendi
   `npx create-next-app@latest` — TypeScript, ESLint, Tailwind, App Router, `src/`, alias `@/*`.
   Kurulan sürümleri `package.json`'da **sabitle** (caret `^` kaldır).
   *Bitti sayılır:* `npm run dev` çalışıyor.
 
-- [ ] **F1-02** **`.gitignore` ve `.env.example`**
+- [x] **F1-02** **`.gitignore` ve `.env.example`** ✅ araştırma klasörleri de yoksayıldı (public repo)
   `.env*.local`, `.next`, `node_modules`, `.vercel` yoksayılır.
   `.env.example` yalnızca anahtar **adlarını** içerir.
   *Bitti sayılır:* `git status` hiçbir `.env.local` göstermiyor.
 
-- [ ] **F1-03** 🔐 **İlk commit ve depoya bağlanma**
+- [x] **F1-03** 🔐 **İlk commit ve depoya bağlanma** ✅ commit `253893c`
   `git init` + `git remote add origin` burada çalıştırılacak. **DUR** — remote'un
   F0-02'deki organizasyon deposu olduğunu doğrula.
   *Bitti sayılır:* İlk commit organizasyon deposunda görünüyor.
@@ -147,7 +153,7 @@ Kod durumu     : Henüz kod yok. Depo başlatılmadı (git init çalıştırılm
 
 - [ ] **F1-07** **Klasör iskeletini kur** — `SITE_PLAN.md` §9'daki ağaç.
 
-- [ ] **F1-08** **`README.md` yaz**
+- [x] **F1-08** **`README.md` yaz** ✅
   Nasıl kurulur, çalıştırılır, hangi komutlar var, hangi env değişkeni gerekli.
   *Bitti sayılır:* Projeyi hiç görmemiş biri README ile ayağa kaldırabiliyor.
 
@@ -156,6 +162,22 @@ Kod durumu     : Henüz kod yok. Depo başlatılmadı (git init çalıştırılm
   `Referrer-Policy: strict-origin-when-cross-origin`,
   `Permissions-Policy: camera=(), microphone=(), geolocation=()`.
   *Bitti sayılır:* `curl -I` ile görülüyor. *(İTÜ'de bunların hiçbiri yok.)*
+
+- [ ] **F1-10** 🔐 **`main` dalını koru**
+  F0-02'den ayrıldı, çünkü GitHub var olmayan bir dalı koruyamıyor — `main`
+  ancak ilk push'ta (F1-03) oluştu.
+
+  **İki kademeli kuruluyor:**
+
+  1. **Şimdi — sürtünmesiz koruma:** force push ve dal silme yasak.
+     Kaza eseri geçmiş silinmesini engeller, günlük çalışmayı hiç yavaşlatmaz.
+  2. **Site yayına girince (Faz 8 sonrası) — PR zorunluluğu:** `main`'e doğrudan
+     push kapatılır, değişiklikler pull request ile gelir.
+     Şimdiden açılmıyor çünkü kurulum aşamasında tek geliştirici var ve
+     inceleyecek ikinci kişi yok; her küçük değişiklik için PR açmak
+     ilerlemeyi gereksiz yavaşlatır.
+
+  *Bitti sayılır:* Kademe 1 aktif; kademe 2 için `CODE_PLAN` F8-08'e hatırlatma eklendi.
 
 ---
 
@@ -461,6 +483,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 17.08.2026 | **F0-01, F0-02, F1-01, F1-02, F1-03, F1-08 tamamlandı.** Org `YuentIT`, depo `YuentIT/web` (public), ilk commit `253893c` push edildi. Next 16.3.1 / React 19.2.8 / Tailwind 4.3.3 / TS 5.9.3, sürümler sabit. F1-10 (dal koruması) eklendi — `main` ancak ilk push'ta oluştuğu için F0-02'den ayrıldı. 73 görev. |
 | 17.08.2026 | Plan oluşturuldu. 86 görev, 10 faz. |
 | 17.08.2026 | Kullanılmayan Wix modülleri (randevu, sepet, ödeme, cüzdan, abonelik, şans çarkı) kapsam dışı; bülten + toplu kampanya plana girdi. 89 görev. |
 | 17.08.2026 | Plan seçimleri netleşti: GitHub **Free** yeterli ve repo **public** olacak (Free planda korumalı dal yalnızca public repo'larda çalışıyor). Vercel'de **Hobby** kullanılacak — "Team/Pro" ücretlidir, önceki sürümdeki "Vercel Team — ücretsiz" ifadesi hatalıydı. |
