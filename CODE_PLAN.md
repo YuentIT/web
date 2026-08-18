@@ -34,9 +34,9 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ```
 Tarih          : 18.08.2026
 Aktif faz      : Faz 1 — Proje iskeleti
-Son biten      : F1-09 — güvenlik başlıkları eklendi
-Aktif görev    : F1-06 (shadcn/ui) · F1-07 (klasör iskeleti)
-Bloke değil    : Faz 1'de hesap bekleyen iş kalmadı. Kalan tek 🔐 iş F1-10.
+Son biten      : F1-06 — shadcn/ui (Radix tabanı) kuruldu, 6 bileşen hazır
+Aktif görev    : F1-10 (main dal koruması) — Mustafa'da 🔐
+Sıradaki faz   : Faz 2 — Tasarım sistemi. F2-01 (logodan renk paleti) ilk iş.
 Kod durumu     : Next.js 16.3.1 + React 19.2.8 + Tailwind 4.3.3 + TS 5.9.3 kurulu.
                  build ✓  typecheck ✓  lint ✓  format:check ✓
 Depo           : github.com/YuentIT/web (public, main) — main henüz KORUMASIZ
@@ -48,9 +48,9 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 - [x] GitHub organizasyonu → **`YuentIT`** açıldı, `ASTENYAN` Owner (admin)
 - [x] Depo → **`YuentIT/web`**, public, ilk commit atıldı
 - [x] **Vercel hesabı aç** — Hobby, GitHub App `YuentIT`'e kuruldu, ilk dağıtım çıktı
-- [ ] **Vercel hesabının kulüp adına olduğunu doğrula** — Settings → General →
-      hesap e-postası `yuent@yeditepe.edu.tr` mi? Kişisel hesapsa şimdi taşımak,
-      devir sırasında taşımaktan çok daha ucuz (F0-03 bunun için `[~]`)
+- [x] **Vercel hesabı kulüp adına** — doğrulandı (18.08.2026)
+- [ ] **`main` dalını koru** (F1-10) — GitHub → Settings → Rules → New ruleset:
+      force push ve dal silme yasak. Tek 🔐 iş bu; PR zorunluluğu Faz 8'e kadar açılmıyor
 - [ ] Kulüp Google hesabında **paylaşılan Drive klasörü** (F0-04) — Faz 5'e kadar vakit var
 - [ ] **Bülten kararı** (F0-05): Seçenek A (bülten aracı, +1 hesap) veya
       Seçenek B (Google Groups, 0 hesap). Faz 6'ya kadar ertelenebilir.
@@ -65,8 +65,8 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 
 | Faz | Başlık | Görev | Durum |
 |---|---|---|---|
-| 0 | Hesaplar ve kararlar | 5 | 🟨 2/5 |
-| 1 | Proje iskeleti | 10 | 🟨 7/10 |
+| 0 | Hesaplar ve kararlar | 5 | 🟨 3/5 |
+| 1 | Proje iskeleti | 10 | 🟩 9/10 |
 | 2 | Tasarım sistemi | 8 | ⬜ 0/8 |
 | 3 | İçerik katmanı | 7 | ⬜ 0/7 |
 | 4 | Sayfalar | 15 | ⬜ 0/15 |
@@ -75,7 +75,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **73** | **9/73** |
+| | **Toplam** | **73** | **12/73** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -103,7 +103,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   *Bitti sayılır:* `git remote -v` organizasyon URL'sini gösteriyor (kişisel değil);
   `main` dalı korumalı, doğrudan push kapalı.
 
-- [~] **F0-03** 🔐 **Vercel hesabı aç ve GitHub org'a bağla** — dağıtım ✅, hesap sahipliği doğrulanmadı
+- [x] **F0-03** 🔐 **Vercel hesabı aç ve GitHub org'a bağla** ✅ kulüp hesabı `yuent`, dağıtım çalışıyor
   **Hobby planı** (ücretsiz). Vercel'in "Team/Pro" planı kişi başı aylık ücretlidir —
   **açmayın.** Hobby ticari olmayan kullanım içindir, öğrenci kulübü buna girer.
   Hesap bir öğrencinin adına değil, `yuent@yeditepe.edu.tr` ile **kulüp adına** açılır;
@@ -112,8 +112,8 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   *Bitti sayılır:* Proje org deposundan dağıtım yapıyor ve hesap kulüp adına.
   **Durum (18.08.2026):** Vercel GitHub App `YuentIT` organizasyonuna kuruldu
   (`repository_selection: selected`), proje import edildi, üretim dağıtımı `57e9307`
-  commit'inden başarıyla çıktı. Vercel scope adı `yuent`. **Kalan:** hesabın
-  `yuent@yeditepe.edu.tr` ile kulüp adına açıldığının teyidi (Settings → General).
+  commit'inden başarıyla çıktı. Vercel scope adı `yuent`. Hesabın kulüp adına
+  açıldığı Mustafa tarafından 18.08.2026'da doğrulandı.
 
 - [ ] **F0-04** 🔐 **Google Drive'da ortak form klasörü**
   `yuent@yeditepe.edu.tr` hesabında **paylaşılan** bir klasör (`YUENT Web / Formlar`).
@@ -162,12 +162,31 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   **Markdown Prettier'ın dışında** (`.prettierignore`): planlama belgeleri elle
   bakılıyor, biçimlendirme her düzenlemede gürültülü diff üretiyordu.
 
-- [ ] **F1-06** **shadcn/ui kurulumu**
+- [x] **F1-06** **shadcn/ui kurulumu** ✅ 6 bileşen `src/components/ui/` altında
   `npx shadcn@latest init` + `button`, `dialog`, `sheet`, `dropdown-menu`, `badge`, `input`.
   (Form bileşenlerine artık ihtiyacımız yok — formlar Google'da.)
   *Bitti sayılır:* Örnek buton render oluyor.
+  **Taban: Radix UI** (`-b radix -p nova`). shadcn'in yeni varsayılanı Base UI ama
+  Radix seçildi: site deneyimsiz öğrencilere devredilecek ve tıkanınca aranan sorunun
+  cevabının bulunma ihtimali bugün Radix'te çok daha yüksek. İTÜ Girişim de Radix
+  kullanıyor. Bileşenler repoya kopyalandığı için karar geri alınabilir.
+  `globals.css` artık `tw-animate-css` ve `shadcn/tailwind.css`'i içe aktarıyor —
+  bu yüzden ikisi de `devDependencies` değil **`dependencies`** altında durmalı.
+  Gelen paketlerin `^` işaretleri F1-01 gereği kaldırıldı.
 
-- [ ] **F1-07** **Klasör iskeletini kur** — `SITE_PLAN.md` §9'daki ağaç.
+- [x] **F1-07** **Klasör iskeletini kur** — `SITE_PLAN.md` §9'daki ağaç. ✅
+  Kurulan: `content/{donemler,etkinlikler,egitimler,blog,galeri,hukuki}`,
+  `public/{fonts,logo,dosyalar,gorseller}`,
+  `src/components/{ui,layout,icerik,form,seo}`, `src/lib`, `src/types`, `src/styles`.
+  Boş klasörler `.gitkeep` ile taşınıyor (git boş dizin tutmaz).
+  **`globals.css` §9'a uyularak `src/app/` → `src/styles/` taşındı**; `layout.tsx`
+  artık `@/styles/globals.css` içe aktarıyor, `.prettierrc.json` ve `components.json`
+  aynı yolu gösteriyor.
+  **§9'daki `page.tsx` dosyaları bilerek oluşturulmadı:** Next boş bir `page.tsx`'i
+  rota sayar ve varsayılan dışa aktarım olmadan derleme kırılır. O dosyalar sahibi
+  olan görevlerde (Faz 4) yazılacak.
+  Yan etki: `lang="en"` → `lang="tr"` düzeltildi ve Next demo ana sayfası geçici bir
+  yer tutucuyla değiştirildi (F4-01 tamamen değiştirecek).
 
 - [x] **F1-08** **`README.md` yaz** ✅
   Nasıl kurulur, çalıştırılır, hangi komutlar var, hangi env değişkeni gerekli.
@@ -502,6 +521,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 18.08.2026 | **F0-03, F1-06, F1-07 tamamlandı.** Vercel hesabının kulüp adına olduğu doğrulandı. Klasör iskeleti §9'a göre kuruldu; `globals.css` `src/app/` → `src/styles/` taşındı. shadcn/ui **Radix tabanıyla** kuruldu (`-b radix -p nova`), 6 bileşen eklendi. §9'daki `page.tsx` dosyaları bilerek oluşturulmadı — boş `page.tsx` derlemeyi kırar, sahibi Faz 4. Next demo ana sayfası geçici yer tutucuyla değiştirildi, `lang="tr"` düzeltildi. Faz 1'de yalnızca F1-10 kaldı. 12/73. |
 | 18.08.2026 | **F1-04, F1-05, F1-09 tamamlandı.** Vercel GitHub App `YuentIT` org'una kuruldu, proje import edildi, üretim dağıtımı başarılı → `web-yuent.vercel.app`. Hobby'de Deployment Protection tüm `.vercel.app` adreslerini SSO arkasına aldığı ve "Only Preview Deployments" Pro'ya ait olduğu için koruma kapatıldı. Prettier + `prettier-plugin-tailwindcss` kuruldu (markdown hariç). Güvenlik başlıkları + `poweredByHeader: false` eklendi. F0-03 `[~]`: dağıtım çalışıyor ama hesabın kulüp adına olduğu doğrulanmadı. 9/73. |
 | 17.08.2026 | **F0-01, F0-02, F1-01, F1-02, F1-03, F1-08 tamamlandı.** Org `YuentIT`, depo `YuentIT/web` (public), ilk commit `253893c` push edildi. Next 16.3.1 / React 19.2.8 / Tailwind 4.3.3 / TS 5.9.3, sürümler sabit. F1-10 (dal koruması) eklendi — `main` ancak ilk push'ta oluştuğu için F0-02'den ayrıldı. 73 görev. |
 | 17.08.2026 | Plan oluşturuldu. 86 görev, 10 faz. |
