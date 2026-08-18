@@ -166,10 +166,16 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   `npx shadcn@latest init` + `button`, `dialog`, `sheet`, `dropdown-menu`, `badge`, `input`.
   (Form bileşenlerine artık ihtiyacımız yok — formlar Google'da.)
   *Bitti sayılır:* Örnek buton render oluyor.
-  **Taban: Radix UI** (`-b radix -p nova`). shadcn'in yeni varsayılanı Base UI ama
-  Radix seçildi: site deneyimsiz öğrencilere devredilecek ve tıkanınca aranan sorunun
-  cevabının bulunma ihtimali bugün Radix'te çok daha yüksek. İTÜ Girişim de Radix
-  kullanıyor. Bileşenler repoya kopyalandığı için karar geri alınabilir.
+  **Taban: Base UI** (`shadcn` CLI 4.18.0, `-b base -p nova`, `style: "base-nova"`,
+  `@base-ui/react` 1.7.0). Önce Radix ile kuruldu, sonra Mustafa'nın kararıyla Base
+  UI'a geçildi: Base UI shadcn'in yeni varsayılanı ve projenin gittiği yön.
+  **Bedeli bilinerek kabul edildi:** bugün örnek, blog yazısı ve topluluk cevabı
+  Radix'te çok daha fazla; Base UI'da takılınca çoğu zaman doğrudan resmî dokümana
+  bakmak gerekecek. `radix-ui` paketi kaldırıldı.
+  **API farkı — devralan kişi bunu bilmeli:** Radix'in `asChild` prop'u Base UI'da
+  **yok**, yerine `render` var. Yani `<Button asChild><a/></Button>` değil,
+  `<Button render={<a />}>`. İnternette bulunan shadcn örneklerinin çoğu `asChild`
+  kullanır ve buraya kopyalanınca derleme hatası verir.
   `globals.css` artık `tw-animate-css` ve `shadcn/tailwind.css`'i içe aktarıyor —
   bu yüzden ikisi de `devDependencies` değil **`dependencies`** altında durmalı.
   Gelen paketlerin `^` işaretleri F1-01 gereği kaldırıldı.

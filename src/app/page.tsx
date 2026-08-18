@@ -24,8 +24,10 @@ export default function Home() {
         ulaşabilirsiniz.
       </p>
 
-      <Button asChild size="lg">
-        <a href="mailto:yuent@yeditepe.edu.tr">yuent@yeditepe.edu.tr</a>
+      {/* Base UI'da Radix'in `asChild`i yok; bileşeni başka bir etikete
+          giydirmek için `render` prop'u kullanılıyor. */}
+      <Button size="lg" render={<a href="mailto:yuent@yeditepe.edu.tr" />}>
+        yuent@yeditepe.edu.tr
       </Button>
     </main>
   );
