@@ -207,9 +207,15 @@ export const etkinlikSchema = z
     path: ["kayitFormUrl"],
     message: "durum 'kayit-acik' ise kayitFormUrl zorunlu",
   })
-  .refine((e) => Boolean(e.tarih ?? e.tarihMetni), {
+  .refine((e) => e.durum === "gecmis" || Boolean(e.tarih ?? e.tarihMetni), {
+    // Yaklaşan ya da kaydı açık bir etkinlikte tarih olmaması ziyaretçiyi
+    // "ne zaman?" sorusuyla baş başa bırakır. Geçmiş kayıtlarda ise tarih
+    // aranmıyor: sitedeki dördü de tek seferlik değil, yıllara yayılan
+    // program tanıtımları (Hult Prize, şirket gezileri…). Onlara uydurma
+    // tarih yazmaktansa tarihsiz bırakmak doğru.
     path: ["tarih"],
-    message: "tarih veya tarihMetni alanlarından biri dolu olmalı",
+    message:
+      "yaklaşan veya kaydı açık etkinlikte tarih ya da tarihMetni zorunlu",
   });
 
 /* -------------------------------------------------------------------------- */

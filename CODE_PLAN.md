@@ -465,9 +465,12 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   yeri belirliyor. Şema tam olarak bir başkan, en fazla bir başkan yardımcısı ve
   en fazla bir genel sekreter olmasını zorunlu tutuyor.
 
-  ⚠️ **2025-2026'da hiç koordinatör yok** (8 kişilik yönetim kurulu). Geçiş tuşu
-  boş sekmeye götürebiliyor — o durumda sekme ya gizlenmeli ya da anlamlı bir
-  boş durum metni göstermeli. Sessizce boş ızgara çizilmemeli.
+  **2025-2026'da koordinatör yok ve bu kasıtlı** (Mustafa teyit etti, 18.08.2026):
+  o dönem 8 kişilik yönetim kuruluyla çalışıyor. Dolayısıyla geçiş tuşu koşullu
+  çizilmeli — bir dönemde koordinatör yoksa **tuş hiç görünmez**, sayfa doğrudan
+  yönetim kurulunu gösterir. Boş sekmeye götüren bir tuş çizilmeyecek.
+  Bu geçici bir veri eksikliği değil, kalıcı bir durum: kod her iki hâli de
+  desteklemeli çünkü gelecek dönemler yeniden koordinatör alabilir.
 
 - [ ] **F4-05** **`/etkinlikler`** — kategori filtresi + arama, filtre URL'ye yazılır.
 
