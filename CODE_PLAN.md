@@ -34,8 +34,8 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ```
 Tarih          : 18.08.2026
 Aktif faz      : Faz 2 — Tasarım sistemi (Faz 1 bitti, 10/10)
-Son biten      : F2-02 — 5 WOFF2 fontu hazır (77 KB)
-Aktif görev    : F2-03 (next/font/local ile bağla), ardından F2-04 (token'lar)
+Son biten      : F2-04 — palet token'ları globals.css'te, site artık koyu
+Aktif görev    : F2-05 (tipografi ölçeği ve prose stilleri)
 Logo           : public/logo/logo_white.png (1054×477, saf beyaz, şeffaf)
                  + logo_white_mark.png (262×262 monogram, header için kırpıldı)
                  Eksik: SVG sürümü ve yatay kilit. Ayrıntı F2-06 notunda.
@@ -69,7 +69,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 |---|---|---|---|
 | 0 | Hesaplar ve kararlar | 5 | 🟨 3/5 |
 | 1 | Proje iskeleti | 10 | ✅ 10/10 |
-| 2 | Tasarım sistemi | 8 | 🟨 2/8 |
+| 2 | Tasarım sistemi | 8 | 🟨 4/8 |
 | 3 | İçerik katmanı | 7 | ⬜ 0/7 |
 | 4 | Sayfalar | 15 | ⬜ 0/15 |
 | 5 | Formlar (Google Forms) | 7 | ⬜ 0/7 |
@@ -77,7 +77,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **73** | **15/73** |
+| | **Toplam** | **73** | **17/73** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -258,13 +258,41 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   Türkçe kapsam tek tek doğrulandı: ğĞıİşŞçÇöÖüÜâÂîÎûÛ ve ₺€—""… eksiksiz.
   Üretim betiği tek seferlik; yeniden gerekirse `SITE_PLAN` §8.1'deki not yeterli.
 
-- [ ] **F2-03** **`next/font/local` ile bağla**
+- [x] **F2-03** **`next/font/local` ile bağla** ✅ derleme çıktısında doğrulandı
   **Google Fonts CDN linki kullanılmayacak.**
   *Bitti sayılır:* Ağ sekmesinde yalnızca kendi alan adımızdan woff2 istekleri var.
   *(İTÜ'nün B4 hatası: font tanımlı ama hiç yüklenmiyor — tekrarlanmayacak.)*
+  Tanımlar `src/lib/fonts.ts`'te; `layout.tsx` yalnızca `.variable` sınıflarını
+  <html>'e geçiriyor. Derlenmiş HTML'de 5 woff2 `/_next/static/media/` altından
+  `rel="preload"` ile geliyor ve **dış alan adına tek istek yok** (grep ile
+  doğrulandı: `fonts.googleapis.com` / `fonts.gstatic.com` sıfır eşleşme).
+  Geist ve Geist Mono kaldırıldı.
+  **Not (F7-07 için):** Şu an beş kesitin beşi birden preload ediliyor (77 KB).
+  Kabul edilebilir ama ilk boyamada hepsi kullanılmıyor; performans geçişinde
+  Medium/SemiBold için `preload: false` değerlendirilmeli.
+  **Not:** Kaynak woff2'ler `public/fonts/` altında duruyor (§9'a uygun) ve
+  `next/font` bunları hash'leyerek `_next/static/media`ya kopyalıyor. Yani aynı
+  dosyalar iki adresten de servis ediliyor; kullanılan hash'li olan. 77 KB'lik
+  bu tekrar önemsiz, ama dağıtımı inceleyen biri şaşırmasın diye yazıldı.
 
-- [ ] **F2-04** **Token'ları `globals.css`'e yaz**
+- [x] **F2-04** **Token'ları `globals.css`'e yaz** ✅
   *Bitti sayılır:* `grep -rE "#[0-9a-fA-F]{6}" src/components` boş dönüyor.
+
+  **İsim çakışması — bilmeden üstüne yazmayın.** shadcn'in `--accent` token'ı
+  *marka aksanı değil, hover yüzeyi* demek. §8.2'deki safranı oraya koymak
+  sitedeki her hover'ı altına çevirirdi. Bu yüzden safran ayrı ad altında:
+  **`--brand-accent`** (Tailwind'de `text-brand-accent`, `bg-brand-accent`).
+  shadcn'in `--accent`i koyu yüzey rengi olarak bırakıldı. `--ring` safran —
+  odak halkaları böylece markayla aynı renkte.
+
+  **Site tek temalı.** Açık tema yok; `:root` ile `.dark` aynı değerleri taşıyor.
+  `.dark` yine de gerekli, çünkü shadcn bileşenlerinin içinde `dark:` varyantları
+  var ve onlar ancak o sınıf varken çalışıyor — sınıf `layout.tsx`'te <html>
+  üzerinde sabit. `color-scheme: dark` de eklendi ki kaydırma çubuğu ve tarayıcı
+  denetimleri koyu render edilsin.
+
+  Değerler kasıtlı hex, `SITE_PLAN` §8.2 ile birebir aynı — iki dosya grep'le
+  eşleşiyor. Başlıklar (`h1,h2,h3`) `font-heading` ile geniş kesite bağlandı.
 
 - [ ] **F2-05** **Tipografi ölçeği ve `prose` stilleri** — gövde satırı ~65 karakter.
 
@@ -565,6 +593,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 18.08.2026 | **F2-03, F2-04 tamamlandı.** Fontlar `next/font/local` ile bağlandı — 5 woff2 `_next/static/media`dan preload ediliyor, dış alan adına tek istek yok (Geist kaldırıldı). Palet `globals.css`'e yazıldı; site tek temalı koyu, `:root` = `.dark`. **İsim çakışması:** shadcn'in `--accent`i hover yüzeyi demek, marka aksanı değil — safran `--brand-accent` altında duruyor. 17/73. |
 | 18.08.2026 | **Faz 1 bitti (10/10).** F1-10: `main protection` ruleset aktif, bypass listesi boş. shadcn tabanı Mustafa'nın kararıyla Radix'ten **Base UI**'a çevrildi (`@base-ui/react` 1.7.0); `asChild` yok, `render` var. **F2-01:** koyu minimal palet — marka rengi beyazın kendisi, aksan safran `#D9A441`, zemin `#0A0D12`. **F2-02:** 5 WOFF2, toplam **77 KB**; Archivo Expanded'ın ayrı aile değil `wdth=125` olduğu tespit edildi. Logo geldi (PNG, saf beyaz); header için 262×262 monogram kırpıldı, SVG hâlâ eksik. 15/73. |
 | 18.08.2026 | **F0-03, F1-06, F1-07 tamamlandı.** Vercel hesabının kulüp adına olduğu doğrulandı. Klasör iskeleti §9'a göre kuruldu; `globals.css` `src/app/` → `src/styles/` taşındı. shadcn/ui **Radix tabanıyla** kuruldu (`-b radix -p nova`), 6 bileşen eklendi. §9'daki `page.tsx` dosyaları bilerek oluşturulmadı — boş `page.tsx` derlemeyi kırar, sahibi Faz 4. Next demo ana sayfası geçici yer tutucuyla değiştirildi, `lang="tr"` düzeltildi. Faz 1'de yalnızca F1-10 kaldı. 12/73. |
 | 18.08.2026 | **F1-04, F1-05, F1-09 tamamlandı.** Vercel GitHub App `YuentIT` org'una kuruldu, proje import edildi, üretim dağıtımı başarılı → `web-yuent.vercel.app`. Hobby'de Deployment Protection tüm `.vercel.app` adreslerini SSO arkasına aldığı ve "Only Preview Deployments" Pro'ya ait olduğu için koruma kapatıldı. Prettier + `prettier-plugin-tailwindcss` kuruldu (markdown hariç). Güvenlik başlıkları + `poweredByHeader: false` eklendi. F0-03 `[~]`: dağıtım çalışıyor ama hesabın kulüp adına olduğu doğrulanmadı. 9/73. |
