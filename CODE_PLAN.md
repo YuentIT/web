@@ -33,9 +33,9 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 
 ```
 Tarih          : 18.08.2026
-Aktif faz      : Faz 3 — İçerik katmanı (Faz 2'de yalnızca F2-07 kaldı, o da F3-01'i bekliyordu)
-Son biten      : F3-05 — MDX kurulumu (Turbopack + frontmatter tuzakları çözüldü)
-Aktif görev    : F3-06 (Keystatic, yerel mod)
+Aktif faz      : Faz 3 — İçerik katmanı (Faz 1 ve Faz 2 bitti)
+Son biten      : F2-07 — SiteFooter (Faz 2 bitti, 8/8)
+Aktif görev    : anasayfa.json içeriği → F3-06 (Keystatic)
 
 ⚠️ İÇERİK CANLIDA GÖRÜNMÜYOR — bu beklenen durum.
    content/ dolu ve doğrulanmış, ama onu basacak sayfa henüz yok.
@@ -74,7 +74,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 |---|---|---|---|
 | 0 | Hesaplar ve kararlar | 5 | 🟨 3/5 |
 | 1 | Proje iskeleti | 10 | ✅ 10/10 |
-| 2 | Tasarım sistemi | 8 | 🟨 7/8 |
+| 2 | Tasarım sistemi | 8 | ✅ 8/8 |
 | 3 | İçerik katmanı | 7 | 🟨 3/7 |
 | 4 | Sayfalar | 15 | ⬜ 0/15 |
 | 5 | Formlar (Google Forms) | 7 | ⬜ 0/7 |
@@ -82,7 +82,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **73** | **23/73** |
+| | **Toplam** | **73** | **24/73** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -346,7 +346,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
      renklendirilemiyor ve sponsorluk PDF'i gibi büyük kullanımlarda yetmez.
      Mustafa'dan SVG isteniyor; gelene kadar PNG ile ilerlenebilir.
 
-- [ ] **F2-07** **`SiteFooter`** — ⏸️ F3-01 bekleniyor
+- [x] **F2-07** **`SiteFooter`** ✅ — F3-01 bitince engeli kalktı
   İletişim, kısayollar, sosyal hesaplar, bülten formu (Faz 6'da bağlanacak), hukuki linkler.
   Veriler `content/site.json`'dan gelir.
   *Bitti sayılır:* Tüm sayfalarda aynı ve tek kaynaktan besleniyor.

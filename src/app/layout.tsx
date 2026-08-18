@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { archivo, archivoExpanded } from "@/lib/fonts";
 import "@/styles/globals.css";
@@ -36,6 +37,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div id="icerik" className="flex flex-1 flex-col">
           {children}
         </div>
+
+        <SiteFooter />
       </body>
     </html>
   );
