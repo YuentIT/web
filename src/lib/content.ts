@@ -5,7 +5,7 @@ import matter from "gray-matter";
 import type { z } from "zod";
 
 import {
-  albumlerSchema,
+  galeriSchema,
   anasayfaSchema,
   blogYazisiSchema,
   donemSchema,
@@ -17,12 +17,12 @@ import {
   sponsorlukSchema,
 } from "@/lib/schemas";
 import type {
-  Album,
   Anasayfa,
   BlogYazisi,
   Donem,
   Egitim,
   Etkinlik,
+  GaleriGorseli,
   Hakkimizda,
   HukukiMetin,
   Site,
@@ -282,31 +282,13 @@ export async function getBlogYazisi(
 /* Galeri                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export async function getAlbumler(): Promise<Album[]> {
-  const { albumler } = ayristir(
-    albumlerSchema,
-    await jsonOku("galeri/albumler.json"),
-    "content/galeri/albumler.json",
+export async function getGaleri(): Promise<GaleriGorseli[]> {
+  const { gorseller } = ayristir(
+    galeriSchema,
+    await jsonOku("galeri/galeri.json"),
+    "content/galeri/galeri.json",
   );
-
-  // Albüm bir etkinliğe bağlıysa o etkinlik gerçekten olmalı — yoksa galeri
-  // filtresi hiçbir sonuç dönmeyen bir seçenek gösterir.
-  const etkinlikler = await getEtkinlikler();
-  const mevcut = new Set(etkinlikler.map((e) => e.slug));
-  for (const album of albumler) {
-    if (album.etkinlikSlug && !mevcut.has(album.etkinlikSlug)) {
-      throw new Error(
-        `content/galeri/albumler.json → "${album.slug}" albümü olmayan bir etkinliğe bağlı: ${album.etkinlikSlug}`,
-      );
-    }
-  }
-
-  return albumler;
-}
-
-export async function getAlbum(slug: string): Promise<Album | undefined> {
-  const albumler = await getAlbumler();
-  return albumler.find((a) => a.slug === slug);
+  return gorseller;
 }
 
 /* -------------------------------------------------------------------------- */

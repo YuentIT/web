@@ -1,7 +1,7 @@
 import type { z } from "zod";
 
 import type {
-  albumSchema,
+  galeriGorseliSchema,
   anasayfaSchema,
   blogYazisiSchema,
   donemSchema,
@@ -38,7 +38,7 @@ export type Sponsorluk = z.infer<typeof sponsorlukSchema>;
 export type Uye = z.infer<typeof uyeSchema>;
 export type Donem = z.infer<typeof donemSchema>;
 
-export type Album = z.infer<typeof albumSchema>;
+export type GaleriGorseli = z.infer<typeof galeriGorseliSchema>;
 
 export type Etkinlik = z.infer<typeof etkinlikSchema> & {
   slug: string;

@@ -2,7 +2,6 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
@@ -14,16 +13,19 @@ import { footerNav, hukukiNav, sosyalEtiketleri } from "@/lib/navigation";
 /**
  * Sosyal ikon dosyası yüklendi mi?
  *
- * Derleme sırasında diske bakılıyor: `public/ikonlar/sosyal/<anahtar>.svg`
- * varsa ikon, yoksa düz metin gösteriliyor. Böylece ikonlar hazır olmadan da
- * footer çalışıyor ve dosya eklendiği anda kendiliğinden devreye giriyor —
- * kod değişikliği gerekmiyor. Kırık görsel simgesi hiç çıkmıyor.
+ * Derleme sırasında diske bakılıyor; dosya yoksa düz metin gösteriliyor.
+ * Böylece ikonlar hazır olmadan da footer çalışıyor, dosya eklendiği anda
+ * kendiliğinden devreye giriyor ve hiçbir zaman kırık görsel simgesi çıkmıyor.
+ *
+ * Hem `.svg` hem `.png` kabul ediliyor: marka ikonlarının bir kısmı yalnızca
+ * PNG olarak bulunabiliyor (X'in resmî SVG'si dağıtılmıyor).
  */
 function ikonYolu(anahtar: string): string | null {
-  const gorecel = `/ikonlar/sosyal/${anahtar}.svg`;
-  return existsSync(path.join(process.cwd(), "public", gorecel))
-    ? gorecel
-    : null;
+  for (const uzanti of ["svg", "png"]) {
+    const gorecel = `/ikonlar/sosyal/${anahtar}.${uzanti}`;
+    if (existsSync(path.join(process.cwd(), "public", gorecel))) return gorecel;
+  }
+  return null;
 }
 
 /**
@@ -73,12 +75,23 @@ export async function SiteFooter() {
                         className="inline-flex items-center gap-0.5 rounded text-sm text-text-muted transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                       >
                         {ikon ? (
-                          <Image
+                          // Düz <img>, `next/image` değil. İkonlar 24 px'lik
+                          // statik varlıklar; optimize edilecek bir şey yok.
+                          // Ayrıca `next/image` SVG'yi ancak
+                          // `dangerouslyAllowSVG` açılırsa servis ediyor ve o
+                          // bayrak tüm site için SVG'yi güvenilir sayıyor —
+                          // dört ikon için açılacak bir kapı değil.
+                          // Görünen boyutu CSS belirliyor; dosyaların kendi
+                          // 800×800 bildirimi bu yüzden sorun değil.
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
                             src={ikon}
                             alt=""
                             width={20}
                             height={20}
-                            className="size-5 opacity-70 transition-opacity hover:opacity-100"
+                            loading="lazy"
+                            decoding="async"
+                            className="size-5 opacity-80 transition-opacity hover:opacity-100"
                           />
                         ) : (
                           <>

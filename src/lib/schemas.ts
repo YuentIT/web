@@ -196,7 +196,6 @@ export const etkinlikSchema = z.object({
   kisaAciklama: dolu,
   kategori: dolu,
   kapakGorsel: gorselYolu.optional(),
-  galeriAlbum: slugSchema.optional(),
   /** Kayıt formu bağlantısı. Yalnızca kayıt açıkken dolu olur. */
   kayitLinki: httpsUrl.optional(),
   /**
@@ -236,17 +235,22 @@ export const blogYazisiSchema = z.object({
 /* galeri/albumler.json · sponsorluk.json                                      */
 /* -------------------------------------------------------------------------- */
 
-export const albumSchema = z.object({
-  slug: slugSchema,
-  baslik: dolu,
-  /** Hangi etkinliğe ait — galeri filtresi bunu kullanıyor (F4-08). */
-  etkinlikSlug: slugSchema.optional(),
-  tarihMetni: z.string().optional(),
-  gorseller: z.array(z.object({ src: gorselYolu, alt: dolu })).min(1),
+/**
+ * Galeri tek ve düz bir liste (Mustafa'nın kararı, 18.08.2026).
+ *
+ * Önce etkinliğe bağlı albümler olarak modellenmişti; kaldırıldı. Galeri
+ * "hangi etkinlikten" diye ayrılan bir arşiv değil, kulüpten karışık kareler
+ * gösteren bir showroom. Albüm, etkinlik bağı ve filtre kavramları bu yüzden
+ * yok — olmayan bir yapıyı modellemek sayfayı da gereksiz karmaşıklaştırırdı.
+ */
+export const galeriGorseliSchema = z.object({
+  src: gorselYolu,
+  /** Erişilebilirlik şartı: her karenin ne gösterdiği Türkçe yazılır. */
+  alt: dolu,
 });
 
-export const albumlerSchema = z.object({
-  albumler: z.array(albumSchema).default([]),
+export const galeriSchema = z.object({
+  gorseller: z.array(galeriGorseliSchema).default([]),
 });
 
 export const sponsorlukSchema = z.object({

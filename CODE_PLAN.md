@@ -387,7 +387,8 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 
 - [x] **F3-02** **Tipli içerik okuyucuları** ✅ `src/lib/content.ts`
   `getSite()`, `getAnasayfa()`, `getDonemler()`, `getDonem()`, `getEtkinlikler()`,
-  `getEtkinlik()`, `getEgitimler()`, `getBlogYazilari()`, `getAlbumler()`.
+  `getEtkinlik()`, `getEgitimler()`, `getBlogYazilari()`, ~~`getAlbumler()`~~
+  → **`getGaleri()`** (albüm modeli kaldırıldı, bkz. F4-08).
   *Bitti sayılır:* Tipli veri dönüyor, `any` yok. (grep ile doğrulandı)
   Ek olarak `getHakkimizda()`, `getSponsorluk()`, `getGuncelDonem()`,
   `getEgitim()`, `getBlogYazisi()`, `getAlbum()`, `getHukukiMetin()`.
@@ -561,14 +562,18 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 
 - [ ] **F4-07** **`/egitimler`**
 
-- [ ] **F4-08** **`/galeri`** — albüm grid + lightbox, etkinliğe göre filtre.
+- [ ] **F4-08** **`/galeri`** — 🔻 **sadeleşti (18.08.2026):** albüm ve etkinlik
+  filtresi **yok**. Galeri, kulüpten karışık kareler gösteren tek bir showroom.
+  Düz ızgara + lightbox. `content/galeri/galeri.json` içinde src+alt listesi.
   `next/image`, sayfa başına en fazla 2 `priority`, gerisi lazy.
   *(YTÜ'nün B5 hatası: 14 görsele birden `priority` — tekrarlanmayacak.)*
 
 - [ ] **F4-09** **`/blog` + `/blog/[slug]`**
 
-- [ ] **F4-10** **`/sponsorluk`** — paketler + PDF indirme kartları
-  (YES'23 Sponsorluk Detay Dosyası, Tanıtım Dosyası).
+- [ ] **F4-10** **`/sponsorluk`** — 🔻 **sadeleşti (18.08.2026):** kulüp sponsorluk
+  detay dosyasını **siteye asla koymuyor**. Sayfada yalnızca tanıtım metni ve
+  **tanıtım dosyası** indirmesi olacak; sponsorluk paketleri iletişim üzerinden
+  yürüyor. `sponsorluk.json → dosyalar` tek girdi taşıyacak.
 
 - [ ] **F4-11** **`/iletisim`** — bilgiler + harita gömüsü + form CTA'sı.
 
