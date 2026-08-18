@@ -291,16 +291,53 @@ Hepsi WOFF2'ye çevrilip `next/font/local` ile self-host edilecek.
 
 ### 8.2 Renk
 
-Marka renkleri logodan alınacak (Faz 2'nin ilk görevi). Token yapısı:
+**Yön (18.08.2026 kararı):** Site koyu ve minimal. Logo renkli değil, **beyaz
+kelime-logo** olarak kullanılıyor. Bu yüzden palet logodan çıkarılmadı; logoyu
+taşıyacak şekilde tasarlandı.
+
+**Temel karar: marka rengi beyazın kendisi.** Logo beyaz olduğu için birincil
+butonlar da beyaz zemin/koyu yazı (ters kontrast). Böylece sayfadaki en güçlü
+vurgu logoyla aynı dili konuşuyor ve tek bir aksan rengi hem yeterli hem nadir
+kalıyor. Aksan yalnızca bağlantılarda, odak halkalarında ve küçük işaretlerde
+görünür — buton doldurmaz.
+
+**Zemin nötr siyah değil, mavi tarafa çekilmiş mürekkep.** `#000000` ve nötr gri
+skalası koyu temaların hazır cevabı; birkaç puan mavi kaydırmak ekranda ucuz
+görünmeyi engelliyor ve Yeditepe'nin lacivert kimliğiyle çakışmadan yan yana
+duruyor.
 
 ```css
---brand · --brand-fg · --accent
---bg · --surface · --surface-2
---text · --text-muted · --text-subtle
---border · --border-strong
---success · --warning · --danger
---radius: 0.75rem
+/* Zemin ve yapı — soğuk mürekkep skalası */
+--bg:            #0A0D12;
+--surface:       #11151C;
+--surface-2:     #181D26;
+--border:        #232936;
+--border-strong: #39414F;
+
+/* Yazı */
+--text:          #F5F7FA;   /* 17:1 — gövde */
+--text-muted:    #A7B0BF;   /*  8:1 — ikincil */
+--text-subtle:   #7C8698;   /* 4.9:1 — etiket, üst başlık (AA sınırının üstünde) */
+
+/* Marka ve aksan */
+--brand:         #FFFFFF;   /* kelime-logo + birincil buton zemini */
+--brand-fg:      #0A0D12;   /* birincil buton yazısı */
+--accent:        #D9A441;   /* safran/pirinç — bağlantı, odak, küçük işaret */
+
+/* Anlamsal */
+--success:       #4FA97E;
+--warning:       #E08A3C;
+--danger:        #D9614F;
+
+--radius:        0.75rem;
 ```
+
+Aksan safran/pirinç: soğuk mürekkebin karşısında sıcak duruyor ve koyu temaların
+iki klişesinden de (asit yeşili, vermilyon) kaçınıyor.
+
+**Not:** Sitede form yok — hepsi Google Forms'ta. Bu yüzden `--success` /
+`--warning` / `--danger` pratikte neredeyse hiç görünmeyecek; palet okunabilirlik
+ve tek bir çağrı butonu için optimize edildi.
 
 Kural: bileşenler **her zaman** token kullanır, asla `#hex` yazmaz.
 (İTÜ'de `#A41034` bileşenlerin içine elle yazılmış.)

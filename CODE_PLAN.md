@@ -67,7 +67,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 |---|---|---|---|
 | 0 | Hesaplar ve kararlar | 5 | 🟨 3/5 |
 | 1 | Proje iskeleti | 10 | 🟩 9/10 |
-| 2 | Tasarım sistemi | 8 | ⬜ 0/8 |
+| 2 | Tasarım sistemi | 8 | 🟨 1/8 |
 | 3 | İçerik katmanı | 7 | ⬜ 0/7 |
 | 4 | Sayfalar | 15 | ⬜ 0/15 |
 | 5 | Formlar (Google Forms) | 7 | ⬜ 0/7 |
@@ -75,7 +75,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **73** | **12/73** |
+| | **Toplam** | **73** | **13/73** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -227,9 +227,15 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 
 # Faz 2 — Tasarım sistemi
 
-- [ ] **F2-01** **Marka renklerini logodan çıkar**
+- [x] **F2-01** **Marka renklerini logodan çıkar** ✅ 14 token `SITE_PLAN.md` §8.2'de
   Ana renk, ikincil renk, nötr skalası. Tema kararı: koyu mu açık mı?
   *Bitti sayılır:* 8-10 hex'lik palet `SITE_PLAN.md` §8.2'ye yazıldı.
+  **Görev yeniden yorumlandı:** Mustafa'nın kararıyla logo renkli kullanılmayacak,
+  **beyaz kelime-logo** olarak duracak ve site koyu/minimal olacak. Dolayısıyla renk
+  logodan *çıkarılmadı*, logoyu taşıyacak şekilde tasarlandı.
+  Marka rengi beyazın kendisi (birincil buton ters kontrast), tek aksan safran/pirinç
+  `#D9A441`, zemin nötr siyah değil maviye çekilmiş mürekkep `#0A0D12`.
+  Kontrast oranları AA'yı geçiyor (F7-08 için önden kontrol edildi).
 
 - [ ] **F2-02** **Yazı tiplerini hazırla**
   `fonts/ArchivoExpanded-{Regular,Bold}.ttf` → WOFF2. Archivo (normal genişlik)
