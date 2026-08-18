@@ -6,108 +6,138 @@
     {
       "ad": "Sarp Çubukçuoğlu",
       "gorev": "Yönetim Kurulu Başkanı",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "baskan"
+    },
+    {
+      "ad": "Bilge Acar",
+      "gorev": "Başkan Yardımcısı",
+      "takim": "yonetim-kurulu",
+      "rol": "baskan-yardimcisi"
     },
     {
       "ad": "Berat Ilgaz Dursun",
       "gorev": "Genel Sekreter",
-      "grup": "Yönetim Kurulu"
-    },
-    {
-      "ad": "Bilge Acar",
-      "gorev": "Medya Departman Lideri",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "genel-sekreter"
     },
     {
       "ad": "Serenay Han",
-      "gorev": "Medyadan Sorumlu Yönetim Kurulu Üyesi",
-      "grup": "Yönetim Kurulu"
+      "gorev": "Yönetim Kurulu Üyesi",
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
     {
       "ad": "Zeynep Baba",
-      "gorev": "İhtiyaç Haritası Departman Lideri",
-      "grup": "Yönetim Kurulu"
+      "gorev": "Yönetim Kurulu Üyesi",
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
     {
       "ad": "Deniz Tan",
-      "gorev": "İhtiyaç Haritası Yönetim Kurulu Üyesi",
-      "grup": "Yönetim Kurulu"
+      "gorev": "Yönetim Kurulu Üyesi",
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
     {
       "ad": "Cerenay Yalçın",
-      "gorev": "İhtiyaç Haritası Yönetim Kurulu Üyesi",
-      "grup": "Yönetim Kurulu"
+      "gorev": "Yönetim Kurulu Üyesi",
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
     {
       "ad": "Ecem Varoglu",
-      "gorev": "Tanıtım ve Kariyer Departman Lideri",
-      "grup": "Yönetim Kurulu"
+      "gorev": "Yönetim Kurulu Üyesi",
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
     {
       "ad": "Tuna Dağ",
-      "gorev": "Girişimcilik ve Liderlik Departman Lideri",
-      "grup": "Yönetim Kurulu"
+      "gorev": "Yönetim Kurulu Üyesi",
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
 
     {
       "ad": "İlayda Özcan",
       "gorev": "Etkinlik Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Etkinlik"
     },
     {
       "ad": "İpek Naz Tanrıver",
       "gorev": "Etkinlik Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Etkinlik"
     },
 
     {
       "ad": "Burçin Ergin",
       "gorev": "İhtiyaç Haritası Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "İhtiyaç Haritası"
     },
     {
       "ad": "Yunus Taşpınar",
       "gorev": "İhtiyaç Haritası Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "İhtiyaç Haritası"
     },
     {
       "ad": "Gamze Berfin Aydın",
       "gorev": "İhtiyaç Haritası Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "İhtiyaç Haritası"
     },
 
     {
       "ad": "Serhat Bayrakçı",
       "gorev": "Tasarım/Video Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Tasarım"
     },
     {
       "ad": "Mehmet Yüksekdağ",
       "gorev": "Tasarım/Video Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Tasarım"
     },
 
     {
       "ad": "Aslıhan Çam",
       "gorev": "Paylaşım Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Paylaşım"
     },
-    { "ad": "İpek Çelebi", "gorev": "Blog Koordinatörü", "grup": "Blog" },
-    { "ad": "Melissa Ergün", "gorev": "İçerik Koordinatörü", "grup": "İçerik" },
+    {
+      "ad": "İpek Çelebi",
+      "gorev": "Blog Koordinatörü",
+      "takim": "koordinatorler",
+      "grup": "Blog"
+    },
+    {
+      "ad": "Melissa Ergün",
+      "gorev": "İçerik Koordinatörü",
+      "takim": "koordinatorler",
+      "grup": "İçerik"
+    },
     {
       "ad": "Arda Göksel Arsoy",
       "gorev": "Website İçerik Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "İçerik"
     },
 
     {
       "ad": "Dilruba Can",
       "gorev": "Tanıtım Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Tanıtım ve Kariyer"
     },
     {
       "ad": "Enes Hasan Zengin",
       "gorev": "Kariyer Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Tanıtım ve Kariyer"
     }
   ]

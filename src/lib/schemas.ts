@@ -114,23 +114,66 @@ export const hakkimizdaSchema = z.object({
 /* donemler/*.json                                                             */
 /* -------------------------------------------------------------------------- */
 
-export const uyeSchema = z.object({
-  ad: dolu,
-  gorev: dolu,
-  /** Gruplama etiketi — "Yönetim Kurulu", "Tanıtım", "Kurumsal İlişkiler"… */
-  grup: dolu,
-  fotograf: gorselYolu.optional(),
-  linkedin: httpsUrl.optional(),
-});
+/**
+ * Yönetim kurulu hiyerarşisi. Sayfadaki dizilim buradan türetiliyor:
+ * başkan tek başına en üstte, altında başkan yardımcısı + genel sekreter,
+ * onların altında üyeler ızgarada.
+ *
+ * `gorev` metninden çıkarım yapılmıyor — "Medyadan Sorumlu YK Üyesi" gibi
+ * serbest yazılmış unvanlar bu çıkarımı ilk yıl bozardı.
+ */
+export const yonetimRolu = z.enum([
+  "baskan",
+  "baskan-yardimcisi",
+  "genel-sekreter",
+  "uye",
+]);
 
-export const donemSchema = z.object({
-  /** Dosya adıyla aynı olmalı — F3-02 bunu kontrol ediyor. */
-  slug: slugSchema,
-  baslik: dolu,
-  /** Güncel dönem tek olmalı; F3-02 birden fazlasında hata veriyor. */
-  guncel: z.boolean().default(false),
-  uyeler: z.array(uyeSchema).min(1),
-});
+export const uyeSchema = z
+  .object({
+    ad: dolu,
+    gorev: dolu,
+    /** Dönem sayfasındaki iki sekmeden hangisi — F4-03/F4-04. */
+    takim: z.enum(["yonetim-kurulu", "koordinatorler"]),
+    /** Yalnızca yönetim kurulunda anlamlı; dizilimi belirliyor. */
+    rol: yonetimRolu.optional(),
+    /** Yalnızca koordinatörlerde anlamlı: departman adı. */
+    grup: z.string().optional(),
+    fotograf: gorselYolu.optional(),
+    linkedin: httpsUrl.optional(),
+  })
+  .refine((u) => u.takim !== "yonetim-kurulu" || Boolean(u.rol), {
+    path: ["rol"],
+    message: "yönetim kurulu üyesinde rol zorunlu",
+  })
+  .refine((u) => u.takim !== "koordinatorler" || Boolean(u.grup), {
+    path: ["grup"],
+    message: "koordinatörde grup (departman) zorunlu",
+  });
+
+export const donemSchema = z
+  .object({
+    /** Dosya adıyla aynı olmalı — F3-02 bunu kontrol ediyor. */
+    slug: slugSchema,
+    baslik: dolu,
+    /** Güncel dönem tek olmalı; F3-02 birden fazlasında hata veriyor. */
+    guncel: z.boolean().default(false),
+    uyeler: z.array(uyeSchema).min(1),
+  })
+  // Başkan tek başına en üstte duracağı için tam olarak bir tane olmalı;
+  // iki başkan sayfayı sessizce bozar, sıfır başkan üst sırayı boş bırakır.
+  .refine(
+    (d) => d.uyeler.filter((u) => u.rol === "baskan").length === 1,
+    "Dönemde tam olarak bir başkan olmalı",
+  )
+  .refine(
+    (d) => d.uyeler.filter((u) => u.rol === "baskan-yardimcisi").length <= 1,
+    "Dönemde en fazla bir başkan yardımcısı olabilir",
+  )
+  .refine(
+    (d) => d.uyeler.filter((u) => u.rol === "genel-sekreter").length <= 1,
+    "Dönemde en fazla bir genel sekreter olabilir",
+  );
 
 /* -------------------------------------------------------------------------- */
 /* etkinlikler/*.mdx — §7.2                                                    */

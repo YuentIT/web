@@ -440,6 +440,35 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 - [ ] **F4-04** **`/ekibimiz/[donem]`** — dönem seçici + arşiv, `generateStaticParams`.
   *Bitti sayılır:* 2020-2021'e kadar tüm dönemler açılıyor.
 
+  **Ekip sayfası düzeni (Mustafa, 18.08.2026) — F4-03 ve F4-04 aynı düzeni kullanır:**
+
+  Listenin üstünde **kaydırmalı bir geçiş tuşu** duruyor; iki sekme arasında gidip
+  geliyor: **Yönetim Kurulu** ↔ **Koordinatörler**.
+
+  ```
+  Yönetim Kurulu                 Koordinatörler
+  ┌───────────────┐              ┌────┬────┬────┬────┐
+  │    BAŞKAN     │  tek başına  │    │    │    │    │  departmanlarına göre
+  └───────────────┘              ├────┼────┼────┼────┤  normal ızgara
+  ┌───────┐ ┌───────┐            │    │    │    │    │
+  │ BŞK.  │ │ GENEL │  yan yana  └────┴────┴────┴────┘
+  │ YRD.  │ │ SEKR. │
+  └───────┘ └───────┘
+  ┌────┬────┬────┬────┐
+  │    │    │    │    │  diğer üyeler, koordinatörlerle aynı ızgara
+  └────┴────┴────┴────┘
+  ```
+
+  Dizilim `gorev` metninden **çıkarılmıyor** — şemada açık alanlar var:
+  `takim` (`yonetim-kurulu` | `koordinatorler`) sekmeyi, `rol`
+  (`baskan` | `baskan-yardimcisi` | `genel-sekreter` | `uye`) yönetim kurulundaki
+  yeri belirliyor. Şema tam olarak bir başkan, en fazla bir başkan yardımcısı ve
+  en fazla bir genel sekreter olmasını zorunlu tutuyor.
+
+  ⚠️ **2025-2026'da hiç koordinatör yok** (8 kişilik yönetim kurulu). Geçiş tuşu
+  boş sekmeye götürebiliyor — o durumda sekme ya gizlenmeli ya da anlamlı bir
+  boş durum metni göstermeli. Sessizce boş ızgara çizilmemeli.
+
 - [ ] **F4-05** **`/etkinlikler`** — kategori filtresi + arama, filtre URL'ye yazılır.
 
 - [ ] **F4-06** **`/etkinlikler/[slug]`** — detay + kayıt CTA'sı (Faz 5'te bağlanacak).

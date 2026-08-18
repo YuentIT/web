@@ -6,42 +6,50 @@
     {
       "ad": "Tuana Alara Yalınkılınç",
       "gorev": "Yönetim Kurulu Başkanı",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "baskan"
     },
     {
       "ad": "Zeynep Nil Ertav",
-      "gorev": "Yönetim Kurulu Başkan Yardımcısı",
-      "grup": "Yönetim Kurulu"
+      "gorev": "Başkan Yardımcısı",
+      "takim": "yonetim-kurulu",
+      "rol": "baskan-yardimcisi"
     },
     {
       "ad": "Züleyha Ayşe Aydın",
       "gorev": "Genel Sekreter",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "genel-sekreter"
     },
     {
       "ad": "Mustafa Özer",
       "gorev": "Yönetim Kurulu Üyesi",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
     {
       "ad": "Sena Özmural",
       "gorev": "Yönetim Kurulu Üyesi",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
     {
       "ad": "Ceylin Mandıracı",
       "gorev": "Yönetim Kurulu Üyesi",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
     {
       "ad": "Ezel Betül Korkunç",
       "gorev": "Yönetim Kurulu Üyesi",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
     {
       "ad": "Aslı Uyar",
       "gorev": "Yönetim Kurulu Üyesi",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     }
   ]
 }

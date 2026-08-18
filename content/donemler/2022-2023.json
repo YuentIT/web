@@ -6,135 +6,175 @@
     {
       "ad": "Berat Ilgaz Dursun",
       "gorev": "Yönetim Kurulu Başkanı",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "baskan"
     },
     {
       "ad": "Aslıhan Çam",
       "gorev": "Başkan Yardımcısı",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "baskan-yardimcisi"
     },
     {
       "ad": "Dilruba Can",
       "gorev": "Genel Sekreter",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "genel-sekreter"
     },
     {
       "ad": "İpek Naz Tanrıver",
       "gorev": "Yönetim Kurulu Üyesi",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
     {
       "ad": "Ayşe Deren Bildirici",
       "gorev": "Yönetim Kurulu Üyesi",
-      "grup": "Yönetim Kurulu"
+      "takim": "yonetim-kurulu",
+      "rol": "uye"
     },
 
     {
       "ad": "Beril Sude Gürkaş",
       "gorev": "Akademi Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Akademi"
     },
-    { "ad": "Nur Korkmaz", "gorev": "Akademi Koordinatörü", "grup": "Akademi" },
+    {
+      "ad": "Nur Korkmaz",
+      "gorev": "Akademi Koordinatörü",
+      "takim": "koordinatorler",
+      "grup": "Akademi"
+    },
     {
       "ad": "Selin Bürke Demircan",
       "gorev": "Akademi Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Akademi"
     },
     {
       "ad": "Beyza N. Şevval Ulubey",
       "gorev": "Akademi Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Akademi"
     },
 
     {
       "ad": "Beril Çalış",
       "gorev": "Etkinlik Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Etkinlik"
     },
     {
       "ad": "İrem Akyol",
       "gorev": "Etkinlik Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Etkinlik"
     },
     {
       "ad": "Kardelen Göl",
       "gorev": "Etkinlik Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Etkinlik"
     },
     {
       "ad": "Selin Doğa Mutlu",
       "gorev": "Etkinlik Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Etkinlik"
     },
     {
       "ad": "Tuana Yurtseven",
       "gorev": "Etkinlik Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Etkinlik"
     },
 
     {
       "ad": "Aslı Güldal",
       "gorev": "İhtiyaç Haritası Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "İhtiyaç Haritası"
     },
     {
       "ad": "Betül Kazancı",
       "gorev": "İhtiyaç Haritası Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "İhtiyaç Haritası"
     },
     {
       "ad": "Hatice Sena Ses",
       "gorev": "İhtiyaç Haritası Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "İhtiyaç Haritası"
     },
     {
       "ad": "Merve Nur Şahin",
       "gorev": "İhtiyaç Haritası Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "İhtiyaç Haritası"
     },
     {
       "ad": "Özlem Bıçakcı",
       "gorev": "İhtiyaç Haritası Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "İhtiyaç Haritası"
     },
 
     {
       "ad": "Aysima Sultan Gümüş",
       "gorev": "Paylaşım Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Paylaşım"
     },
     {
       "ad": "Ata Erdem Bektaşoğlu",
       "gorev": "İçerik Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "İçerik"
     },
-    { "ad": "Yeliz Koca", "gorev": "Blog Koordinatörü", "grup": "Blog" },
+    {
+      "ad": "Yeliz Koca",
+      "gorev": "Blog Koordinatörü",
+      "takim": "koordinatorler",
+      "grup": "Blog"
+    },
 
     {
       "ad": "Mehmet Yüksekdağ",
       "gorev": "Tasarım Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Tasarım"
     },
-    { "ad": "Sude Yalçın", "gorev": "Tasarım Koordinatörü", "grup": "Tasarım" },
+    {
+      "ad": "Sude Yalçın",
+      "gorev": "Tasarım Koordinatörü",
+      "takim": "koordinatorler",
+      "grup": "Tasarım"
+    },
 
     {
       "ad": "Berfin İnan",
       "gorev": "Tanıtım ve Kariyer Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Tanıtım ve Kariyer"
     },
     {
       "ad": "Enes Yılmaz",
       "gorev": "Tanıtım ve Kariyer Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Tanıtım ve Kariyer"
     },
     {
       "ad": "Kerim Elmalı",
       "gorev": "Tanıtım ve Kariyer Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Tanıtım ve Kariyer"
     },
     {
       "ad": "Sude Gül",
       "gorev": "Tanıtım ve Kariyer Koordinatörü",
+      "takim": "koordinatorler",
       "grup": "Tanıtım ve Kariyer"
     }
   ]
