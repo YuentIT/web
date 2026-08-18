@@ -7,6 +7,11 @@
   "telefonlar": ["+90 536 945 29 44", "+90 533 170 55 47"],
   "adres": "İnönü Mah, Kayışdağı Cd. No:326A, 34755 Ataşehir/İstanbul",
   "siteUrl": "https://yuent.co",
-  "sosyal": {},
+  "sosyal": {
+    "instagram": "https://www.instagram.com/7yuent/",
+    "linkedin": "https://www.linkedin.com/in/7yuent/",
+    "x": "https://x.com/7yuent",
+    "facebook": "https://www.facebook.com/7yuent/"
+  },
   "formlar": {}
 }

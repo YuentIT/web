@@ -1,0 +1,141 @@
+{
+  "slug": "2022-2023",
+  "baslik": "2022-2023 Ekibi",
+  "guncel": false,
+  "uyeler": [
+    {
+      "ad": "Berat Ilgaz Dursun",
+      "gorev": "Yönetim Kurulu Başkanı",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Aslıhan Çam",
+      "gorev": "Başkan Yardımcısı",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Dilruba Can",
+      "gorev": "Genel Sekreter",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "İpek Naz Tanrıver",
+      "gorev": "Yönetim Kurulu Üyesi",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Ayşe Deren Bildirici",
+      "gorev": "Yönetim Kurulu Üyesi",
+      "grup": "Yönetim Kurulu"
+    },
+
+    {
+      "ad": "Beril Sude Gürkaş",
+      "gorev": "Akademi Koordinatörü",
+      "grup": "Akademi"
+    },
+    { "ad": "Nur Korkmaz", "gorev": "Akademi Koordinatörü", "grup": "Akademi" },
+    {
+      "ad": "Selin Bürke Demircan",
+      "gorev": "Akademi Koordinatörü",
+      "grup": "Akademi"
+    },
+    {
+      "ad": "Beyza N. Şevval Ulubey",
+      "gorev": "Akademi Koordinatörü",
+      "grup": "Akademi"
+    },
+
+    {
+      "ad": "Beril Çalış",
+      "gorev": "Etkinlik Koordinatörü",
+      "grup": "Etkinlik"
+    },
+    {
+      "ad": "İrem Akyol",
+      "gorev": "Etkinlik Koordinatörü",
+      "grup": "Etkinlik"
+    },
+    {
+      "ad": "Kardelen Göl",
+      "gorev": "Etkinlik Koordinatörü",
+      "grup": "Etkinlik"
+    },
+    {
+      "ad": "Selin Doğa Mutlu",
+      "gorev": "Etkinlik Koordinatörü",
+      "grup": "Etkinlik"
+    },
+    {
+      "ad": "Tuana Yurtseven",
+      "gorev": "Etkinlik Koordinatörü",
+      "grup": "Etkinlik"
+    },
+
+    {
+      "ad": "Aslı Güldal",
+      "gorev": "İhtiyaç Haritası Koordinatörü",
+      "grup": "İhtiyaç Haritası"
+    },
+    {
+      "ad": "Betül Kazancı",
+      "gorev": "İhtiyaç Haritası Koordinatörü",
+      "grup": "İhtiyaç Haritası"
+    },
+    {
+      "ad": "Hatice Sena Ses",
+      "gorev": "İhtiyaç Haritası Koordinatörü",
+      "grup": "İhtiyaç Haritası"
+    },
+    {
+      "ad": "Merve Nur Şahin",
+      "gorev": "İhtiyaç Haritası Koordinatörü",
+      "grup": "İhtiyaç Haritası"
+    },
+    {
+      "ad": "Özlem Bıçakcı",
+      "gorev": "İhtiyaç Haritası Koordinatörü",
+      "grup": "İhtiyaç Haritası"
+    },
+
+    {
+      "ad": "Aysima Sultan Gümüş",
+      "gorev": "Paylaşım Koordinatörü",
+      "grup": "Paylaşım"
+    },
+    {
+      "ad": "Ata Erdem Bektaşoğlu",
+      "gorev": "İçerik Koordinatörü",
+      "grup": "İçerik"
+    },
+    { "ad": "Yeliz Koca", "gorev": "Blog Koordinatörü", "grup": "Blog" },
+
+    {
+      "ad": "Mehmet Yüksekdağ",
+      "gorev": "Tasarım Koordinatörü",
+      "grup": "Tasarım"
+    },
+    { "ad": "Sude Yalçın", "gorev": "Tasarım Koordinatörü", "grup": "Tasarım" },
+
+    {
+      "ad": "Berfin İnan",
+      "gorev": "Tanıtım ve Kariyer Koordinatörü",
+      "grup": "Tanıtım ve Kariyer"
+    },
+    {
+      "ad": "Enes Yılmaz",
+      "gorev": "Tanıtım ve Kariyer Koordinatörü",
+      "grup": "Tanıtım ve Kariyer"
+    },
+    {
+      "ad": "Kerim Elmalı",
+      "gorev": "Tanıtım ve Kariyer Koordinatörü",
+      "grup": "Tanıtım ve Kariyer"
+    },
+    {
+      "ad": "Sude Gül",
+      "gorev": "Tanıtım ve Kariyer Koordinatörü",
+      "grup": "Tanıtım ve Kariyer"
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "slug": "2021-2022",
+  "baslik": "2021-2022 Ekibi",
+  "guncel": false,
+  "uyeler": [
+    {
+      "ad": "Berat Ilgaz Dursun",
+      "gorev": "Yönetim Kurulu Başkanı",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Deniz Tan",
+      "gorev": "Başkan Yardımcısı",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Gülce Püsküllü",
+      "gorev": "Genel Sekreter",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Aslıhan Çam",
+      "gorev": "Medyadan Sorumlu Yönetim Kurulu Üyesi",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Berfin Melissa Ergün",
+      "gorev": "Medyadan Sorumlu Yönetim Kurulu Üyesi",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Gamze Berfin Aydın",
+      "gorev": "İhtiyaç Haritası Yönetim Kurulu Üyesi",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Hilal Kezban Demir",
+      "gorev": "İhtiyaç Haritası Yönetim Kurulu Üyesi",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Enes Hasan Zengin",
+      "gorev": "Tanıtım ve Kariyer Departman Lideri",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Dilruba Can",
+      "gorev": "Girişimcilik ve Liderlik Departman Lideri",
+      "grup": "Yönetim Kurulu"
+    },
+
+    {
+      "ad": "Tuana Yurtseven",
+      "gorev": "Etkinlik Koordinatörü",
+      "grup": "Etkinlik"
+    },
+    {
+      "ad": "İpek Naz Tanrıver",
+      "gorev": "Etkinlik Koordinatörü",
+      "grup": "Etkinlik"
+    },
+
+    {
+      "ad": "Yunus Taşpınar",
+      "gorev": "İhtiyaç Haritası Koordinatörü",
+      "grup": "İhtiyaç Haritası"
+    },
+
+    { "ad": "Sude Yalçın", "gorev": "Tasarım Koordinatörü", "grup": "Tasarım" },
+    {
+      "ad": "Mehmet Yüksekdağ",
+      "gorev": "Tasarım Koordinatörü",
+      "grup": "Tasarım"
+    },
+
+    {
+      "ad": "Hazal Elgün",
+      "gorev": "Paylaşım Koordinatörü",
+      "grup": "Paylaşım"
+    },
+    {
+      "ad": "Arda Göksel Arsoy",
+      "gorev": "Website İçerik Koordinatörü",
+      "grup": "İçerik"
+    },
+
+    {
+      "ad": "Gülten Betül Kazancı",
+      "gorev": "Tanıtım ve Kariyer Koordinatörü",
+      "grup": "Tanıtım ve Kariyer"
+    },
+    {
+      "ad": "Dila Ağüzüm",
+      "gorev": "Tanıtım ve Kariyer Koordinatörü",
+      "grup": "Tanıtım ve Kariyer"
+    },
+    {
+      "ad": "Feyza Kuş",
+      "gorev": "Tanıtım ve Kariyer Koordinatörü",
+      "grup": "Tanıtım ve Kariyer"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "slug": "2020-2021",
+  "baslik": "2020-2021 Ekibi",
+  "guncel": false,
+  "uyeler": [
+    {
+      "ad": "Sarp Çubukçuoğlu",
+      "gorev": "Yönetim Kurulu Başkanı",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Berat Ilgaz Dursun",
+      "gorev": "Genel Sekreter",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Bilge Acar",
+      "gorev": "Medya Departman Lideri",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Serenay Han",
+      "gorev": "Medyadan Sorumlu Yönetim Kurulu Üyesi",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Zeynep Baba",
+      "gorev": "İhtiyaç Haritası Departman Lideri",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Deniz Tan",
+      "gorev": "İhtiyaç Haritası Yönetim Kurulu Üyesi",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Cerenay Yalçın",
+      "gorev": "İhtiyaç Haritası Yönetim Kurulu Üyesi",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Ecem Varoglu",
+      "gorev": "Tanıtım ve Kariyer Departman Lideri",
+      "grup": "Yönetim Kurulu"
+    },
+    {
+      "ad": "Tuna Dağ",
+      "gorev": "Girişimcilik ve Liderlik Departman Lideri",
+      "grup": "Yönetim Kurulu"
+    },
+
+    {
+      "ad": "İlayda Özcan",
+      "gorev": "Etkinlik Koordinatörü",
+      "grup": "Etkinlik"
+    },
+    {
+      "ad": "İpek Naz Tanrıver",
+      "gorev": "Etkinlik Koordinatörü",
+      "grup": "Etkinlik"
+    },
+
+    {
+      "ad": "Burçin Ergin",
+      "gorev": "İhtiyaç Haritası Koordinatörü",
+      "grup": "İhtiyaç Haritası"
+    },
+    {
+      "ad": "Yunus Taşpınar",
+      "gorev": "İhtiyaç Haritası Koordinatörü",
+      "grup": "İhtiyaç Haritası"
+    },
+    {
+      "ad": "Gamze Berfin Aydın",
+      "gorev": "İhtiyaç Haritası Koordinatörü",
+      "grup": "İhtiyaç Haritası"
+    },
+
+    {
+      "ad": "Serhat Bayrakçı",
+      "gorev": "Tasarım/Video Koordinatörü",
+      "grup": "Tasarım"
+    },
+    {
+      "ad": "Mehmet Yüksekdağ",
+      "gorev": "Tasarım/Video Koordinatörü",
+      "grup": "Tasarım"
+    },
+
+    {
+      "ad": "Aslıhan Çam",
+      "gorev": "Paylaşım Koordinatörü",
+      "grup": "Paylaşım"
+    },
+    { "ad": "İpek Çelebi", "gorev": "Blog Koordinatörü", "grup": "Blog" },
+    { "ad": "Melissa Ergün", "gorev": "İçerik Koordinatörü", "grup": "İçerik" },
+    {
+      "ad": "Arda Göksel Arsoy",
+      "gorev": "Website İçerik Koordinatörü",
+      "grup": "İçerik"
+    },
+
+    {
+      "ad": "Dilruba Can",
+      "gorev": "Tanıtım Koordinatörü",
+      "grup": "Tanıtım ve Kariyer"
+    },
+    {
+      "ad": "Enes Hasan Zengin",
+      "gorev": "Kariyer Koordinatörü",
+      "grup": "Tanıtım ve Kariyer"
+    }
+  ]
+}

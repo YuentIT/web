@@ -50,8 +50,9 @@ export const formlarSchema = z.object({
 export const sosyalSchema = z.object({
   instagram: httpsUrl.optional(),
   linkedin: httpsUrl.optional(),
-  youtube: httpsUrl.optional(),
   x: httpsUrl.optional(),
+  facebook: httpsUrl.optional(),
+  youtube: httpsUrl.optional(),
   spotify: httpsUrl.optional(),
 });
 
