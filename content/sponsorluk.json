@@ -1,6 +1,12 @@
 {
-  "_todo": "GEÇİCİ İÇERİK. Sponsorluk paketleri ve PDF'ler (YES Sponsorluk Detay Dosyası, Tanıtım Dosyası) Mustafa'dan gelince doldurulacak. Dosyalar public/dosyalar/ altına konacak. Bkz. CODE_PLAN F3-03.",
-  "giris": "Yeditepe Üniversitesi Liderlik ve Girişimcilik Kulübü olarak, girişimcilik ekosistemini destekleyen kurumlarla iş birliği yapıyoruz. Sponsorluk paketlerimiz ve tanıtım dosyamız hazırlanıyor; ayrıntılı bilgi için bizimle iletişime geçebilirsiniz.",
+  "_todo": "Giriş metni Mustafa'nın onayını bekliyor. Sponsorluk paketleri siteye konmuyor (18.08.2026 kararı) — paketler iletişim üzerinden yürüyor, sayfada yalnızca tanıtım dosyası indirmesi var.",
+  "giris": "Yeditepe Üniversitesi Liderlik ve Girişimcilik Kulübü olarak girişimcilik ekosistemini destekleyen kurumlarla iş birliği yapıyoruz. Zirvelerimiz, eğitimlerimiz ve sosyal sorumluluk projelerimiz aracılığıyla markanızı üniversite gençliğiyle buluşturuyoruz. Tanıtım dosyamızı indirip inceleyebilir, iş birliği için bizimle iletişime geçebilirsiniz.",
   "paketler": [],
-  "dosyalar": []
+  "dosyalar": [
+    {
+      "baslik": "YUENT Tanıtım Dosyası",
+      "href": "/dosyalar/yuent-tanitim-dosyasi.pdf",
+      "boyut": "11 KB"
+    }
+  ]
 }
