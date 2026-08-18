@@ -34,8 +34,13 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ```
 Tarih          : 18.08.2026
 Aktif faz      : Faz 3 — İçerik katmanı (Faz 2'de yalnızca F2-07 kaldı, o da F3-01'i bekliyordu)
-Son biten      : F3-02 — tipli içerik okuyucuları
-Aktif görev    : F3-03 (Wix metinleri) — Mustafa'dan içerik bekliyor
+Son biten      : F3-03/F3-04 — Wix içeriği taşındı (77 kişi, 4 etkinlik, 4 kapak)
+Aktif görev    : F3-05 (MDX) → F3-06 (Keystatic), sonra Faz 4 (sayfalar)
+
+⚠️ İÇERİK CANLIDA GÖRÜNMÜYOR — bu beklenen durum.
+   content/ dolu ve doğrulanmış, ama onu basacak sayfa henüz yok.
+   Sitede yalnızca / var; /hakkimizda, /ekibimiz, /etkinlikler … hepsi 404.
+   Sayfalar Faz 4'ün işi. Header'daki menü de o yüzden 404'e gidiyor.
 Logo           : public/logo/logo_white.png (1054×477, saf beyaz, şeffaf)
                  + logo_white_mark.png (262×262 monogram, header için kırpıldı)
                  Eksik: SVG sürümü ve yatay kilit. Ayrıntı F2-06 notunda.
@@ -399,17 +404,44 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   Geçici ana sayfa `getSite()`'ı çağırıyor — zincir böylece gerçekten kurulu,
   aksi hâlde okuyucular yazılmış ama hiç çalışmamış olurdu.
 
-- [ ] **F3-03** **Wix'teki metinleri taşı**
+- [~] **F3-03** **Wix'teki metinleri taşı** — Wix'tekilerin tamamı taşındı, iki dosya bekliyor
   Hakkımızda metni, misyon, vizyon, alıntılar, iletişim bilgileri, 4 dönemin ekip
   listeleri, 7 etkinliğin başlık ve açıklamaları. HTML varlıkları (`&uuml;` vb.)
   düzgün Türkçe karaktere çevrilecek.
   *Bitti sayılır:* Wix'teki hiçbir metin kaybolmadı.
 
-- [ ] **F3-04** **Görselleri topla ve optimize et**
+  **Yöntem:** Wix içeriği istemci tarafında render ediliyor, ham HTML'de yok.
+  Sayfalar tarayıcıda gerçekten açılıp okundu.
+
+  ✅ Taşınanlar
+  · `hakkimizda.json` — hikaye, misyon, vizyon, Emil Motycka alıntısı
+  · `site.json` — e-posta, iki telefon, adres, Instagram/LinkedIn/X/Facebook
+  · `donemler/*.json` — 4 dönem, **77 kişi**
+  · `etkinlikler/*.mdx` — **4 etkinlik**
+
+  ⚠️ **Plan 7 etkinlik diyordu, Wix'te 4 var.** Sayfalama dahil kontrol edildi;
+  başka kayıt yok. Plandaki rakam hatalıymış.
+
+  🔲 Bekleyenler
+  · `anasayfa.json` — hero başlığı/açıklaması ve CTA metinleri. Wix ana sayfasında
+    karşılığı yok; yazılması gerekiyor.
+  · `sponsorluk.json` — **geçici içerikle duruyor.** Paketler ve iki PDF
+    (YES Sponsorluk Detay Dosyası, Tanıtım Dosyası) Mustafa'dan gelecek,
+    `public/dosyalar/` altına konacak.
+
+- [~] **F3-04** **Görselleri topla ve optimize et** — etkinlik kapakları ve logo bitti
   Ekip fotoğrafları, etkinlik kapakları, galeri arşivi, logo, sponsorluk PDF'leri.
   Wix medya kütüphanesinden indirilecek. **Stok fotoğraf yok** — görseli olmayan
   etkinlik tipografik kartla temsil edilir.
   *Bitti sayılır:* Hiçbir görsel Wix'ten sıcak bağlantı (hotlink) değil.
+
+  ✅ `public/gorseller/etkinlikler/` — 4 kapak, toplam **864 KB**, hiçbiri hotlink değil.
+  `yeditepe-entrepreneurship-summit` **3176 KB PNG → 312 KB JPEG**: alfa kanalı
+  tamamen opaktı ve 50 bin renkli fotografik bir görseldi, PNG orada yanlış formattı.
+  ✅ `public/logo/` — beyaz kilit + header için kırpılmış 262×262 monogram.
+
+  🔲 Ekip fotoğrafları (Wix'te var mı kontrol edilmedi), galeri arşivi,
+  sponsorluk PDF'leri, logonun SVG sürümü.
 
 - [ ] **F3-05** **MDX kurulumu** — `@next/mdx` + `remark-gfm`, özel bileşenler.
 
