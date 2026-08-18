@@ -34,9 +34,10 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ```
 Tarih          : 18.08.2026
 Aktif faz      : Faz 1 — Proje iskeleti
-Son biten      : F1-06 — shadcn/ui (Radix tabanı) kuruldu, 6 bileşen hazır
+Son biten      : F2-01 — koyu minimal renk paleti (SITE_PLAN §8.2)
 Aktif görev    : F1-10 (main dal koruması) — Mustafa'da 🔐
-Sıradaki faz   : Faz 2 — Tasarım sistemi. F2-01 (logodan renk paleti) ilk iş.
+Sıradaki       : F2-02 (fontları WOFF2'ye çevir) — logo beklemeden yapılabilir.
+                 F2-03/F2-04 onun ardından. Beyaz logo dosyası hâlâ gerekli.
 Kod durumu     : Next.js 16.3.1 + React 19.2.8 + Tailwind 4.3.3 + TS 5.9.3 kurulu.
                  build ✓  typecheck ✓  lint ✓  format:check ✓
 Depo           : github.com/YuentIT/web (public, main) — main henüz KORUMASIZ
