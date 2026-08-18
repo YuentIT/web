@@ -33,22 +33,31 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 
 ```
 Tarih          : 18.08.2026
-Aktif faz      : Faz 3 — İçerik katmanı (Faz 1 ve Faz 2 bitti)
-Son biten      : Keystatic kapsam dışına alındı; etkinlik şeması sadeleşti
-Aktif görev    : Faz 4 — sayfalar. F4-01 (ana sayfa) ilk iş.
+Aktif faz      : Faz 4 — Sayfalar (Faz 1, 2, 3 bitti; Faz 3'te F3-03/F3-04 içerik bekliyor)
+Son biten      : F4-01 — ana sayfa canlıda
+Sıradaki       : F4-02 (/hakkimizda) → F4-03 + F4-04 (ekip sayfaları, geçiş tuşlu)
+                 Sonra F4-05/F4-06 (etkinlikler), F4-11 (iletişim), F4-15 (404).
 
-⚠️ İÇERİK CANLIDA GÖRÜNMÜYOR — bu beklenen durum.
-   content/ dolu ve doğrulanmış, ama onu basacak sayfa henüz yok.
-   Sitede yalnızca / var; /hakkimizda, /ekibimiz, /etkinlikler … hepsi 404.
-   Sayfalar Faz 4'ün işi. Header'daki menü de o yüzden 404'e gidiyor.
-Logo           : public/logo/logo_white.png (1054×477, saf beyaz, şeffaf)
-                 + logo_white_mark.png (262×262 monogram, header için kırpıldı)
-                 Eksik: SVG sürümü ve yatay kilit. Ayrıntı F2-06 notunda.
-Kod durumu     : Next.js 16.3.1 + React 19.2.8 + Tailwind 4.3.3 + TS 5.9.3 kurulu.
+Canlı          : https://web-yuent.vercel.app  ← ana sayfa artık gerçek içerik
+Depo           : github.com/YuentIT/web (public, main korumalı ✓)
+Kod durumu     : Next 16.3.1 · React 19.2.8 · Tailwind 4.3.3 · TS 5.9.3
+                 shadcn/ui **Base UI** tabanı · MDX · zod içerik doğrulama
                  build ✓  typecheck ✓  lint ✓  format:check ✓
-Depo           : github.com/YuentIT/web (public, main) — main korumalı ✓
-Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
+
+Hâlâ 404 veren rotalar (Faz 4 boyunca açılacak):
+  /hakkimizda /ekibimiz /etkinlikler /egitimler /galeri /blog
+  /sponsorluk /katil /basvuru /iletisim /oneri /kvkk /gizlilik
+  /kullanim-kosullari
+  Header ve footer bağlantıları hazır, hedefleri yazıldıkça açılacak.
+
+MUSTAFA'DAN BEKLENENLER (hiçbiri Faz 4'ü bloke etmiyor):
+  · Ana sayfa taslak metinlerinin revizyonu (content/anasayfa.json)
+  · Yeni konsepte göre etkinlik listesi (4 etkinlik şu an Wix'ten geldi)
+  · Galeri görselleri → public/gorseller/galeri/ (düz liste, klasörsüz)
+  · Ekip fotoğrafları — şimdilik baş harf kartı kullanılacak, karar verildi
+  · Logonun gerçek SVG'si — gelen dosya boş çıktı, PNG ile devam ediliyor
 ```
+
 
 ### Mustafa'nın yapması gerekenler
 
@@ -76,13 +85,13 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 | 1 | Proje iskeleti | 10 | ✅ 10/10 |
 | 2 | Tasarım sistemi | 8 | ✅ 8/8 |
 | 3 | İçerik katmanı | 5 | 🟨 3/5 |
-| 4 | Sayfalar | 15 | ⬜ 0/15 |
+| 4 | Sayfalar | 15 | 🟨 1/15 |
 | 5 | Formlar (Google Forms) | 7 | ⬜ 0/7 |
 | 6 | Bülten | 4 | ⬜ 0/4 |
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **71** | **24/71** |
+| | **Toplam** | **71** | **25/71** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -509,8 +518,19 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 > Ortak kabul kriteri: JS kapalıyken içerik okunabiliyor · tek `<h1>` · görsellerde `alt` ·
 > mobilde yatay kaydırma yok.
 
-- [ ] **F4-01** **`/` Ana sayfa** — hero → misyon/vizyon → öne çıkan etkinlikler →
-  yaklaşan etkinlikler → alıntı → sayılarla biz → "Bize Katıl" CTA.
+- [x] **F4-01** **`/` Ana sayfa** ✅ canlıda
+  hero → misyon/vizyon → öne çıkan etkinlikler → ~~yaklaşan etkinlikler~~ →
+  alıntı → sayılarla biz → "Bize Katıl" CTA.
+  **"Yaklaşan etkinlikler" bölümü kaldırıldı:** sitede tarih yayınlanmıyor
+  (18.08.2026 kararı), tarihsiz bir "yaklaşanlar" listesi öne çıkanların
+  birebir kopyası olurdu.
+  Tüm metin `content/` altından geliyor, sayfada gömülü içerik yok.
+  Doğrulandı: tek `<h1>`, `alt` eksik görsel yok, üç kart da doğru adrese gidiyor.
+  **Metinler taslak** — Mustafa revize edecek: hero başlığı/açıklaması,
+  kapanış kutusu metni ve `sayilarlaBiz` rakamları.
+  Yanında `EventCard` yazıldı (`/etkinlikler` de kullanacak): tarih ve kayıt
+  durumu göstermiyor; kapak görseli yoksa **stok fotoğraf konmuyor**, başlığın
+  baş harflerinden tipografik alan çiziliyor.
 
 - [ ] **F4-02** **`/hakkimizda`**
 
