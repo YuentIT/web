@@ -32,23 +32,25 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ## ŞU AN NEREDEYİZ
 
 ```
-Tarih          : 17.08.2026
+Tarih          : 18.08.2026
 Aktif faz      : Faz 1 — Proje iskeleti
-Son biten      : F1-03 — ilk commit YuentIT/web deposuna push edildi (253893c)
-Aktif görev    : F1-04 (Vercel) — Mustafa'nın hesap açmasını bekliyor 🔐
-Paralel        : F1-05, F1-06, F1-07, F1-09 Vercel beklemeden yapılabilir
+Son biten      : F1-09 — güvenlik başlıkları eklendi
+Aktif görev    : F1-06 (shadcn/ui) · F1-07 (klasör iskeleti)
+Bloke değil    : Faz 1'de hesap bekleyen iş kalmadı. Kalan tek 🔐 iş F1-10.
 Kod durumu     : Next.js 16.3.1 + React 19.2.8 + Tailwind 4.3.3 + TS 5.9.3 kurulu.
-                 build ✓  typecheck ✓  lint ✓
-Depo           : github.com/YuentIT/web (public, main)
+                 build ✓  typecheck ✓  lint ✓  format:check ✓
+Depo           : github.com/YuentIT/web (public, main) — main henüz KORUMASIZ
+Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 ```
 
 ### Mustafa'nın yapması gerekenler
 
 - [x] GitHub organizasyonu → **`YuentIT`** açıldı, `ASTENYAN` Owner (admin)
 - [x] Depo → **`YuentIT/web`**, public, ilk commit atıldı
-- [ ] **Vercel hesabı aç** — F1-04 buna bağlı. `vercel.com/signup` → *Continue with Email*
-      (kulüp adresiyle, GitHub ile değil), **Hobby** planı, sonra Vercel GitHub App'ini
-      `YuentIT` organizasyonuna kur ve sadece `web` reposuna erişim ver
+- [x] **Vercel hesabı aç** — Hobby, GitHub App `YuentIT`'e kuruldu, ilk dağıtım çıktı
+- [ ] **Vercel hesabının kulüp adına olduğunu doğrula** — Settings → General →
+      hesap e-postası `yuent@yeditepe.edu.tr` mi? Kişisel hesapsa şimdi taşımak,
+      devir sırasında taşımaktan çok daha ucuz (F0-03 bunun için `[~]`)
 - [ ] Kulüp Google hesabında **paylaşılan Drive klasörü** (F0-04) — Faz 5'e kadar vakit var
 - [ ] **Bülten kararı** (F0-05): Seçenek A (bülten aracı, +1 hesap) veya
       Seçenek B (Google Groups, 0 hesap). Faz 6'ya kadar ertelenebilir.
@@ -64,7 +66,7 @@ Depo           : github.com/YuentIT/web (public, main)
 | Faz | Başlık | Görev | Durum |
 |---|---|---|---|
 | 0 | Hesaplar ve kararlar | 5 | 🟨 2/5 |
-| 1 | Proje iskeleti | 10 | 🟨 4/10 |
+| 1 | Proje iskeleti | 10 | 🟨 7/10 |
 | 2 | Tasarım sistemi | 8 | ⬜ 0/8 |
 | 3 | İçerik katmanı | 7 | ⬜ 0/7 |
 | 4 | Sayfalar | 15 | ⬜ 0/15 |
@@ -73,7 +75,7 @@ Depo           : github.com/YuentIT/web (public, main)
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **73** | **6/73** |
+| | **Toplam** | **73** | **9/73** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -101,13 +103,17 @@ Depo           : github.com/YuentIT/web (public, main)
   *Bitti sayılır:* `git remote -v` organizasyon URL'sini gösteriyor (kişisel değil);
   `main` dalı korumalı, doğrudan push kapalı.
 
-- [ ] **F0-03** 🔐 **Vercel hesabı aç ve GitHub org'a bağla**
+- [~] **F0-03** 🔐 **Vercel hesabı aç ve GitHub org'a bağla** — dağıtım ✅, hesap sahipliği doğrulanmadı
   **Hobby planı** (ücretsiz). Vercel'in "Team/Pro" planı kişi başı aylık ücretlidir —
   **açmayın.** Hobby ticari olmayan kullanım içindir, öğrenci kulübü buna girer.
   Hesap bir öğrencinin adına değil, `yuent@yeditepe.edu.tr` ile **kulüp adına** açılır;
   parola kasada durur. Vercel GitHub App'i organizasyona kurulur.
   Bir engel çıkarsa yedek plan: **Cloudflare Pages** (ücretsiz, takım kullanımına izin verir).
   *Bitti sayılır:* Proje org deposundan dağıtım yapıyor ve hesap kulüp adına.
+  **Durum (18.08.2026):** Vercel GitHub App `YuentIT` organizasyonuna kuruldu
+  (`repository_selection: selected`), proje import edildi, üretim dağıtımı `57e9307`
+  commit'inden başarıyla çıktı. Vercel scope adı `yuent`. **Kalan:** hesabın
+  `yuent@yeditepe.edu.tr` ile kulüp adına açıldığının teyidi (Settings → General).
 
 - [ ] **F0-04** 🔐 **Google Drive'da ortak form klasörü**
   `yuent@yeditepe.edu.tr` hesabında **paylaşılan** bir klasör (`YUENT Web / Formlar`).
@@ -139,12 +145,22 @@ Depo           : github.com/YuentIT/web (public, main)
   F0-02'deki organizasyon deposu olduğunu doğrula.
   *Bitti sayılır:* İlk commit organizasyon deposunda görünüyor.
 
-- [ ] **F1-04** 🔐 **Vercel'e ilk dağıtım**
+- [x] **F1-04** 🔐 **Vercel'e ilk dağıtım** ✅ `web-yuent.vercel.app` → HTTP 200
   *Bitti sayılır:* `*.vercel.app` adresinde boş Next.js sayfası açılıyor.
+  **Not — Deployment Protection:** Hobby planında yalnızca "Standard Protection" (açık)
+  veya kapalı seçeneği var; "Only Preview Deployments" Pro'ya ait. Standard Protection
+  açıkken üretim dahil tüm `.vercel.app` adresleri Vercel SSO'ya yönlendiriyordu, bu
+  yüzden **kapatıldı.** Risk yok: Vercel `.vercel.app` adreslerine kendiliğinden
+  `X-Robots-Tag: noindex` ekliyor, repo zaten public ve sitede gizli anahtar yok.
 
-- [ ] **F1-05** **Kod kalitesi araçları**
+- [x] **F1-05** **Kod kalitesi araçları** ✅ prettier 3.9.6 + plugin 0.8.1
   Prettier + `prettier-plugin-tailwindcss`, `npm run lint`, `npm run typecheck`.
   *Bitti sayılır:* Her iki komut hatasız geçiyor.
+  Eklenen komutlar: `npm run format` (yazar), `npm run format:check` (denetler).
+  Tailwind 4'te plugin `tailwindConfig` değil **`tailwindStylesheet`** bekliyor —
+  `.prettierrc.json` içinde `./src/app/globals.css`'e bakıyor.
+  **Markdown Prettier'ın dışında** (`.prettierignore`): planlama belgeleri elle
+  bakılıyor, biçimlendirme her düzenlemede gürültülü diff üretiyordu.
 
 - [ ] **F1-06** **shadcn/ui kurulumu**
   `npx shadcn@latest init` + `button`, `dialog`, `sheet`, `dropdown-menu`, `badge`, `input`.
@@ -157,11 +173,14 @@ Depo           : github.com/YuentIT/web (public, main)
   Nasıl kurulur, çalıştırılır, hangi komutlar var, hangi env değişkeni gerekli.
   *Bitti sayılır:* Projeyi hiç görmemiş biri README ile ayağa kaldırabiliyor.
 
-- [ ] **F1-09** **Güvenlik başlıkları (`next.config.ts`)**
+- [x] **F1-09** **Güvenlik başlıkları (`next.config.ts`)** ✅ canlıda `curl -I` ile doğrulandı
   `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`,
   `Referrer-Policy: strict-origin-when-cross-origin`,
   `Permissions-Policy: camera=(), microphone=(), geolocation=()`.
   *Bitti sayılır:* `curl -I` ile görülüyor. *(İTÜ'de bunların hiçbiri yok.)*
+  Ayrıca `poweredByHeader: false` — Next sürümünü sunucu imzası olarak sızdırmıyoruz.
+  **CSP bilerek yok:** gerçek bir politika ancak gömülü içerikler (harita, YouTube,
+  Spotify) belli olunca yazılabilir. Faz 7'ye bırakıldı.
 
 - [ ] **F1-10** 🔐 **`main` dalını koru**
   F0-02'den ayrıldı, çünkü GitHub var olmayan bir dalı koruyamıyor — `main`
@@ -483,6 +502,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 18.08.2026 | **F1-04, F1-05, F1-09 tamamlandı.** Vercel GitHub App `YuentIT` org'una kuruldu, proje import edildi, üretim dağıtımı başarılı → `web-yuent.vercel.app`. Hobby'de Deployment Protection tüm `.vercel.app` adreslerini SSO arkasına aldığı ve "Only Preview Deployments" Pro'ya ait olduğu için koruma kapatıldı. Prettier + `prettier-plugin-tailwindcss` kuruldu (markdown hariç). Güvenlik başlıkları + `poweredByHeader: false` eklendi. F0-03 `[~]`: dağıtım çalışıyor ama hesabın kulüp adına olduğu doğrulanmadı. 9/73. |
 | 17.08.2026 | **F0-01, F0-02, F1-01, F1-02, F1-03, F1-08 tamamlandı.** Org `YuentIT`, depo `YuentIT/web` (public), ilk commit `253893c` push edildi. Next 16.3.1 / React 19.2.8 / Tailwind 4.3.3 / TS 5.9.3, sürümler sabit. F1-10 (dal koruması) eklendi — `main` ancak ilk push'ta oluştuğu için F0-02'den ayrıldı. 73 görev. |
 | 17.08.2026 | Plan oluşturuldu. 86 görev, 10 faz. |
 | 17.08.2026 | Kullanılmayan Wix modülleri (randevu, sepet, ödeme, cüzdan, abonelik, şans çarkı) kapsam dışı; bülten + toplu kampanya plana girdi. 89 görev. |

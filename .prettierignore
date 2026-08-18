@@ -1,0 +1,24 @@
+# Üretilen dosyalar
+.next/
+out/
+build/
+coverage/
+node_modules/
+next-env.d.ts
+*.tsbuildinfo
+
+# Elle biçimlendirilmesi anlamsız
+package-lock.json
+
+# Markdown Prettier'ın dışında.
+# CODE_PLAN / SITE_PLAN / DEVRETME elle bakımı yapılan Türkçe belgeler; Prettier
+# tablo dolgusunu ve liste girintilerini değiştirip her düzenlemede gereksiz
+# gürültülü diff üretiyor. Prettier'ın buradaki asıl işi Tailwind sınıflarını
+# sıralamak — o da .tsx dosyalarında. Faz 3'te gelecek içerik MDX'i de düzyazıdır.
+*.md
+*.mdx
+
+# Araştırma girdileri (.gitignore ile aynı liste)
+/örnek/
+/örnek2/
+/inceleme raporları/
