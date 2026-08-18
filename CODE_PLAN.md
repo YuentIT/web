@@ -34,8 +34,8 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ```
 Tarih          : 18.08.2026
 Aktif faz      : Faz 3 — İçerik katmanı (Faz 1 ve Faz 2 bitti)
-Son biten      : F2-07 — SiteFooter (Faz 2 bitti, 8/8)
-Aktif görev    : anasayfa.json içeriği → F3-06 (Keystatic)
+Son biten      : Keystatic kapsam dışına alındı; etkinlik şeması sadeleşti
+Aktif görev    : Faz 4 — sayfalar. F4-01 (ana sayfa) ilk iş.
 
 ⚠️ İÇERİK CANLIDA GÖRÜNMÜYOR — bu beklenen durum.
    content/ dolu ve doğrulanmış, ama onu basacak sayfa henüz yok.
@@ -75,14 +75,14 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 | 0 | Hesaplar ve kararlar | 5 | 🟨 3/5 |
 | 1 | Proje iskeleti | 10 | ✅ 10/10 |
 | 2 | Tasarım sistemi | 8 | ✅ 8/8 |
-| 3 | İçerik katmanı | 7 | 🟨 3/7 |
+| 3 | İçerik katmanı | 5 | 🟨 3/5 |
 | 4 | Sayfalar | 15 | ⬜ 0/15 |
 | 5 | Formlar (Google Forms) | 7 | ⬜ 0/7 |
 | 6 | Bülten | 4 | ⬜ 0/4 |
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **73** | **24/73** |
+| | **Toplam** | **71** | **24/71** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -475,15 +475,31 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   `target="_blank"` çıktıda tek tek görüldü; frontmatter sızmadığı doğrulandı.
   Rota sonra silindi.
 
-- [ ] **F3-06** **Keystatic kurulumu (yerel mod)**
-  `keystatic.config.ts` — her koleksiyon için Türkçe etiketli alan tanımları.
-  **`site.json` içindeki form URL'leri de düzenlenebilir alan olacak.**
-  *Bitti sayılır:* `/keystatic` açılıyor, düzenleme `content/` dosyasını değiştiriyor.
+- ❌ **F3-06** **Keystatic kurulumu (yerel mod)** — **KAPSAM DIŞI (18.08.2026)**
+- ❌ **F3-07** 🔐 **Keystatic GitHub modu** — **KAPSAM DIŞI (18.08.2026)**
 
-- [ ] **F3-07** 🔐 **Keystatic GitHub modu**
-  Kulüp organizasyonu altında bir GitHub App oluşturulacak. **DUR** — organizasyon
-  yetkisi ister. Ayrı bir servis değildir, GitHub'ın parçasıdır.
-  *Bitti sayılır:* Kod bilmeyen biri tarayıcıdan içerik düzenleyip kaydedebiliyor.
+  **Gerekçe (Mustafa'nın tespiti):** Keystatic'in tek değeri, kod bilmeyen
+  birinin **sık sık** içerik eklemesi. Bu sitede öyle bir ihtiyaç yok:
+  etkinlikler yıllarca aynı kalıyor, ekip listesi yılda bir değişiyor, kayıt
+  linki eklemek tek satırlık bir düzenleme.
+
+  **Bedeli, faydasından büyüktü:**
+  · Keystatic'in şeması zod şemalarımızdan üretilemiyor; ikisi **elle** senkron
+    tutulacaktı. Biri unutulursa ya alan editörde görünmez ya da editörün
+    kaydettiği veri zod tarafından sessizce atılır.
+  · Organizasyon altında bir GitHub App + iki Vercel ortam değişkeni →
+    devredilecek listeye bir kalem daha.
+  · Planın ana ilkesi **"en az devir"**; Keystatic o ilkeye ters çalışıyordu.
+
+  **Yerine ne var:** İçerik doğrudan GitHub web arayüzünden düzenleniyor —
+  dosyaya tıkla, kalem simgesi, satırı değiştir, kaydet. Vercel değişikliği
+  görüp kendiliğinden yayınlıyor. Yılda birkaç düzenleme için fazlasıyla yeterli.
+  Bozuk bir düzenleme yapılırsa zod derlemede yakalıyor ve **hatalı içerik
+  canlıya çıkmıyor** — yani güvenlik ağı Keystatic'siz de yerinde.
+  `DEVRETME.md`'ye ekran görüntülü "içerik nasıl düzenlenir" bölümü yazılacak (F8-05).
+
+  **Geri açılırsa:** Keystatic sonradan eklenebilir; içerik dosya biçimi
+  değişmiyor. Ama açılma şartı somut bir ihtiyaç olmalı — "olsa iyi olur" değil.
 
 ---
 
