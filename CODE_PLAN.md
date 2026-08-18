@@ -34,8 +34,8 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ```
 Tarih          : 18.08.2026
 Aktif faz      : Faz 2 — Tasarım sistemi (Faz 1 bitti, 10/10)
-Son biten      : F2-04 — palet token'ları globals.css'te, site artık koyu
-Aktif görev    : F2-05 (tipografi ölçeği ve prose stilleri)
+Son biten      : F2-06 — SiteHeader + MobileMenu canlı
+Aktif görev    : F2-07 (footer) ⏸️ F3-01 bekliyor → sıradaki iş Faz 3
 Logo           : public/logo/logo_white.png (1054×477, saf beyaz, şeffaf)
                  + logo_white_mark.png (262×262 monogram, header için kırpıldı)
                  Eksik: SVG sürümü ve yatay kilit. Ayrıntı F2-06 notunda.
@@ -69,7 +69,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 |---|---|---|---|
 | 0 | Hesaplar ve kararlar | 5 | 🟨 3/5 |
 | 1 | Proje iskeleti | 10 | ✅ 10/10 |
-| 2 | Tasarım sistemi | 8 | 🟨 4/8 |
+| 2 | Tasarım sistemi | 8 | 🟨 7/8 |
 | 3 | İçerik katmanı | 7 | ⬜ 0/7 |
 | 4 | Sayfalar | 15 | ⬜ 0/15 |
 | 5 | Formlar (Google Forms) | 7 | ⬜ 0/7 |
@@ -77,7 +77,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **73** | **17/73** |
+| | **Toplam** | **73** | **20/73** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -294,11 +294,36 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   Değerler kasıtlı hex, `SITE_PLAN` §8.2 ile birebir aynı — iki dosya grep'le
   eşleşiyor. Başlıklar (`h1,h2,h3`) `font-heading` ile geniş kesite bağlandı.
 
-- [ ] **F2-05** **Tipografi ölçeği ve `prose` stilleri** — gövde satırı ~65 karakter.
+- [x] **F2-05** **Tipografi ölçeği ve `prose` stilleri** — gövde satırı ~65 karakter. ✅
+  Ölçek `globals.css`'te `@theme` altında: `text-display`, `text-title`,
+  `text-section`, `text-subsection`, `text-lead`, `text-eyebrow`. Büyük kademeler
+  `clamp()` ile akışkan — mobil için ayrı kırılım noktası gerekmiyor. Harf aralığı
+  boyla ters orantılı, çünkü Archivo Expanded zaten geniş ve büyük puntoda
+  sıkılmazsa başlık dağılıyor.
+  **`@tailwindcss/typography` kasıtlı olarak kurulmadı:** eklenti açık tema için
+  ayarlanmış onlarca token getiriyor ve tek temalı bir sitede çoğunu geri ezmek
+  gerekiyor. `.prose` elle yazıldı, paletle birebir uyumlu, satır uzunluğu `65ch`.
+  Faz 3'teki MDX içeriği bunun içine girecek.
 
-- [ ] **F2-06** **`SiteHeader` + `MobileMenu`**
+- [x] **F2-06** **`SiteHeader` + `MobileMenu`** ✅
   İki açılır menü, sağda "Bize Katıl", scroll'da arka plan bulanıklığı.
   *Bitti sayılır:* Klavye ile gezilebiliyor, `Esc` menüyü kapatıyor, klavye tuzağı yok.
+  Odak tuzağı ve `Esc` işini Base UI'ın Dialog/Menu primitifleri üstleniyor —
+  elle klavye yönetimi yazılmadı. `<a href="#icerik">İçeriğe geç</a> ` atlama
+  bağlantısı `layout.tsx`'e eklendi.
+  Menü tek kaynaktan: `src/lib/navigation.ts` (§6.1'in birebir karşılığı).
+  Mobilde açılır menüler düz liste olarak veriliyor — 9 bağlantı tek ekrana
+  sığdığı için iki kademeli gezinme gereksiz. Menü, bağlantıya basılınca olay
+  yakalamayla kapanıyor; rota değişimini effect'le izleyip `setState` çağırmak
+  React'in `set-state-in-effect` kuralına takılıyor.
+
+  ⚠️ **Bilinen eksik — F2-07 bunu kapatmalı.** Base UI açılır menü içeriğini
+  ancak menü açılınca basıyor. Dolayısıyla `/etkinlikler`, `/egitimler`,
+  `/sponsorluk` ve dönem sayfaları **ilk HTML'de yok**: JS kapalıyken header'dan
+  erişilemiyorlar ve tarayıcı botu onları header'da göremiyor. Aynısı mobil menü
+  için de geçerli (Sheet de portal). Çözüm footer: `SiteFooter` tüm rotaları düz
+  `<a>` olarak listelemeli. `sitemap.xml` (F7-05) botları kurtarır ama JS'siz
+  kullanıcıyı kurtarmaz — footer şart.
 
   **Logo kısıtları — header yazılmadan önce okunmalı.** Elimizdeki
   `public/logo/logo_white.png` (1054×477, saf `#FFFFFF`, şeffaf zemin) üç parçalı
@@ -316,13 +341,22 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
      renklendirilemiyor ve sponsorluk PDF'i gibi büyük kullanımlarda yetmez.
      Mustafa'dan SVG isteniyor; gelene kadar PNG ile ilerlenebilir.
 
-- [ ] **F2-07** **`SiteFooter`**
+- [ ] **F2-07** **`SiteFooter`** — ⏸️ F3-01 bekleniyor
   İletişim, kısayollar, sosyal hesaplar, bülten formu (Faz 6'da bağlanacak), hukuki linkler.
   Veriler `content/site.json`'dan gelir.
   *Bitti sayılır:* Tüm sayfalarda aynı ve tek kaynaktan besleniyor.
+  **Neden bekliyor:** İçeriği `content/site.json`'dan gelmesi gerekiyor, o dosya
+  ise F3-01'in işi. Şimdi sabit verilerle yazmak aynı bileşeni iki kez yazmak olur.
+  **Ek şart (F2-06'dan devraldı):** Footer, açılır menülerin içindeki rotaları da
+  düz `<a>` olarak listelemeli — JS'siz erişilebilirlik ve taranabilirlik buna bağlı.
 
-- [ ] **F2-08** **`Container`, `Section`, `PageHeader` ilkelleri**
+- [x] **F2-08** **`Container`, `Section`, `PageHeader` ilkelleri** ✅
   *Bitti sayılır:* İki farklı sayfada aynı dikey ritim.
+  `src/components/layout/` altında. `Container` üç genişlik (`narrow` uzun metin,
+  `default`, `wide` ızgara/header), `Section` üç dikey ritim (`tight`/`default`/
+  `loose`) ve kendi Container'ını içerir (`bare` ile kapatılabilir).
+  `PageHeader` üst başlık → h1 → özet sırasını dayatıyor; **sayfa başına tek h1**
+  kuralı (Faz 4 ortak kriteri) bu bileşen kullanıldığı sürece kendiliğinden sağlanıyor.
 
 ---
 
@@ -593,6 +627,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 18.08.2026 | **F2-05, F2-06, F2-08 tamamlandı.** Tipografi ölçeği `@theme`'e, `.prose` elle yazıldı (`@tailwindcss/typography` kurulmadı — açık tema için ayarlı, tek temalı sitede çoğu geri ezilir). `Container`/`Section`/`PageHeader` ilkelleri. `SiteHeader` + `MobileMenu` + atlama bağlantısı; menü tek kaynaktan `src/lib/navigation.ts`. **Bilinen eksik:** Base UI açılır menü içeriğini portalda geç bastığı için alt rotalar ilk HTML'de yok — JS'siz erişilebilirlik ve taranabilirlik için F2-07 footer'ı bunları düz `<a>` olarak listelemeli. F2-07 zaten F3-01'i (`site.json`) bekliyor. 20/73. |
 | 18.08.2026 | **F2-03, F2-04 tamamlandı.** Fontlar `next/font/local` ile bağlandı — 5 woff2 `_next/static/media`dan preload ediliyor, dış alan adına tek istek yok (Geist kaldırıldı). Palet `globals.css`'e yazıldı; site tek temalı koyu, `:root` = `.dark`. **İsim çakışması:** shadcn'in `--accent`i hover yüzeyi demek, marka aksanı değil — safran `--brand-accent` altında duruyor. 17/73. |
 | 18.08.2026 | **Faz 1 bitti (10/10).** F1-10: `main protection` ruleset aktif, bypass listesi boş. shadcn tabanı Mustafa'nın kararıyla Radix'ten **Base UI**'a çevrildi (`@base-ui/react` 1.7.0); `asChild` yok, `render` var. **F2-01:** koyu minimal palet — marka rengi beyazın kendisi, aksan safran `#D9A441`, zemin `#0A0D12`. **F2-02:** 5 WOFF2, toplam **77 KB**; Archivo Expanded'ın ayrı aile değil `wdth=125` olduğu tespit edildi. Logo geldi (PNG, saf beyaz); header için 262×262 monogram kırpıldı, SVG hâlâ eksik. 15/73. |
 | 18.08.2026 | **F0-03, F1-06, F1-07 tamamlandı.** Vercel hesabının kulüp adına olduğu doğrulandı. Klasör iskeleti §9'a göre kuruldu; `globals.css` `src/app/` → `src/styles/` taşındı. shadcn/ui **Radix tabanıyla** kuruldu (`-b radix -p nova`), 6 bileşen eklendi. §9'daki `page.tsx` dosyaları bilerek oluşturulmadı — boş `page.tsx` derlemeyi kırar, sahibi Faz 4. Next demo ana sayfası geçici yer tutucuyla değiştirildi, `lang="tr"` düzeltildi. Faz 1'de yalnızca F1-10 kaldı. 12/73. |

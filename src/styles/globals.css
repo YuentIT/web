@@ -72,6 +72,52 @@
 }
 
 /* ---------------------------------------------------------------------------
+   Tipografi ölçeği (F2-05)
+
+   Dört başlık kademesi yeter; daha fazlası sayfalar arasında tutarsızlığa
+   dönüşüyor. Büyük kademeler `clamp()` ile akışkan — mobilde ayrı bir kırılım
+   noktası tanımlamaya gerek kalmıyor.
+
+   Harf aralığı boyla ters orantılı: Archivo Expanded zaten geniş, büyük
+   puntoda sıkmazsan başlık dağılıyor.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Hero — sayfada bir tane, ana sayfada */
+  --text-display: clamp(2.5rem, 6vw, 4.5rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.03em;
+  --text-display--font-weight: 700;
+
+  /* Sayfa başlığı — her sayfanın tek h1'i */
+  --text-title: clamp(2rem, 4vw, 3rem);
+  --text-title--line-height: 1.08;
+  --text-title--letter-spacing: -0.02em;
+  --text-title--font-weight: 700;
+
+  /* Bölüm başlığı — h2 */
+  --text-section: clamp(1.5rem, 2.5vw, 2rem);
+  --text-section--line-height: 1.15;
+  --text-section--letter-spacing: -0.015em;
+  --text-section--font-weight: 700;
+
+  /* Alt başlık — h3, kart başlıkları */
+  --text-subsection: 1.25rem;
+  --text-subsection--line-height: 1.3;
+  --text-subsection--letter-spacing: -0.01em;
+  --text-subsection--font-weight: 600;
+
+  /* Giriş paragrafı — başlığın hemen altındaki özet */
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.65;
+
+  /* Üst başlık / etiket — küçük, harfleri açık, büyük harf */
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.12em;
+  --text-eyebrow--font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------------
    Palet — SITE_PLAN.md §8.2
 
    Site TEK TEMALI: koyu. Açık tema yok, o yüzden `:root` ile `.dark` aynı
@@ -154,5 +200,106 @@
   h2,
   h3 {
     @apply font-heading;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   .prose — uzun metin (F2-05)
+
+   Blog yazıları, hukuki metinler ve MDX içeriği (F3-05) bunun içine giriyor.
+   `@tailwindcss/typography` eklentisi kasıtlı olarak kurulmadı: eklenti açık
+   tema için ayarlanmış onlarca token getiriyor ve tek temalı bir sitede
+   bunların çoğunu geri ezmek gerekiyor. Kendi stilimiz hem kısa hem paletle
+   birebir uyumlu.
+
+   Satır uzunluğu 65ch — plan bunu şart koşuyor; okunabilirliğin en ucuz kazancı.
+--------------------------------------------------------------------------- */
+@layer components {
+  .prose {
+    @apply max-w-[65ch] text-base leading-relaxed text-foreground;
+  }
+
+  .prose > * + * {
+    @apply mt-[1.1em];
+  }
+
+  .prose h2 {
+    @apply mt-[1.8em] mb-[0.6em] text-section text-foreground;
+  }
+
+  .prose h3 {
+    @apply mt-[1.6em] mb-[0.5em] text-subsection text-foreground;
+  }
+
+  /* Başlıktan hemen sonra gelen paragraf üst boşluğu iki kez almasın */
+  .prose h2 + *,
+  .prose h3 + * {
+    @apply mt-0;
+  }
+
+  .prose a {
+    @apply text-brand-accent underline decoration-brand-accent/40 underline-offset-4 transition-colors hover:decoration-brand-accent;
+  }
+
+  .prose strong {
+    @apply font-semibold text-foreground;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply space-y-[0.4em] ps-[1.4em];
+  }
+
+  .prose ul {
+    @apply list-disc;
+  }
+
+  .prose ol {
+    @apply list-decimal;
+  }
+
+  .prose li::marker {
+    @apply text-text-subtle;
+  }
+
+  .prose blockquote {
+    @apply border-s-2 border-brand-accent ps-[1.2em] text-text-muted italic;
+  }
+
+  .prose code {
+    @apply rounded-md border border-border bg-surface-2 px-[0.4em] py-[0.15em] font-mono text-[0.875em];
+  }
+
+  .prose pre {
+    @apply overflow-x-auto rounded-lg border border-border bg-surface-2 p-4;
+  }
+
+  /* Blok içindeki kod kendi çerçevesini almasın */
+  .prose pre code {
+    @apply border-0 bg-transparent p-0;
+  }
+
+  .prose hr {
+    @apply my-[2.4em] border-border;
+  }
+
+  .prose img {
+    @apply rounded-lg;
+  }
+
+  .prose figcaption {
+    @apply mt-[0.6em] text-sm text-text-subtle;
+  }
+
+  .prose table {
+    @apply w-full text-start text-sm;
+  }
+
+  .prose th {
+    @apply border-b border-border-strong pb-2 text-start font-semibold;
+  }
+
+  .prose td {
+    @apply border-b border-border py-2;
   }
 }
