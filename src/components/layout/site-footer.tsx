@@ -1,10 +1,30 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
+
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
 import { Logo } from "@/components/layout/logo";
+import { NewsletterForm } from "@/components/layout/newsletter-form";
 import { getSite } from "@/lib/content";
 import { footerNav, hukukiNav, sosyalEtiketleri } from "@/lib/navigation";
+
+/**
+ * Sosyal ikon dosyası yüklendi mi?
+ *
+ * Derleme sırasında diske bakılıyor: `public/ikonlar/sosyal/<anahtar>.svg`
+ * varsa ikon, yoksa düz metin gösteriliyor. Böylece ikonlar hazır olmadan da
+ * footer çalışıyor ve dosya eklendiği anda kendiliğinden devreye giriyor —
+ * kod değişikliği gerekmiyor. Kırık görsel simgesi hiç çıkmıyor.
+ */
+function ikonYolu(anahtar: string): string | null {
+  const gorecel = `/ikonlar/sosyal/${anahtar}.svg`;
+  return existsSync(path.join(process.cwd(), "public", gorecel))
+    ? gorecel
+    : null;
+}
 
 /**
  * Site altbilgisi (F2-07).
@@ -36,19 +56,43 @@ export async function SiteFooter() {
 
             {sosyalGirdiler.length > 0 ? (
               <ul className="flex flex-wrap gap-x-4 gap-y-2 pt-1">
-                {sosyalGirdiler.map(([anahtar, url]) => (
-                  <li key={anahtar}>
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-0.5 rounded text-sm text-text-muted hover:text-brand-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-                    >
-                      {sosyalEtiketleri[anahtar] ?? anahtar}
-                      <ArrowUpRight className="size-3.5" aria-hidden="true" />
-                    </a>
-                  </li>
-                ))}
+                {sosyalGirdiler.map(([anahtar, url]) => {
+                  const etiket = sosyalEtiketleri[anahtar] ?? anahtar;
+                  const ikon = ikonYolu(anahtar);
+
+                  return (
+                    <li key={anahtar}>
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        // İkon gösterildiğinde görsel dekoratif kalıyor
+                        // (`alt=""`); erişilebilir adı bu etiket veriyor.
+                        aria-label={ikon ? etiket : undefined}
+                        title={ikon ? etiket : undefined}
+                        className="inline-flex items-center gap-0.5 rounded text-sm text-text-muted transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                      >
+                        {ikon ? (
+                          <Image
+                            src={ikon}
+                            alt=""
+                            width={20}
+                            height={20}
+                            className="size-5 opacity-70 transition-opacity hover:opacity-100"
+                          />
+                        ) : (
+                          <>
+                            {etiket}
+                            <ArrowUpRight
+                              className="size-3.5"
+                              aria-hidden="true"
+                            />
+                          </>
+                        )}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             ) : null}
           </div>
@@ -74,7 +118,11 @@ export async function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-12 grid gap-6 border-t border-border pt-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 border-t border-border pt-8">
+          <NewsletterForm kayitUrl={site.formlar.bultenKayit} />
+        </div>
+
+        <div className="mt-10 grid gap-6 border-t border-border pt-8 sm:grid-cols-2 lg:grid-cols-3">
           <p className="flex items-start gap-2 text-sm text-text-muted">
             <Mail className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
             <a

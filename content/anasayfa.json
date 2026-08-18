@@ -1,0 +1,26 @@
+{
+  "_todo": "TASLAK — Mustafa revize edecek. Hero metinleri hakkimizda.json'daki hikâye ve misyondan türetildi, uydurulmadı. sayilarlaBiz yalnızca içerikten doğrulanabilen iki rakamı taşıyor (Hult Prize kampüs finali yıl sayısı ve katılınan bölgesel final sayısı); üye sayısı, etkinlik sayısı gibi rakamlar ancak Mustafa doğrularsa eklenmeli.",
+  "hero": {
+    "ustBaslik": "Yeditepe Üniversitesi",
+    "baslik": "Fikrinin arkasından koşmaya cesaret edenler için",
+    "aciklama": "Girişimcilik, liderlik ve sosyal girişimcilik alanında eğitimler, zirveler ve sosyal sorumluluk projeleri düzenliyoruz. İlham alırken ilham olmak temel hedefimiz.",
+    "birincilCta": {
+      "metin": "Bize Katıl",
+      "href": "/katil"
+    },
+    "ikincilCta": {
+      "metin": "Etkinliklerimiz",
+      "href": "/etkinlikler"
+    }
+  },
+  "oneCikanEtkinlikler": [
+    "yeditepe-entrepreneurship-summit",
+    "hult-prize-campus",
+    "ulusal-yonetim-bilisim-zirvesi"
+  ],
+  "sayilarlaBiz": [
+    { "deger": "4", "etiket": "Yıldır Hult Prize kampüs finali" },
+    { "deger": "9", "etiket": "Katıldığımız bölgesel final" },
+    { "deger": "4", "etiket": "Dönemlik ekip arşivi" }
+  ]
+}
