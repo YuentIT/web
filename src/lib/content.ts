@@ -229,10 +229,11 @@ export async function getEtkinlikler(): Promise<Etkinlik[]> {
   return kayitlar
     .map(({ slug, veri, govde }) => ({ slug, ...veri, govde }))
     .sort((a, b) => {
-      // Tarihi olanlar önce ve yeniden eskiye; tarihsizler sona.
-      if (a.tarih && b.tarih) return b.tarih.localeCompare(a.tarih);
-      if (a.tarih) return -1;
-      if (b.tarih) return 1;
+      // Sitede tarih yayınlanmadığı için doğal bir sıra yok. `sira` verilmiş
+      // olanlar önce ve küçükten büyüğe; verilmeyenler alfabetik olarak sona.
+      const sa = a.sira ?? Number.MAX_SAFE_INTEGER;
+      const sb = b.sira ?? Number.MAX_SAFE_INTEGER;
+      if (sa !== sb) return sa - sb;
       return a.baslik.localeCompare(b.baslik, "tr");
     });
 }

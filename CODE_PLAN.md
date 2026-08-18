@@ -537,7 +537,10 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 - [ ] **F4-05** **`/etkinlikler`** — kategori filtresi + arama, filtre URL'ye yazılır.
 
 - [ ] **F4-06** **`/etkinlikler/[slug]`** — detay + kayıt CTA'sı (Faz 5'te bağlanacak).
-  *Bitti sayılır:* 7 etkinliğin her biri kendi adresinde açılıyor.
+  *Bitti sayılır:* ~~7~~ **4** etkinliğin her biri kendi adresinde açılıyor.
+  **Sayfa bilgilendirme amaçlı** (18.08.2026 kararı): tarih, yer ve kayıt durumu
+  gösterilmiyor. `kayitLinki` doluysa tek bir "Kayıt Formu" butonu çiziliyor,
+  boşsa hiçbir kayıt öğesi görünmüyor. Tarih dahil ayrıntılar formun içinde.
   *(YTÜ'nün en iyi yaptığı iş buydu — her etkinliğe ayrı URL.)*
 
 - [ ] **F4-07** **`/egitimler`**
@@ -604,11 +607,14 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   `/iletisim`, `/katil`, `/basvuru`, `/oneri`.
   *Bitti sayılır:* Dört butonun dördü de doğru forma gidiyor (elle tıklanarak test edildi).
 
-- [ ] **F5-06** **Etkinlik kayıt bağlantısı**
+- [ ] **F5-06** **Etkinlik kayıt bağlantısı** — 🔻 **kapsam küçüldü (18.08.2026)**
   `/etkinlikler/[slug]` sayfasındaki "Kayıt Ol" butonu içerik dosyasındaki
-  `kayitFormUrl`'e gider. URL yoksa `kayitKapanisMetni` gösterilir
-  ("Kontenjan doldu" / "Kayıtlar 12 Kasım'da açılıyor").
-  *Bitti sayılır:* Kayıt açık ve kapalı iki etkinlikte de doğru davranış.
+  `kayitLinki`'ne gider. Alan boşsa **hiçbir şey gösterilmiyor** — kapanış
+  metni de yok, çünkü kulüp etkinliklerin çoğunda sitede kayıt almıyor.
+  *Bitti sayılır:* Bağlantısı olan ve olmayan iki etkinlikte de doğru davranış.
+  Etkinlik yaklaşınca Mustafa içerik dosyasına `kayitLinki` satırını elle
+  ekliyor, bitince siliyor. Etkinlik başına ayrı form şablonu (F5-01'deki
+  "Etkinlik Kayıt" satırı) hâlâ geçerli, yalnızca sitedeki gösterim sadeleşti.
 
 - [ ] **F5-07** **Form envanteri belgesi**
   `DEVRETME.md`'ye tablo: hangi form hangi sayfada, Sheets bağlantısı, kim erişebiliyor.
@@ -652,7 +658,10 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 - [ ] **F7-03** **Dinamik OG görselleri** — etkinlik sayfaları için `opengraph-image.tsx`.
 
 - [ ] **F7-04** **JSON-LD**
-  `Organization` + `WebSite`, etkinliklerde `Event`.
+  `Organization` + `WebSite`. **Etkinliklerde `Event` YOK:** schema.org `Event`
+  türü `startDate` zorunlu tutuyor, biz ise sitede bilerek tarih yayınlamıyoruz
+  (18.08.2026 kararı). Tarihsiz `Event` geçersiz yapılandırılmış veri olur ve
+  Search Console'da hata verir. Etkinlik sayfaları düz `WebPage` olarak kalacak.
   **Tüm alanlar `content/` dosyalarından türetilir, elle yazılmaz.**
   *Bitti sayılır:* Rich Results Test hatasız; kuruluş yılı sitedeki metinle aynı.
   *(YTÜ'nün B2 hatası: JSON-LD 2014, sayfa 2015 diyor.)*

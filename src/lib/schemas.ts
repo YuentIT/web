@@ -179,44 +179,34 @@ export const donemSchema = z
 /* etkinlikler/*.mdx — §7.2                                                    */
 /* -------------------------------------------------------------------------- */
 
-export const etkinlikDurumu = z.enum(["yaklasan", "kayit-acik", "gecmis"]);
-
-export const etkinlikSchema = z
-  .object({
-    baslik: dolu,
-    kisaAciklama: dolu,
-    kategori: dolu,
-    durum: etkinlikDurumu,
-    /** Makine tarihi — sıralama ve JSON-LD (F7-04) bunu kullanır. */
-    tarih: z.iso.date().optional(),
-    /** İnsan tarihi — "12 Kasım 2025, 18.00" gibi. Tarih belirsizse bu yeter. */
-    tarihMetni: z.string().optional(),
-    yer: z.string().optional(),
-    kapakGorsel: gorselYolu.optional(),
-    galeriAlbum: slugSchema.optional(),
-    /** Yoksa kayıt butonu çizilmez — F5-06. */
-    kayitFormUrl: httpsUrl.optional(),
-    /** "Kontenjan doldu" / "Kayıtlar 12 Kasım'da açılıyor" */
-    kayitKapanisMetni: z.string().optional(),
-    ozellikler: z.array(dolu).default([]),
-    partnerler: z.array(dolu).default([]),
-  })
-  .refine((e) => e.durum !== "kayit-acik" || Boolean(e.kayitFormUrl), {
-    // Kaydı açık görünen ama kaydolunamayan bir etkinlik, ziyaretçiyi
-    // butona tıklatıp hiçbir yere götürmez — sessiz kalmasındansa derleme dursun.
-    path: ["kayitFormUrl"],
-    message: "durum 'kayit-acik' ise kayitFormUrl zorunlu",
-  })
-  .refine((e) => e.durum === "gecmis" || Boolean(e.tarih ?? e.tarihMetni), {
-    // Yaklaşan ya da kaydı açık bir etkinlikte tarih olmaması ziyaretçiyi
-    // "ne zaman?" sorusuyla baş başa bırakır. Geçmiş kayıtlarda ise tarih
-    // aranmıyor: sitedeki dördü de tek seferlik değil, yıllara yayılan
-    // program tanıtımları (Hult Prize, şirket gezileri…). Onlara uydurma
-    // tarih yazmaktansa tarihsiz bırakmak doğru.
-    path: ["tarih"],
-    message:
-      "yaklaşan veya kaydı açık etkinlikte tarih ya da tarihMetni zorunlu",
-  });
+/**
+ * Etkinlikler **bilgilendirme amaçlı** (Mustafa'nın kararı, 18.08.2026).
+ *
+ * Sitede tarih yayınlanmıyor — kulüp tarihleri önden duyurmuyor. Kayıt da
+ * sitede toplanmıyor: yalnızca YES ve FUN gibi büyük etkinliklerde bir Google
+ * Forms bağlantısı paylaşılıyor ve tarih dahil ayrıntılar o formda açıklanıyor.
+ *
+ * Bu yüzden `durum`, `tarih`, `tarihMetni`, `yer` ve `kayitKapanisMetni`
+ * alanları **kaldırıldı.** Geriye tek bir opsiyonel `kayitLinki` kaldı:
+ * etkinlik yaklaşınca içerik dosyasına elle ekleniyor, bitince siliniyor.
+ * Alan boşken sayfada kayıt butonu hiç çizilmiyor.
+ */
+export const etkinlikSchema = z.object({
+  baslik: dolu,
+  kisaAciklama: dolu,
+  kategori: dolu,
+  kapakGorsel: gorselYolu.optional(),
+  galeriAlbum: slugSchema.optional(),
+  /** Kayıt formu bağlantısı. Yalnızca kayıt açıkken dolu olur. */
+  kayitLinki: httpsUrl.optional(),
+  /**
+   * Listede elle sıralama; küçük sayı önce gelir. Tarih olmadığı için doğal
+   * bir sıra kalmadı. Verilmezse başlığa göre alfabetik sıralanır.
+   */
+  sira: z.number().int().optional(),
+  ozellikler: z.array(dolu).default([]),
+  partnerler: z.array(dolu).default([]),
+});
 
 /* -------------------------------------------------------------------------- */
 /* egitimler/*.mdx · blog/*.mdx                                                */
