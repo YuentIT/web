@@ -34,8 +34,8 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ```
 Tarih          : 18.08.2026
 Aktif faz      : Faz 3 — İçerik katmanı (Faz 2'de yalnızca F2-07 kaldı, o da F3-01'i bekliyordu)
-Son biten      : F3-03/F3-04 — Wix içeriği taşındı (77 kişi, 4 etkinlik, 4 kapak)
-Aktif görev    : F3-05 (MDX) → F3-06 (Keystatic), sonra Faz 4 (sayfalar)
+Son biten      : F3-05 — MDX kurulumu (Turbopack + frontmatter tuzakları çözüldü)
+Aktif görev    : F3-06 (Keystatic, yerel mod)
 
 ⚠️ İÇERİK CANLIDA GÖRÜNMÜYOR — bu beklenen durum.
    content/ dolu ve doğrulanmış, ama onu basacak sayfa henüz yok.
@@ -75,14 +75,14 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 | 0 | Hesaplar ve kararlar | 5 | 🟨 3/5 |
 | 1 | Proje iskeleti | 10 | ✅ 10/10 |
 | 2 | Tasarım sistemi | 8 | 🟨 7/8 |
-| 3 | İçerik katmanı | 7 | 🟨 2/7 |
+| 3 | İçerik katmanı | 7 | 🟨 3/7 |
 | 4 | Sayfalar | 15 | ⬜ 0/15 |
 | 5 | Formlar (Google Forms) | 7 | ⬜ 0/7 |
 | 6 | Bülten | 4 | ⬜ 0/4 |
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **73** | **22/73** |
+| | **Toplam** | **73** | **23/73** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -443,7 +443,37 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   🔲 Ekip fotoğrafları (Wix'te var mı kontrol edilmedi), galeri arşivi,
   sponsorluk PDF'leri, logonun SVG sürümü.
 
-- [ ] **F3-05** **MDX kurulumu** — `@next/mdx` + `remark-gfm`, özel bileşenler.
+- [x] **F3-05** **MDX kurulumu** — `@next/mdx` + `remark-gfm`, özel bileşenler. ✅
+  `@next/mdx` 16.3.1 · `remark-gfm` 4.0.1 · `remark-frontmatter` 5.0.0
+
+  **Üç tuzağa düşüldü ve üçü de çözüldü — devralan kişi bilsin:**
+
+  1. **Eklentiler string olarak veriliyor, fonksiyon olarak değil.** Next 16
+     varsayılan olarak Turbopack kullanıyor ve JavaScript fonksiyonları Rust
+     tarafına geçirilemiyor. İnternetteki örneklerin çoğu `remarkPlugins:
+     [remarkGfm]` yazıyor; o yazım burada derlemeyi kırar.
+  2. **`@next/mdx` frontmatter bilmiyor.** `remark-frontmatter` olmadan
+     dosyanın başındaki `---` bloğu yatay çizgi + düz metin sanılıyor ve
+     sayfada *"baslik: … kategori: …"* diye görünüyor. Bilfiil görüldü.
+     Frontmatter zaten gray-matter ile okunup zod'dan geçtiği için eklentiden
+     ayrıca dışa aktarım istenmiyor; tek işi bloğu render dışında bırakmak.
+  3. **Koleksiyon başına ayrı `import()` yazılamıyor.** Derleyici her şablon
+     için bağlam modülü kuruyor ve **boş klasör için bunu yapamıyor** —
+     `content/egitimler`, `blog`, `hukuki` boş olduğu için dörde bölünmüş hâli
+     "module not found" veriyordu. Tek şablon (`content/${koleksiyon}/${slug}.mdx`)
+     tek bağlam kuruyor ve sorun kalkıyor.
+
+  `src/mdx-components.tsx` kasıtlı olarak **kısa**: başlık/paragraf/liste/tablo
+  görünümü `.prose`'dan geliyor (F2-05), aynı stilleri burada tekrarlamak iki
+  ayrı doğruluk kaynağı yaratırdı. Yalnızca `a` (dahili → `next/link`, dış →
+  `target="_blank" rel="noopener noreferrer"`) ve `hr` ezildi.
+  **`img` bilerek ezilmedi** — gerekçe dosyanın içinde yazılı; F7-07'de ele alınacak.
+  `useMDXComponents()` Next 16'da **argüman almıyor**; eski imza kopyalanırsa tip hatası verir.
+
+  *Doğrulama:* Geçici bir rotayla `hult-prize-campus` gövdesi render edildi.
+  GFM tablosu, `~~üstü çizili~~`, otomatik bağlantı ve dış bağlantıdaki
+  `target="_blank"` çıktıda tek tek görüldü; frontmatter sızmadığı doğrulandı.
+  Rota sonra silindi.
 
 - [ ] **F3-06** **Keystatic kurulumu (yerel mod)**
   `keystatic.config.ts` — her koleksiyon için Türkçe etiketli alan tanımları.

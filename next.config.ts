@@ -1,3 +1,4 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 /**
@@ -23,9 +24,35 @@ const nextConfig: NextConfig = {
   // Next.js sürümünü sunucu imzası olarak sızdırmayı bırak.
   poweredByHeader: false,
 
+  // MDX'in rota olarak da çalışabilmesi için (F3-05). `app/` altında .mdx
+  // dosyamız yok; içerik `content/` altında duruyor ve oradan içe aktarılıyor.
+  pageExtensions: ["ts", "tsx", "mdx"],
+
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
 };
 
-export default nextConfig;
+/**
+ * Eklentiler **string olarak** veriliyor, içe aktarılmış fonksiyon olarak değil.
+ * Next 16 varsayılan olarak Turbopack kullanıyor ve JavaScript fonksiyonları
+ * Rust tarafına geçirilemiyor — `remarkPlugins: [remarkGfm]` yazımı derlemede
+ * kırılır. Dokümanın "Using Plugins with Turbopack" bölümü bunu söylüyor.
+ */
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [
+      // `@next/mdx` frontmatter'ı **bilmiyor**: bu eklenti olmadan dosyanın
+      // başındaki `---` bloğu yatay çizgi + düz metin sanılıp sayfada
+      // "baslik: … kategori: …" diye görünüyor. Eklenti bloğu ayrı bir düğüm
+      // olarak ayrıştırıyor ve render dışında bırakıyor.
+      // Frontmatter'ın kendisi zaten gray-matter ile okunup zod'dan geçiyor
+      // (`src/lib/content.ts`); buradan ayrıca dışa aktarılmasına gerek yok.
+      "remark-frontmatter",
+      "remark-gfm",
+    ],
+    rehypePlugins: [],
+  },
+});
+
+export default withMDX(nextConfig);
