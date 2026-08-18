@@ -33,9 +33,9 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 
 ```
 Tarih          : 18.08.2026
-Aktif faz      : Faz 2 — Tasarım sistemi (Faz 1 bitti, 10/10)
-Son biten      : F2-06 — SiteHeader + MobileMenu canlı
-Aktif görev    : F2-07 (footer) ⏸️ F3-01 bekliyor → sıradaki iş Faz 3
+Aktif faz      : Faz 3 — İçerik katmanı (Faz 2'de yalnızca F2-07 kaldı, o da F3-01'i bekliyordu)
+Son biten      : F3-02 — tipli içerik okuyucuları
+Aktif görev    : F3-03 (Wix metinleri) — Mustafa'dan içerik bekliyor
 Logo           : public/logo/logo_white.png (1054×477, saf beyaz, şeffaf)
                  + logo_white_mark.png (262×262 monogram, header için kırpıldı)
                  Eksik: SVG sürümü ve yatay kilit. Ayrıntı F2-06 notunda.
@@ -70,14 +70,14 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 | 0 | Hesaplar ve kararlar | 5 | 🟨 3/5 |
 | 1 | Proje iskeleti | 10 | ✅ 10/10 |
 | 2 | Tasarım sistemi | 8 | 🟨 7/8 |
-| 3 | İçerik katmanı | 7 | ⬜ 0/7 |
+| 3 | İçerik katmanı | 7 | 🟨 2/7 |
 | 4 | Sayfalar | 15 | ⬜ 0/15 |
 | 5 | Formlar (Google Forms) | 7 | ⬜ 0/7 |
 | 6 | Bülten | 4 | ⬜ 0/4 |
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **73** | **20/73** |
+| | **Toplam** | **73** | **22/73** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -362,14 +362,42 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 
 # Faz 3 — İçerik katmanı
 
-- [ ] **F3-01** **`content/` ağacını oluştur ve şemaları yaz**
+- [x] **F3-01** **`content/` ağacını oluştur ve şemaları yaz** ✅ zod 4.4.3
   `SITE_PLAN.md` §7 + zod şemaları (`src/lib/content.ts` içinde).
   *Bitti sayılır:* Bozuk içerik dosyası derlemeyi hata ile durduruyor.
+  **Kanıtlandı:** `content/site.json`'a bozuk e-posta yazılıp `siteUrl` silinince
+  `next build` durdu ve şunu yazdı:
+  `İçerik dosyası şemaya uymuyor: content/site.json` + `• eposta: …` + `• siteUrl: …`
+  **Şemalar `src/lib/schemas.ts`'te, okuyucular `content.ts`'te** — plan ikisini
+  aynı dosyaya koyuyordu, ayrıldı: `content.ts` Node'un `fs`'ini içe aktarıyor,
+  şemalar ise ileride istemci tarafında da gerekebilir; birleşik dosya `fs`'i
+  istemci paketine sürüklerdi.
+  **Şemaya konan iki iş kuralı** (§7'de yazmıyordu, sessiz hatayı önlüyor):
+  · `durum: "kayit-acik"` ise `kayitFormUrl` zorunlu — yoksa ziyaretçi çalışmayan
+    bir kayıt butonu görürdü.
+  · `tarih` veya `tarihMetni`'nden biri dolu olmalı — tarihsiz etkinlik listede
+    sıralanamıyor.
+  Form URL'leri ve sosyal hesaplar bilerek **opsiyonel**: form açılmadan sitenin
+  derlenememesi kabul edilemez (F5-04 zaten boş URL'de buton yerine gerekçe gösteriyor).
 
-- [ ] **F3-02** **Tipli içerik okuyucuları**
+- [x] **F3-02** **Tipli içerik okuyucuları** ✅ `src/lib/content.ts`
   `getSite()`, `getAnasayfa()`, `getDonemler()`, `getDonem()`, `getEtkinlikler()`,
   `getEtkinlik()`, `getEgitimler()`, `getBlogYazilari()`, `getAlbumler()`.
-  *Bitti sayılır:* Tipli veri dönüyor, `any` yok.
+  *Bitti sayılır:* Tipli veri dönüyor, `any` yok. (grep ile doğrulandı)
+  Ek olarak `getHakkimizda()`, `getSponsorluk()`, `getGuncelDonem()`,
+  `getEgitim()`, `getBlogYazisi()`, `getAlbum()`, `getHukukiMetin()`.
+  **Tipler elle yazılmadı**, `src/types/index.ts` şemalardan `z.infer` ile
+  türetiyor — şema ile tip ayrı düşemesin diye.
+  **Okuyucular şemanın göremediği tutarlılığı da denetliyor:**
+  · `anasayfa.json → oneCikanEtkinlikler` içindeki her slug gerçekten var mı
+  · `donemler/*.json` slug'ı dosya adıyla aynı mı (yoksa `/ekibimiz/[donem]` 404)
+  · tam olarak bir dönem `guncel: true` mi
+  · albümün bağlandığı etkinlik var mı (yoksa galeri filtresi boş seçenek gösterir)
+  Eksik **klasör** boş dizi döner (koleksiyonlar Faz 3 boyunca dolacak), ama eksik
+  **tekil dosya** ve bozuk dosya hata verir.
+  Blog taslakları yalnızca `NODE_ENV=development`'ta listeleniyor.
+  Geçici ana sayfa `getSite()`'ı çağırıyor — zincir böylece gerçekten kurulu,
+  aksi hâlde okuyucular yazılmış ama hiç çalışmamış olurdu.
 
 - [ ] **F3-03** **Wix'teki metinleri taşı**
   Hakkımızda metni, misyon, vizyon, alıntılar, iletişim bilgileri, 4 dönemin ekip
@@ -627,6 +655,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 18.08.2026 | **F3-01, F3-02 tamamlandı.** zod 4.4.3 + gray-matter 4.0.3. Şemalar `src/lib/schemas.ts`, okuyucular `src/lib/content.ts` (plan ikisini aynı dosyada öngörüyordu; `fs` istemci paketine sızmasın diye ayrıldı). Tipler `z.infer` ile türetiliyor, elle yazılmıyor. Bozuk içeriğin `next build`'i durdurduğu bilfiil denenerek kanıtlandı. Okuyucular şemanın göremediği çapraz tutarlılığı da denetliyor (öne çıkan slug var mı, dönem slug'ı dosya adıyla aynı mı, tek güncel dönem var mı, albümün etkinliği var mı). Geçici ana sayfa `getSite()`'ı çağırıyor, zincir gerçekten kurulu. 22/73. |
 | 18.08.2026 | **F2-05, F2-06, F2-08 tamamlandı.** Tipografi ölçeği `@theme`'e, `.prose` elle yazıldı (`@tailwindcss/typography` kurulmadı — açık tema için ayarlı, tek temalı sitede çoğu geri ezilir). `Container`/`Section`/`PageHeader` ilkelleri. `SiteHeader` + `MobileMenu` + atlama bağlantısı; menü tek kaynaktan `src/lib/navigation.ts`. **Bilinen eksik:** Base UI açılır menü içeriğini portalda geç bastığı için alt rotalar ilk HTML'de yok — JS'siz erişilebilirlik ve taranabilirlik için F2-07 footer'ı bunları düz `<a>` olarak listelemeli. F2-07 zaten F3-01'i (`site.json`) bekliyor. 20/73. |
 | 18.08.2026 | **F2-03, F2-04 tamamlandı.** Fontlar `next/font/local` ile bağlandı — 5 woff2 `_next/static/media`dan preload ediliyor, dış alan adına tek istek yok (Geist kaldırıldı). Palet `globals.css`'e yazıldı; site tek temalı koyu, `:root` = `.dark`. **İsim çakışması:** shadcn'in `--accent`i hover yüzeyi demek, marka aksanı değil — safran `--brand-accent` altında duruyor. 17/73. |
 | 18.08.2026 | **Faz 1 bitti (10/10).** F1-10: `main protection` ruleset aktif, bypass listesi boş. shadcn tabanı Mustafa'nın kararıyla Radix'ten **Base UI**'a çevrildi (`@base-ui/react` 1.7.0); `asChild` yok, `render` var. **F2-01:** koyu minimal palet — marka rengi beyazın kendisi, aksan safran `#D9A441`, zemin `#0A0D12`. **F2-02:** 5 WOFF2, toplam **77 KB**; Archivo Expanded'ın ayrı aile değil `wdth=125` olduğu tespit edildi. Logo geldi (PNG, saf beyaz); header için 262×262 monogram kırpıldı, SVG hâlâ eksik. 15/73. |
