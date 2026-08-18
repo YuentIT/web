@@ -33,14 +33,15 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 
 ```
 Tarih          : 18.08.2026
-Aktif faz      : Faz 1 — Proje iskeleti
-Son biten      : F2-01 — koyu minimal renk paleti (SITE_PLAN §8.2)
-Aktif görev    : F1-10 (main dal koruması) — Mustafa'da 🔐
-Sıradaki       : F2-02 (fontları WOFF2'ye çevir) — logo beklemeden yapılabilir.
-                 F2-03/F2-04 onun ardından. Beyaz logo dosyası hâlâ gerekli.
+Aktif faz      : Faz 2 — Tasarım sistemi (Faz 1 bitti, 10/10)
+Son biten      : F2-02 — 5 WOFF2 fontu hazır (77 KB)
+Aktif görev    : F2-03 (next/font/local ile bağla), ardından F2-04 (token'lar)
+Logo           : public/logo/logo_white.png (1054×477, saf beyaz, şeffaf)
+                 + logo_white_mark.png (262×262 monogram, header için kırpıldı)
+                 Eksik: SVG sürümü ve yatay kilit. Ayrıntı F2-06 notunda.
 Kod durumu     : Next.js 16.3.1 + React 19.2.8 + Tailwind 4.3.3 + TS 5.9.3 kurulu.
                  build ✓  typecheck ✓  lint ✓  format:check ✓
-Depo           : github.com/YuentIT/web (public, main) — main henüz KORUMASIZ
+Depo           : github.com/YuentIT/web (public, main) — main korumalı ✓
 Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 ```
 
@@ -50,8 +51,8 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 - [x] Depo → **`YuentIT/web`**, public, ilk commit atıldı
 - [x] **Vercel hesabı aç** — Hobby, GitHub App `YuentIT`'e kuruldu, ilk dağıtım çıktı
 - [x] **Vercel hesabı kulüp adına** — doğrulandı (18.08.2026)
-- [ ] **`main` dalını koru** (F1-10) — GitHub → Settings → Rules → New ruleset:
-      force push ve dal silme yasak. Tek 🔐 iş bu; PR zorunluluğu Faz 8'e kadar açılmıyor
+- [x] **`main` dalını koru** (F1-10) — ruleset `main protection` aktif (18.08.2026)
+- [ ] **Logonun SVG sürümünü bul** — elimizde yalnızca PNG var. Ayrıntı F2-06'da.
 - [ ] Kulüp Google hesabında **paylaşılan Drive klasörü** (F0-04) — Faz 5'e kadar vakit var
 - [ ] **Bülten kararı** (F0-05): Seçenek A (bülten aracı, +1 hesap) veya
       Seçenek B (Google Groups, 0 hesap). Faz 6'ya kadar ertelenebilir.
@@ -67,8 +68,8 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 | Faz | Başlık | Görev | Durum |
 |---|---|---|---|
 | 0 | Hesaplar ve kararlar | 5 | 🟨 3/5 |
-| 1 | Proje iskeleti | 10 | 🟩 9/10 |
-| 2 | Tasarım sistemi | 8 | 🟨 1/8 |
+| 1 | Proje iskeleti | 10 | ✅ 10/10 |
+| 2 | Tasarım sistemi | 8 | 🟨 2/8 |
 | 3 | İçerik katmanı | 7 | ⬜ 0/7 |
 | 4 | Sayfalar | 15 | ⬜ 0/15 |
 | 5 | Formlar (Google Forms) | 7 | ⬜ 0/7 |
@@ -76,7 +77,7 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 | 7 | SEO, performans, erişilebilirlik | 9 | ⬜ 0/9 |
 | 8 | Yayına alma ve devir | 8 | ⬜ 0/8 |
 | 9 | Opsiyonel modüller | — | 🔒 kapalı |
-| | **Toplam** | **73** | **13/73** |
+| | **Toplam** | **73** | **15/73** |
 
 > v1'de 89 görev vardı. Veritabanı, e-posta servisi ve yönetim paneli kapsam dışına
 > çıkınca 17 görev düştü ve devredilecek servis sayısı 5'ten 3'e indi.
@@ -208,9 +209,13 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   **CSP bilerek yok:** gerçek bir politika ancak gömülü içerikler (harita, YouTube,
   Spotify) belli olunca yazılabilir. Faz 7'ye bırakıldı.
 
-- [ ] **F1-10** 🔐 **`main` dalını koru**
+- [x] **F1-10** 🔐 **`main` dalını koru** ✅ ruleset `main protection` aktif (18.08.2026)
   F0-02'den ayrıldı, çünkü GitHub var olmayan bir dalı koruyamıyor — `main`
   ancak ilk push'ta (F1-03) oluştu.
+
+  **Kurulan (API ile doğrulandı):** branch ruleset, `enforcement: active`,
+  hedef `~DEFAULT_BRANCH`, kurallar `deletion` + `non_fast_forward`,
+  **bypass listesi boş**. `branches/main` artık `protected: true`.
 
   **İki kademeli kuruluyor:**
 
@@ -238,10 +243,20 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
   `#D9A441`, zemin nötr siyah değil maviye çekilmiş mürekkep `#0A0D12`.
   Kontrast oranları AA'yı geçiyor (F7-08 için önden kontrol edildi).
 
-- [ ] **F2-02** **Yazı tiplerini hazırla**
+- [x] **F2-02** **Yazı tiplerini hazırla** ✅ 5 `.woff2`, **toplam 77 KB**
   `fonts/ArchivoExpanded-{Regular,Bold}.ttf` → WOFF2. Archivo (normal genişlik)
   Regular/Medium/SemiBold Google Fonts'tan indirilip çevrilir. Hepsi `public/fonts/`.
   *Bitti sayılır:* 5 `.woff2`, toplam < 200 KB.
+  **Archivo Expanded ayrı bir aile değil:** Google Fonts'ta Archivo yalnızca
+  `Archivo[wdth,wght].ttf` değişken fontu olarak var; `wdth` ekseni 62→125 ve
+  Expanded o eksenin **125** ucu. Elimizdeki statik Expanded TTF'ler de aynı
+  kaynağın v2.001 sürümü (834 glif, `usWidthClass 8`) — yani karışık kaynak yok.
+  Düz genişlikteki üç kesit `wdth=100` üzerinde `fontTools.varLib.instancer` ile
+  örneklendi; Expanded ikilisi elimizdeki TTF'lerden geldi.
+  **Altküme:** Latin-1 + Latin Extended-A + tipografik noktalama + para birimi
+  (₺ dahil). Fonetik ve ek Latin blokları atıldı → 834 glif 419'a indi.
+  Türkçe kapsam tek tek doğrulandı: ğĞıİşŞçÇöÖüÜâÂîÎûÛ ve ₺€—""… eksiksiz.
+  Üretim betiği tek seferlik; yeniden gerekirse `SITE_PLAN` §8.1'deki not yeterli.
 
 - [ ] **F2-03** **`next/font/local` ile bağla**
   **Google Fonts CDN linki kullanılmayacak.**
@@ -256,6 +271,22 @@ Canlı          : https://web-yuent.vercel.app (Vercel scope: yuent)
 - [ ] **F2-06** **`SiteHeader` + `MobileMenu`**
   İki açılır menü, sağda "Bize Katıl", scroll'da arka plan bulanıklığı.
   *Bitti sayılır:* Klavye ile gezilebiliyor, `Esc` menüyü kapatıyor, klavye tuzağı yok.
+
+  **Logo kısıtları — header yazılmadan önce okunmalı.** Elimizdeki
+  `public/logo/logo_white.png` (1054×477, saf `#FFFFFF`, şeffaf zemin) üç parçalı
+  dikey bir kilit: LG monogramı (satır 0–262), `YEDİTEPE ÜNİVERSİTESİ` (302–375),
+  `Liderlik ve Girişimcilik Kulübü` (410–476).
+
+  1. **Güvenli alan yok.** İçerik dört kenara da değiyor (bbox = tüm görsel).
+     Header'da, favicon'da ve OG görselinde boşluğu biz vereceğiz; dosyayı
+     olduğu gibi kenara yaslamak sıkışık görünür.
+  2. **Dikey kilit header'a girmez.** 32–48 px yüksekliğinde bir header'da üçüncü
+     satır ~9 px'e düşer, okunmaz. Bu yüzden monogram ayrı kırpıldı:
+     `logo_white_mark.png`, tam **262×262 kare**. Header'da bu kullanılacak,
+     yanına metinle kulüp adı yazılacak.
+  3. **SVG yok.** PNG 1054 px; header için fazlasıyla yeterli ama CSS ile
+     renklendirilemiyor ve sponsorluk PDF'i gibi büyük kullanımlarda yetmez.
+     Mustafa'dan SVG isteniyor; gelene kadar PNG ile ilerlenebilir.
 
 - [ ] **F2-07** **`SiteFooter`**
   İletişim, kısayollar, sosyal hesaplar, bülten formu (Faz 6'da bağlanacak), hukuki linkler.
@@ -534,6 +565,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 18.08.2026 | **Faz 1 bitti (10/10).** F1-10: `main protection` ruleset aktif, bypass listesi boş. shadcn tabanı Mustafa'nın kararıyla Radix'ten **Base UI**'a çevrildi (`@base-ui/react` 1.7.0); `asChild` yok, `render` var. **F2-01:** koyu minimal palet — marka rengi beyazın kendisi, aksan safran `#D9A441`, zemin `#0A0D12`. **F2-02:** 5 WOFF2, toplam **77 KB**; Archivo Expanded'ın ayrı aile değil `wdth=125` olduğu tespit edildi. Logo geldi (PNG, saf beyaz); header için 262×262 monogram kırpıldı, SVG hâlâ eksik. 15/73. |
 | 18.08.2026 | **F0-03, F1-06, F1-07 tamamlandı.** Vercel hesabının kulüp adına olduğu doğrulandı. Klasör iskeleti §9'a göre kuruldu; `globals.css` `src/app/` → `src/styles/` taşındı. shadcn/ui **Radix tabanıyla** kuruldu (`-b radix -p nova`), 6 bileşen eklendi. §9'daki `page.tsx` dosyaları bilerek oluşturulmadı — boş `page.tsx` derlemeyi kırar, sahibi Faz 4. Next demo ana sayfası geçici yer tutucuyla değiştirildi, `lang="tr"` düzeltildi. Faz 1'de yalnızca F1-10 kaldı. 12/73. |
 | 18.08.2026 | **F1-04, F1-05, F1-09 tamamlandı.** Vercel GitHub App `YuentIT` org'una kuruldu, proje import edildi, üretim dağıtımı başarılı → `web-yuent.vercel.app`. Hobby'de Deployment Protection tüm `.vercel.app` adreslerini SSO arkasına aldığı ve "Only Preview Deployments" Pro'ya ait olduğu için koruma kapatıldı. Prettier + `prettier-plugin-tailwindcss` kuruldu (markdown hariç). Güvenlik başlıkları + `poweredByHeader: false` eklendi. F0-03 `[~]`: dağıtım çalışıyor ama hesabın kulüp adına olduğu doğrulanmadı. 9/73. |
 | 17.08.2026 | **F0-01, F0-02, F1-01, F1-02, F1-03, F1-08 tamamlandı.** Org `YuentIT`, depo `YuentIT/web` (public), ilk commit `253893c` push edildi. Next 16.3.1 / React 19.2.8 / Tailwind 4.3.3 / TS 5.9.3, sürümler sabit. F1-10 (dal koruması) eklendi — `main` ancak ilk push'ta oluştuğu için F0-02'den ayrıldı. 73 görev. |

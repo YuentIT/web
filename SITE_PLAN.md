@@ -289,6 +289,25 @@ Keystatic'ten kod bilmeden düzenlenebilir.
 Hepsi WOFF2'ye çevrilip `next/font/local` ile self-host edilecek.
 **Google Fonts CDN linki kullanılmayacak.**
 
+**Archivo Expanded ayrı bir aile değil.** Google Fonts'ta Archivo tek bir değişken
+font olarak yayınlanıyor: `Archivo[wdth,wght].ttf`, `wdth` ekseni 62→125,
+`wght` ekseni 100→900. "Expanded" dediğimiz şey `wdth=125`. Yeni bir kesit
+gerekirse (ör. Archivo Bold) aynı dosyadan `fontTools.varLib.instancer` ile
+örneklenir — başka yerden font indirmeye gerek yok.
+
+Üretilen dosyalar (`public/fonts/`, toplam **77 KB**):
+
+| Dosya | Kaynak |
+|---|---|
+| `Archivo-Regular.woff2` | değişken font, `wdth=100 wght=400` |
+| `Archivo-Medium.woff2` | değişken font, `wdth=100 wght=500` |
+| `Archivo-SemiBold.woff2` | değişken font, `wdth=100 wght=600` |
+| `ArchivoExpanded-Regular.woff2` | `fonts/ArchivoExpanded-Regular.ttf` |
+| `ArchivoExpanded-Bold.woff2` | `fonts/ArchivoExpanded-Bold.ttf` |
+
+Altküme Latin-1 + Latin Extended-A + tipografik noktalama + para birimi (₺ dahil);
+834 glif 419'a indi. Türkçe kapsam eksiksiz.
+
 ### 8.2 Renk
 
 **Yön (18.08.2026 kararı):** Site koyu ve minimal. Logo renkli değil, **beyaz
