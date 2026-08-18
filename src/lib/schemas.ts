@@ -61,7 +61,8 @@ export const siteSchema = z.object({
   universite: dolu,
   aciklama: dolu,
   eposta: z.email(),
-  telefon: z.string().optional(),
+  /** §7 "telefonlar" diyor ve sitede gerçekten iki numara var. */
+  telefonlar: z.array(dolu).default([]),
   adres: z.string().optional(),
   /** Kanonik adres — F7-06 bunu tek biçim olarak kullanacak. */
   siteUrl: httpsUrl,
