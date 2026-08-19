@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
+import { KaydirmaIpucu } from "@/components/atmosfer/kaydirma-ipucu";
 import { Container } from "@/components/layout/container";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -151,13 +152,7 @@ export function Hero({
         </div>
       </Container>
 
-      <p
-        data-yuent-bob
-        aria-hidden="true"
-        className="relative pb-7 text-center text-[0.6rem] tracking-[0.18em] text-text-subtle uppercase motion-safe:animate-[yuent-bob_2.6s_ease-in-out_infinite]"
-      >
-        ↓ Aşağı kaydır
-      </p>
+      <KaydirmaIpucu className="relative pb-7" />
 
       {serit}
     </section>

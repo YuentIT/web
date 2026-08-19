@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { ElFeneri } from "@/components/atmosfer/el-feneri";
 import { IzgaraKatmani } from "@/components/atmosfer/izgara-katmani";
+import { KaydirmaIpucu } from "@/components/atmosfer/kaydirma-ipucu";
 import { Degerler } from "@/components/hakkimizda/degerler";
 import { RoketSayilar } from "@/components/hakkimizda/roket-sayilar";
 import { AlintiBandi } from "@/components/icerik/alinti-bandi";
@@ -80,6 +81,10 @@ export default async function HakkimizdaSayfasi() {
                 {hakkimizda.slogan}
               </p>
             ) : null}
+
+            {/* Mutlak konum: bölüm `justify-center` olduğu için ipucu akışta
+                dursaydı başlığı yukarı iter ve ortalama bozulurdu. */}
+            <KaydirmaIpucu className="absolute inset-x-0 bottom-8" />
           </section>
         </div>
 
