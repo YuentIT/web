@@ -532,7 +532,23 @@ MUSTAFA'DAN BEKLENENLER (hiçbiri Faz 4'ü bloke etmiyor):
   durumu göstermiyor; kapak görseli yoksa **stok fotoğraf konmuyor**, başlığın
   baş harflerinden tipografik alan çiziliyor.
 
-- [ ] **F4-02** **`/hakkimizda`**
+- [x] **F4-02** **`/hakkimizda`** ✅ canlıda
+  Akış: tam ekran "Biz Kimiz" + "Dünyayı değiştiren eylemler" girişi → hikâye →
+  misyon/vizyon → Emil Motycka alıntısı → roket ve dumandan doğan sayılar →
+  değerlerimiz → ekibimiz ve katıl butonları.
+  Roket bölümü kaydırmaya bağlı: tek bir `--yuent-roket` (0→1) değeri roketin
+  konumunu, dumanın uzunluğunu ve sayıların açılma eşiklerini sürüyor. Roket
+  ekranın bir ucundan girip diğerinden çıkıyor. `prefers-reduced-motion` ve
+  JS'siz durumda sayılar açık geliyor — bilgi hareketin arkasına saklanmıyor.
+  Değerlerimiz düzeni `itugirisim.org/about`tan; renkler bizim paletimizden.
+  **Metinler taslak** — Mustafa revize edecek: dört değerin başlık ve
+  açıklamaları (kulübün kendi hikâye/misyon metninden türetildi, uydurulmadı).
+  **Not:** buradaki `istatistikler` (2000+ üye, 35+ yıllık etkinlik, 150+
+  konuşmacı, 100+ sponsor) ana sayfadaki `sayilarlaBiz`den kasıtlı olarak ayrı;
+  farklı şeyler sayıyorlar ve ayrı alanlarda duruyorlar (19.08.2026 kararı).
+  Yanında paylaşılan bileşenler çıktı: `atmosfer/` (el feneri, ızgara katmanı,
+  ışık huzmeleri, kaydırma ipucu) ve `icerik/alinti-bandi.tsx`. Ana sayfa da
+  bunları kullanıyor.
 
 - [ ] **F4-03** **`/ekibimiz`** — güncel dönem, gruplara ayrılmış kartlar.
 
@@ -799,6 +815,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 19.08.2026 | **F4-02 `/hakkimizda` tamamlandı.** Ayrıntı görevin altında. Yol üstünde ortak `atmosfer/` bileşenleri çıkarıldı (el feneri, ızgara, ışık huzmeleri, kaydırma ipucu) ve alıntı bandı paylaşıldı; ana sayfa da onları kullanıyor. `PageHeader`'ın h1'i büyük harfe geçti — iç sayfalar ana sayfayla aynı dili konuşsun diye kural tek yerde. Sayfa metadata'sı `generateMetadata` ile içerikten okunuyor (F7-01 geçene kadarki ara çözüm). Şemaya `hakkimizda.baslik/slogan/degerler` ve kapalı bir ikon listesi eklendi: içerikte karşılığı olmayan ikon adı yazılırsa sayfa ikonsuz çıkmıyor, derleme duruyor. 24/73. |
 | 19.08.2026 | **Ana sayfa yeniden tasarlandı (F4-01 v2) ve görsel dil değişti.** Yön: editoryal brutalist; aksan safran `#D9A441` → **asit sarısı `#E8FE55`**, birincil buton beyaz yerine asit (SITE_PLAN §8.2 güncellendi). Akış: tam ekran hero → misyon/vizyon → sayılarla biz → yatay etkinlik rayı → alıntı → bize katıl. Sayfanın omurgası **tek ızgara katmanı**: hero'da tam güçte, hem maskeyle kesilerek hem kaydırmayla opaklığı düşerek etkinlikler bitmeden yok oluyor; alıntı ve kapanış ızgarasız, iki ışık huzmesinin altında. İmleci takip eden el feneri sayfanın tamamında. `motion` **kurulmadı** — tasarımdaki hiçbir efekt ona ihtiyaç duymuyor, gerekçe SITE_PLAN §4'te. **Yan düzeltme:** `<Button render={<Link/>}>` kalıbı Base UI'da `<a>`ya `role="button"` ekletip bağlantıyı ekran okuyucuda "buton" diye okutuyordu; header, mobil menü ve hero'daki 5 çağrı `buttonVariants` ile stillenmiş `Link`e çevrildi. İçerik: `anasayfa.json`a `alinti` + `katil` eklendi, hero başlığı satır kırılımı (`\n`) ve `vurgu` alanı kazandı. |
 | 18.08.2026 | **F3-01, F3-02 tamamlandı.** zod 4.4.3 + gray-matter 4.0.3. Şemalar `src/lib/schemas.ts`, okuyucular `src/lib/content.ts` (plan ikisini aynı dosyada öngörüyordu; `fs` istemci paketine sızmasın diye ayrıldı). Tipler `z.infer` ile türetiliyor, elle yazılmıyor. Bozuk içeriğin `next build`'i durdurduğu bilfiil denenerek kanıtlandı. Okuyucular şemanın göremediği çapraz tutarlılığı da denetliyor (öne çıkan slug var mı, dönem slug'ı dosya adıyla aynı mı, tek güncel dönem var mı, albümün etkinliği var mı). Geçici ana sayfa `getSite()`'ı çağırıyor, zincir gerçekten kurulu. 22/73. |
 | 18.08.2026 | **F2-05, F2-06, F2-08 tamamlandı.** Tipografi ölçeği `@theme`'e, `.prose` elle yazıldı (`@tailwindcss/typography` kurulmadı — açık tema için ayarlı, tek temalı sitede çoğu geri ezilir). `Container`/`Section`/`PageHeader` ilkelleri. `SiteHeader` + `MobileMenu` + atlama bağlantısı; menü tek kaynaktan `src/lib/navigation.ts`. **Bilinen eksik:** Base UI açılır menü içeriğini portalda geç bastığı için alt rotalar ilk HTML'de yok — JS'siz erişilebilirlik ve taranabilirlik için F2-07 footer'ı bunları düz `<a>` olarak listelemeli. F2-07 zaten F3-01'i (`site.json`) bekliyor. 20/73. |
