@@ -784,6 +784,23 @@
     filter: blur(0);
   }
 
+  /* Ekip sayfasındaki sekmelerin kayan göstergesi (F4-03).
+     Konumu Base UI `Tabs.Indicator` veriyor; burada yalnızca görünüm ve
+     kayma süresi var. Genişlik ve sol kenar birlikte geçişlendiği için tuş
+     kaymakla kalmıyor, hedef sekmenin boyuna da uyuyor. */
+  .yuent-sekme-gostergesi {
+    position: absolute;
+    top: 0.25rem;
+    bottom: 0.25rem;
+    left: var(--active-tab-left);
+    width: var(--active-tab-width);
+    border-radius: 999px;
+    background: var(--brand-accent);
+    transition:
+      left 350ms cubic-bezier(0.16, 1, 0.3, 1),
+      width 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   /* Çerçevesiz bağlantının hover'da parlaması. */
   .yuent-parla {
     transition:
@@ -951,6 +968,10 @@
   /* Roket uçuşu durur; sayılar `roket-sayilar.tsx` tarafından açık bırakılıyor,
      burada geçişi de kapatıyoruz ki hiçbir şey kıpırdamasın. */
   .yuent-roket-sayi {
+    transition: none !important;
+  }
+  /* Sekme göstergesi kaymadan doğrudan hedefte beliriyor. */
+  .yuent-sekme-gostergesi {
     transition: none !important;
   }
 }

@@ -550,10 +550,21 @@ MUSTAFA'DAN BEKLENENLER (hiçbiri Faz 4'ü bloke etmiyor):
   ışık huzmeleri, kaydırma ipucu) ve `icerik/alinti-bandi.tsx`. Ana sayfa da
   bunları kullanıyor.
 
-- [ ] **F4-03** **`/ekibimiz`** — güncel dönem, gruplara ayrılmış kartlar.
+- [x] **F4-03** **`/ekibimiz`** ✅ canlıda — güncel dönem, gruplara ayrılmış kartlar.
 
-- [ ] **F4-04** **`/ekibimiz/[donem]`** — dönem seçici + arşiv, `generateStaticParams`.
-  *Bitti sayılır:* 2020-2021'e kadar tüm dönemler açılıyor.
+- [x] **F4-04** **`/ekibimiz/[donem]`** ✅ canlıda — dönem seçici + arşiv, `generateStaticParams`.
+  *Bitti sayılır:* 2020-2021'e kadar tüm dönemler açılıyor. ✅ üçü de üretiliyor.
+
+  **Uygulama notları (19.08.2026):** İki sayfa da `EkipListesi`yi kullanıyor.
+  Güncel dönem `generateStaticParams`a **girmiyor** — kanonik adresi `/ekibimiz`;
+  `/ekibimiz/2025-2026` elle yazılırsa 307 ile oraya yönlendiriliyor (denendi).
+  Sekmeler Base UI `Tabs` üzerine kurulu, kayan gösterge `Tabs.Indicator`ın
+  `--active-tab-left/width` değişkenlerinden. Paneller `keepMounted`, yanlarında
+  bir `<noscript>` stili `hidden`ı geri alıyor: JS kapalıyken sekme çalışamadığı
+  için iki liste alt alta okunuyor — kabul kriteri ancak böyle sağlanıyor.
+  Fotoğraf yok (F3-04 açık): 77 kişinin hepsi baş harflerden tipografik kartla
+  çiziliyor, stok fotoğraf konmadı. `fotograf` alanı dolunca kart değişmeden
+  görsele geçiyor.
 
   **Ekip sayfası düzeni (Mustafa, 18.08.2026) — F4-03 ve F4-04 aynı düzeni kullanır:**
 
@@ -815,6 +826,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 19.08.2026 | **F4-03 ve F4-04 tamamlandı.** `/ekibimiz` güncel dönemi, `/ekibimiz/[donem]` arşivi gösteriyor; ikisi de aynı `EkipListesi`yi kullanıyor. Yönetim kurulu dizilimi plandaki gibi (başkan tek, altında yardımcı + genel sekreter, altında üyeler), koordinatörler departmana göre gruplu. Geçiş tuşu koşullu: 2025-2026'da koordinatör olmadığı için hiç çizilmiyor. Güncel dönem `generateStaticParams`a girmiyor, `/ekibimiz/2025-2026` 307 ile `/ekibimiz`e gidiyor — aynı ekip iki adreste yayınlanmıyor. **Erişilebilirlik:** sekmeli düzen JS'siz tarayıcıda ikinci listeyi gizliyordu; paneller `keepMounted` yapıldı ve bir `<noscript>` stili gizlemeyi geri alıyor. 26/73. |
 | 19.08.2026 | **F4-02 `/hakkimizda` tamamlandı.** Ayrıntı görevin altında. Yol üstünde ortak `atmosfer/` bileşenleri çıkarıldı (el feneri, ızgara, ışık huzmeleri, kaydırma ipucu) ve alıntı bandı paylaşıldı; ana sayfa da onları kullanıyor. `PageHeader`'ın h1'i büyük harfe geçti — iç sayfalar ana sayfayla aynı dili konuşsun diye kural tek yerde. Sayfa metadata'sı `generateMetadata` ile içerikten okunuyor (F7-01 geçene kadarki ara çözüm). Şemaya `hakkimizda.baslik/slogan/degerler` ve kapalı bir ikon listesi eklendi: içerikte karşılığı olmayan ikon adı yazılırsa sayfa ikonsuz çıkmıyor, derleme duruyor. 24/73. |
 | 19.08.2026 | **Ana sayfa yeniden tasarlandı (F4-01 v2) ve görsel dil değişti.** Yön: editoryal brutalist; aksan safran `#D9A441` → **asit sarısı `#E8FE55`**, birincil buton beyaz yerine asit (SITE_PLAN §8.2 güncellendi). Akış: tam ekran hero → misyon/vizyon → sayılarla biz → yatay etkinlik rayı → alıntı → bize katıl. Sayfanın omurgası **tek ızgara katmanı**: hero'da tam güçte, hem maskeyle kesilerek hem kaydırmayla opaklığı düşerek etkinlikler bitmeden yok oluyor; alıntı ve kapanış ızgarasız, iki ışık huzmesinin altında. İmleci takip eden el feneri sayfanın tamamında. `motion` **kurulmadı** — tasarımdaki hiçbir efekt ona ihtiyaç duymuyor, gerekçe SITE_PLAN §4'te. **Yan düzeltme:** `<Button render={<Link/>}>` kalıbı Base UI'da `<a>`ya `role="button"` ekletip bağlantıyı ekran okuyucuda "buton" diye okutuyordu; header, mobil menü ve hero'daki 5 çağrı `buttonVariants` ile stillenmiş `Link`e çevrildi. İçerik: `anasayfa.json`a `alinti` + `katil` eklendi, hero başlığı satır kırılımı (`\n`) ve `vurgu` alanı kazandı. |
 | 18.08.2026 | **F3-01, F3-02 tamamlandı.** zod 4.4.3 + gray-matter 4.0.3. Şemalar `src/lib/schemas.ts`, okuyucular `src/lib/content.ts` (plan ikisini aynı dosyada öngörüyordu; `fs` istemci paketine sızmasın diye ayrıldı). Tipler `z.infer` ile türetiliyor, elle yazılmıyor. Bozuk içeriğin `next build`'i durdurduğu bilfiil denenerek kanıtlandı. Okuyucular şemanın göremediği çapraz tutarlılığı da denetliyor (öne çıkan slug var mı, dönem slug'ı dosya adıyla aynı mı, tek güncel dönem var mı, albümün etkinliği var mı). Geçici ana sayfa `getSite()`'ı çağırıyor, zincir gerçekten kurulu. 22/73. |
