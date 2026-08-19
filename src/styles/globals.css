@@ -683,7 +683,11 @@
     transform: translateY(0);
   }
 
-  /* İkincil çağrı: dolgu yok, kenar ve yazı aksana dönüyor. */
+  /* İkincil çağrı: dolgu yok, kenar ve yazı aksana dönüyor.
+     Renkleri **bilerek** buraya yazmıyoruz — bu kural `components` katmanında
+     ve Tailwind'in `hover:text-*` yardımcıları `utilities` katmanında olduğu
+     için her zaman onlar kazanır. Burada yalnızca geçiş süreleri ve kalkma
+     var; renk `hero.tsx`teki `hover:` sınıflarından geliyor. */
   .yuent-cta-outline {
     transition:
       color 300ms ease,
@@ -692,8 +696,6 @@
   }
   .yuent-cta-outline:is(:hover, :focus-visible) {
     transform: translateY(-3px);
-    border-color: var(--brand-accent);
-    color: var(--brand-accent);
   }
 
   /* Çerçevesiz bağlantının hover'da parlaması. */

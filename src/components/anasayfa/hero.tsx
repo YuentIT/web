@@ -131,12 +131,18 @@ export function Hero({
           </Link>
 
           {hero.ikincilCta ? (
+            // Bilerek `buttonVariants({variant:"outline"})` kullanılmıyor:
+            // o varyantın `hover:text-foreground` ve `dark:border-input`
+            // sınıfları Tailwind'in *utilities* katmanında, `.yuent-cta-outline`
+            // ise *components* katmanında. Utilities her zaman kazandığı için
+            // aksana dönme hiç uygulanmıyordu. Renk bu yüzden burada, yalnızca
+            // kalkma hareketi sınıfta.
             <Link
               href={hero.ikincilCta.href}
               className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
+                "yuent-cta-outline inline-flex shrink-0 items-center justify-center gap-1.5 border border-border-strong whitespace-nowrap text-text-muted outline-none select-none",
+                "hover:border-brand-accent hover:text-brand-accent focus-visible:border-brand-accent focus-visible:text-brand-accent focus-visible:ring-3 focus-visible:ring-ring/50",
                 CTA_SINIFI,
-                "yuent-cta-outline rounded-none border-border-strong bg-transparent hover:bg-transparent dark:bg-transparent dark:hover:bg-transparent",
               )}
             >
               {hero.ikincilCta.metin}
