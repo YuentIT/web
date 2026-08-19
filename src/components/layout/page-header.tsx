@@ -30,7 +30,12 @@ export function PageHeader({
         <p className="text-eyebrow text-brand-accent uppercase">{eyebrow}</p>
       ) : null}
 
-      <h1 className="text-title text-balance">{title}</h1>
+      {/* Büyük harf ve sıkı harf aralığı: 19.08.2026'daki editoryal brutalist
+          yönde ana sayfanın h1'i de böyle. İç sayfalar aynı dili konuşsun diye
+          kural burada, tek yerde duruyor. */}
+      <h1 className="text-title tracking-[-0.03em] text-balance uppercase">
+        {title}
+      </h1>
 
       {description ? (
         <p className="max-w-[55ch] text-lead text-text-muted">{description}</p>

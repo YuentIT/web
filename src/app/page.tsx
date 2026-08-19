@@ -1,11 +1,11 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-import { ElFeneri } from "@/components/anasayfa/el-feneri";
+import { ElFeneri } from "@/components/atmosfer/el-feneri";
 import { EtkinlikIzgarasi } from "@/components/anasayfa/etkinlik-izgarasi";
 import { Hero } from "@/components/anasayfa/hero";
 import { IsikBolgesi } from "@/components/anasayfa/isik-bolgesi";
-import { IzgaraKatmani } from "@/components/anasayfa/izgara-katmani";
+import { IzgaraKatmani } from "@/components/atmosfer/izgara-katmani";
 import { KayanSerit } from "@/components/anasayfa/kayan-serit";
 import { Container } from "@/components/layout/container";
 import { getAnasayfa, getEtkinlikler, getHakkimizda } from "@/lib/content";
