@@ -24,9 +24,12 @@ export function IsikBolgesi({
 
   return (
     <div className="relative overflow-hidden">
+      {/* `top-30` (7.5rem) alıntı metninin hizası: bölüm `pt-24` + üst çizgi +
+          blockquote'un `my-7` üst boşluğu ≈ 125 px. Huzmeler bu yüzden
+          alıntının üstünde başlamıyor, tam onun hizasından iniyor. */}
       <div
         aria-hidden="true"
-        className="yuent-shafts pointer-events-none absolute inset-0"
+        className="yuent-shafts pointer-events-none absolute inset-x-0 top-30 bottom-0"
       >
         <span className="yuent-shaft yuent-shaft-l" />
         <span className="yuent-shaft yuent-shaft-r" />

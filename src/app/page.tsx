@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { ElFeneri } from "@/components/anasayfa/el-feneri";
-import { EtkinlikRayi } from "@/components/anasayfa/etkinlik-rayi";
+import { EtkinlikIzgarasi } from "@/components/anasayfa/etkinlik-izgarasi";
 import { Hero } from "@/components/anasayfa/hero";
 import { IsikBolgesi } from "@/components/anasayfa/isik-bolgesi";
 import { IzgaraKatmani } from "@/components/anasayfa/izgara-katmani";
@@ -22,10 +22,10 @@ import { getAnasayfa, getEtkinlikler, getHakkimizda } from "@/lib/content";
  * kendi ışık huzmelerinin altında duruyor — bölüm değişimi böylece ani bir
  * kesme değil, ışığın el değiştirmesi oluyor.
  *
- * Ray **tüm** etkinlikleri gösteriyor, `oneCikanEtkinlikler`i değil: kartlar
- * yatayda kaydırılabildiği için üçle sınırlamanın bir karşılığı kalmadı.
- * Alan `content/anasayfa.json`da duruyor, `/etkinlikler` sayfası (F5) onu
- * kullanacak.
+ * Izgara **tüm** etkinlikleri gösteriyor, `oneCikanEtkinlikler`i değil: bento
+ * düzeni hepsini bir arada taşıyabildiği için üçle sınırlamanın karşılığı
+ * kalmadı. Alan `content/anasayfa.json`da duruyor, `/etkinlikler` sayfası (F5)
+ * onu kullanacak.
  *
  * Tüm metin `content/` altından geliyor; bu dosyada hiçbir içerik gömülü değil.
  */
@@ -36,9 +36,9 @@ export default async function Home() {
     getEtkinlikler(),
   ]);
 
-  // MDX gövdesi istemci bileşenine serileşmesin diye rayın ihtiyacı olan
-  // alanlara indirgeniyor.
-  const rayKartlari = etkinlikler.map((e) => ({
+  // Kartın göstermediği MDX gövdesini taşımamak için ihtiyaç duyulan alanlara
+  // indirgeniyor.
+  const etkinlikKartlari = etkinlikler.map((e) => ({
     slug: e.slug,
     baslik: e.baslik,
     kisaAciklama: e.kisaAciklama,
@@ -116,26 +116,24 @@ export default async function Home() {
               </section>
             ) : null}
 
-            {/* Etkinlik rayı */}
+            {/* Etkinlikler */}
             <section className="pt-20 pb-24 sm:pt-24 sm:pb-28">
               <Container size="wide">
-                <div className="mb-7 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-4">
-                  <h2 className="font-heading text-[clamp(1.5rem,3.4vw,2.375rem)] leading-none font-bold tracking-[-0.03em] uppercase">
+                <div className="mb-10 flex flex-col items-center text-center">
+                  <h2 className="font-heading text-[clamp(1.75rem,4vw,3rem)] leading-none font-bold tracking-[-0.03em] uppercase">
                     Etkinliklerimiz
                   </h2>
 
                   <Link
                     href="/etkinlikler"
-                    className="inline-flex items-center gap-1.5 border border-brand-accent/35 px-3.5 py-2 text-[0.6875rem] tracking-[0.12em] text-brand-accent uppercase transition-colors hover:bg-brand-accent hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                    className="yuent-parla mt-4 inline-flex items-center gap-1.5 rounded text-[0.6875rem] tracking-[0.14em] text-brand-accent uppercase focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                   >
                     Tümünü gör
                     <ArrowRight className="size-3.5" aria-hidden="true" />
                   </Link>
                 </div>
-              </Container>
 
-              <Container size="wide">
-                <EtkinlikRayi etkinlikler={rayKartlari} />
+                <EtkinlikIzgarasi etkinlikler={etkinlikKartlari} />
               </Container>
             </section>
           </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import type { Anasayfa } from "@/types";
 
 /**
@@ -119,7 +120,11 @@ export function Hero({
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <Link
             href={hero.birincilCta.href}
-            className={buttonVariants({ size: "lg", className: CTA_SINIFI })}
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              CTA_SINIFI,
+              "yuent-cta rounded-none hover:bg-primary",
+            )}
           >
             {hero.birincilCta.metin}
             <ArrowRight className="size-4" aria-hidden="true" />
@@ -128,11 +133,11 @@ export function Hero({
           {hero.ikincilCta ? (
             <Link
               href={hero.ikincilCta.href}
-              className={buttonVariants({
-                variant: "outline",
-                size: "lg",
-                className: CTA_SINIFI,
-              })}
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }),
+                CTA_SINIFI,
+                "yuent-cta-outline rounded-none border-border-strong bg-transparent hover:bg-transparent dark:bg-transparent dark:hover:bg-transparent",
+              )}
             >
               {hero.ikincilCta.metin}
             </Link>
