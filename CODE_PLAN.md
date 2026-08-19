@@ -32,30 +32,53 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ## ŞU AN NEREDEYİZ
 
 ```
-Tarih          : 18.08.2026
+Tarih          : 19.08.2026 (seans sonu)
 Aktif faz      : Faz 4 — Sayfalar (Faz 1, 2, 3 bitti; Faz 3'te F3-03/F3-04 içerik bekliyor)
-Son biten      : F4-01 — ana sayfa canlıda
-Sıradaki       : F4-02 (/hakkimizda) → F4-03 + F4-04 (ekip sayfaları, geçiş tuşlu)
-                 Sonra F4-05/F4-06 (etkinlikler), F4-11 (iletişim), F4-15 (404).
+Son biten      : F4-03 + F4-04 — /ekibimiz ve /ekibimiz/[donem] canlıda
+Sıradaki       : F4-05 (/etkinlikler — kategori filtresi + arama, filtre URL'ye yazılır)
+                 → F4-06 (/etkinlikler/[slug]). İçerik hazır: 4 etkinlik, kapak
+                 görselleri ve MDX gövdeleriyle. Sonra F4-11 (iletişim), F4-15 (404).
 
-Canlı          : https://web-yuent.vercel.app  ← ana sayfa artık gerçek içerik
+⚠️ YARIN İLK İŞ — Mustafa şimdiye kadarki TÜM sayfaları baştan inceleyecek
+   (/ , /hakkimizda, /ekibimiz, /ekibimiz/[donem]). Yeni sayfa yazmadan önce
+   bu incelemenin geri bildirimi alınacak; düzeltmeler yeni sayfalardan önce
+   gelir. 19.08 kararı: her sayfa önce ana sayfaya benzer bir ilk sürüm olarak
+   çıkıyor, deseni ve yerleşimi Mustafa üstünde şekillendiriyor.
+
+Canlı          : https://web-yuent.vercel.app
 Depo           : github.com/YuentIT/web (public, main korumalı ✓)
 Kod durumu     : Next 16.3.1 · React 19.2.8 · Tailwind 4.3.3 · TS 5.9.3
                  shadcn/ui **Base UI** tabanı · MDX · zod içerik doğrulama
                  build ✓  typecheck ✓  lint ✓  format:check ✓
 
+GÖRSEL YÖN DEĞİŞTİ (19.08.2026) — ayrıntı SITE_PLAN §4 ve §8.2:
+  Editoryal brutalist. Aksan safran #D9A441 → asit sarısı #E8FE55; birincil
+  buton beyaz yerine asit. Hareketin tamamı saf CSS, `motion` kurulmadı.
+  Ortak atmosfer bileşenleri: src/components/atmosfer/ (el feneri, ızgara
+  katmanı, ışık huzmeleri, kaydırma ipucu).
+
+Açılan rotalar : /  /hakkimizda  /ekibimiz  /ekibimiz/[donem]
 Hâlâ 404 veren rotalar (Faz 4 boyunca açılacak):
-  /hakkimizda /ekibimiz /etkinlikler /egitimler /galeri /blog
-  /sponsorluk /katil /basvuru /iletisim /oneri /kvkk /gizlilik
-  /kullanim-kosullari
+  /etkinlikler /egitimler /galeri /blog /sponsorluk /katil /basvuru
+  /iletisim /oneri /kvkk /gizlilik /kullanim-kosullari
   Header ve footer bağlantıları hazır, hedefleri yazıldıkça açılacak.
 
 MUSTAFA'DAN BEKLENENLER (hiçbiri Faz 4'ü bloke etmiyor):
+  · TÜM SAYFALARIN İNCELEMESİ ← yarının ilk işi
+  · /hakkimizda "Değerlerimiz" metinleri TASLAK — dört değer kulübün kendi
+    hikâye/misyon metninden türetildi, uydurulmadı; onay bekliyor
   · Ana sayfa taslak metinlerinin revizyonu (content/anasayfa.json)
   · Yeni konsepte göre etkinlik listesi (4 etkinlik şu an Wix'ten geldi)
   · Galeri görselleri → public/gorseller/galeri/ (düz liste, klasörsüz)
-  · Ekip fotoğrafları — şimdilik baş harf kartı kullanılacak, karar verildi
+  · Ekip fotoğrafları — şimdilik baş harf kartı kullanılıyor, karar verildi
   · Logonun gerçek SVG'si — gelen dosya boş çıktı, PNG ile devam ediliyor
+
+BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (yarın konuşulacak, acil değil):
+  · Ana sayfadaki `sayilarlaBiz` (4/9/4) ile /hakkimizda'daki `istatistikler`
+    (2000+/35+/150+/100+) farklı şeyleri sayıyor. Mustafa "önemli değil" dedi,
+    yan yana görülünce tuhaf gelirse ana sayfadakiler değiştirilebilir.
+  · /hakkimizda'daki hikâye bölümü akış tarifinde yoktu ama duruyor: kulübün
+    kendi anlatısı sitede başka hiçbir yerde yok. Mustafa "kalsın" dedi.
 ```
 
 
