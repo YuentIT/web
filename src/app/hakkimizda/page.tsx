@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ElFeneri } from "@/components/atmosfer/el-feneri";
-import { IsikHuzmeleri } from "@/components/atmosfer/isik-huzmeleri";
 import { IzgaraKatmani } from "@/components/atmosfer/izgara-katmani";
 import { Degerler } from "@/components/hakkimizda/degerler";
 import { RoketSayilar } from "@/components/hakkimizda/roket-sayilar";
@@ -39,8 +38,9 @@ const KOPRU_SINIFI =
  * roket ve dumandan doğan sayılar → değerlerimiz → ekibimiz ve katıl butonları.
  *
  * Ana sayfanın görsel dili sürüyor ama kısılmış: ızgara yalnızca giriş
- * ekranının arkasında, ışık huzmeleri yalnızca alıntı bandında. Uzun metnin
- * arkasında sürekli hareket bilerek yok.
+ * ekranının arkasında duruyor ve içerik başlamadan sönüyor, ışık huzmeleri hiç
+ * yok (19.08.2026 kararı — alıntı bandından kaldırıldı). Uzun metnin arkasında
+ * sürekli hareket bilerek yok; sayfadaki tek süregelen hareket el feneri.
  *
  * **Hikâye bölümü akış tarifinde geçmiyordu ama duruyor:** kulübün kendi
  * anlatısı sitede başka hiçbir yerde yok, düşürülürse Wix'ten taşınan metin
@@ -86,7 +86,11 @@ export default async function HakkimizdaSayfasi() {
         {/* Hikâye */}
         <section className="pt-4 pb-20 sm:pb-24">
           <Container size="wide">
-            <div className="prose mx-auto">
+            {/* İki yana yaslı — Word'deki "İki Yana Yasla" ile aynı.
+                `hyphens-auto` şart: yaslama tek başına Türkçe gibi uzun
+                kelimeli bir dilde satır içinde büyük boşluklar açıyor,
+                heceleme onları kapatıyor. Dil `<html lang="tr">`den geliyor. */}
+            <div className="prose mx-auto text-justify hyphens-auto">
               {paragraflar.map((p) => (
                 <p key={p.slice(0, 32)}>{p}</p>
               ))}
@@ -127,23 +131,21 @@ export default async function HakkimizdaSayfasi() {
           </Container>
         </section>
 
-        {/* Alıntı — huzmelerin altında, havuz yok çünkü altında buton yok */}
+        {/* Alıntı — ışık huzmeleri kaldırıldı (19.08.2026), düz zeminde */}
         {alinti ? (
-          <div className="relative overflow-hidden">
-            <IsikHuzmeleri havuz={false} className="top-24" />
-            <AlintiBandi
-              alinti={alinti}
-              className="relative pt-20 pb-20 sm:pt-24 sm:pb-24"
-            />
-          </div>
+          <AlintiBandi
+            alinti={alinti}
+            className="pt-20 pb-20 sm:pt-24 sm:pb-24"
+          />
         ) : null}
 
-        {/* Roket ve dumandan doğan sayılar */}
+        {/* Roket ve dumandan doğan sayılar.
+            `Container` bilerek yok: roket ekranın bir ucundan girip diğer
+            ucundan çıkıyor, kapsayıcının kenarında kaybolmuyor. Sayılar kendi
+            kapsayıcısını bileşenin içinde alıyor. */}
         {hakkimizda.istatistikler.length > 0 ? (
           <section className="pb-24 sm:pb-28">
-            <Container size="wide">
-              <RoketSayilar istatistikler={hakkimizda.istatistikler} />
-            </Container>
+            <RoketSayilar istatistikler={hakkimizda.istatistikler} />
           </section>
         ) : null}
 

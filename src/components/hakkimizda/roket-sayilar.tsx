@@ -3,6 +3,8 @@
 import { Rocket } from "lucide-react";
 import { useEffect, useRef } from "react";
 
+import { Container } from "@/components/layout/container";
+
 export type Istatistik = { deger: string; etiket: string };
 
 /**
@@ -100,23 +102,25 @@ export function RoketSayilar({
       </div>
 
       {/* Dumandan doğan sayılar */}
-      <dl className="mt-2 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
-        {istatistikler.map((sayi, i) => (
-          <div
-            key={sayi.etiket}
-            data-esik={(0.3 + i * 0.16).toFixed(2)}
-            data-acik="evet"
-            className="yuent-roket-sayi text-center"
-          >
-            <dd className="font-heading text-[clamp(2rem,5vw,3.25rem)] leading-none font-bold tracking-[-0.04em]">
-              {sayi.deger}
-            </dd>
-            <dt className="mt-3 text-[0.6875rem] tracking-[0.14em] text-text-subtle uppercase">
-              {sayi.etiket}
-            </dt>
-          </div>
-        ))}
-      </dl>
+      <Container size="wide">
+        <dl className="mt-2 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
+          {istatistikler.map((sayi, i) => (
+            <div
+              key={sayi.etiket}
+              data-esik={(0.3 + i * 0.16).toFixed(2)}
+              data-acik="evet"
+              className="yuent-roket-sayi text-center"
+            >
+              <dd className="font-heading text-[clamp(2rem,5vw,3.25rem)] leading-none font-bold tracking-[-0.04em]">
+                {sayi.deger}
+              </dd>
+              <dt className="mt-3 text-[0.6875rem] tracking-[0.14em] text-text-subtle uppercase">
+                {sayi.etiket}
+              </dt>
+            </div>
+          ))}
+        </dl>
+      </Container>
     </div>
   );
 }

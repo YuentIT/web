@@ -704,15 +704,21 @@
      çalışmazsa roket sağ uçta ve sayılar açık kalıyor. */
   .yuent-roket-alani {
     --yuent-roket: 1;
+    /* Uçuşun yatay konumu. Ekranın 7rem solundan başlayıp 7rem sağında
+       bitiyor: roket iki uçta da tamamen görüntünün dışında kalıyor, ne
+       başlarken ne biterken bir parçası ekranda takılı duruyor. */
+    --yuent-roket-x: calc(-7rem + var(--yuent-roket) * (100% + 14rem));
   }
 
-  /* Duman izi: roketin soluna uzanıyor, sol ucu maskeyle dağılıyor. */
+  /* Duman izi: ucu her zaman roketin olduğu yerde bitiyor, sol ucu maskeyle
+     dağılıyor. Genişlik `max(0px, …)` ile korunuyor — uçuş ekranın solunda
+     başladığı için ilk anlarda hesap negatife düşüyor. */
   .yuent-roket-iz {
     position: absolute;
     top: 50%;
     left: 0;
     height: 2px;
-    width: calc(var(--yuent-roket) * 100%);
+    width: max(0px, var(--yuent-roket-x));
     transform: translateY(-50%);
     background: linear-gradient(
       to right,
@@ -749,7 +755,7 @@
   .yuent-roket-tasiyici {
     position: absolute;
     top: 50%;
-    left: calc(var(--yuent-roket) * 100%);
+    left: var(--yuent-roket-x);
     display: block;
     transform: translate(-50%, -50%);
     color: var(--brand-accent);
