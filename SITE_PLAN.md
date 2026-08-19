@@ -128,7 +128,7 @@ Kulüp yönetimiyle teyit edildi (17.08.2026):
 | Çatı | **Next.js (App Router) + TypeScript** | Sunucu render'ı SEO'yu baştan çözer. YTÜ bu kalıpla çalışıyor; İTÜ'nün SPA tercihi bulunabilirliği bitirmiş |
 | Barındırma | **Vercel** | GitHub'a push = yayın |
 | Stil | **Tailwind CSS + shadcn/ui** | Her iki referans site de bunu kullanıyor |
-| Animasyon | **motion** (framer-motion) | Ölçülü. 3D/Spline **yok** — İTÜ'de tek başına ~2 MB |
+| Animasyon | **Saf CSS** (+ 2 küçük `requestAnimationFrame` dinleyicisi) | 19.08.2026'da güncellendi (aşağı bak). 3D/Spline **yok** — İTÜ'de tek başına ~2 MB |
 | İkon | **lucide-react** | |
 | Yazı tipi | **Archivo Expanded** (başlık) + **Archivo** (gövde), `next/font/local` | `fonts/` klasöründe Expanded var. İTÜ fontu hiç yüklememiş, YTÜ tek aileyle yetinmiş |
 | İçerik | **Dosya tabanlı** (`content/*.json` + MDX) + **Keystatic** paneli | Ayrı servis değil — GitHub App. Keystatic çökse bile içerik dosyaları elimizde |
@@ -139,6 +139,23 @@ Kulüp yönetimiyle teyit edildi (17.08.2026):
 | Bülten | **Tek araç** (§5) | Hem abone listesi hem kampanya gönderimi tek yerde |
 | Ölçüm | **Vercel Analytics** | Vercel'in parçası, ayrı hesap yok, çerez istemez |
 | Dil | TR (varsayılan) + EN altyapısı hazır | İTÜ'nün tek sözlük yaklaşımı doğru ve ucuz |
+
+> **Animasyon kararı — 19.08.2026 revizyonu.** Plan başta `motion`
+> (framer-motion) öngörüyordu ve Mustafa bunun kurulmasını onayladı. Ana sayfa
+> tasarımı bittiğinde ortaya çıkan gerçek şu oldu: tasarımdaki hiçbir efekt
+> `motion`a ihtiyaç duymuyor. Gezinen ışık lekeleri, ışık huzmeleri, kayan
+> şerit, satır satır açılan başlık, kart hover'ı ve butonun dönen kenarı —
+> hepsi `@keyframes` ve `@property` ile çıkıyor. Geriye yalnızca iki küçük
+> `requestAnimationFrame` dinleyicisi kalıyor: el fenerinin imleci takibi ve
+> ızgaranın kaydırmaya bağlı sönmesi (ikisi de ~20'şer satır).
+>
+> Bu yüzden paket **kurulmadı**: kullanılmayan 34 KB'lık bir bağımlılık, "karar
+> verilmişti" diye taşınacak bir yük değil. Hazır bileşen kaynağı olarak
+> **Animate UI** seçildi (Motion + Base UI tabanlı, shadcn kayıt defterinden
+> kuruluyor, projedeki `@base-ui/react` ile birebir uyumlu); ilk gerçek
+> ihtiyaçta hem o hem `motion` kurulur. Aceternity/Magic UI bileşenleri Tailwind
+> v3 + Radix varsayıyor, bizde v4 + Base UI var — oradan bir şey alınırsa elle
+> uyarlanır.
 
 ### 4.1 Bilerek yapmadıklarımız
 
@@ -310,38 +327,44 @@ Altküme Latin-1 + Latin Extended-A + tipografik noktalama + para birimi (₺ da
 
 ### 8.2 Renk
 
-**Yön (18.08.2026 kararı):** Site koyu ve minimal. Logo renkli değil, **beyaz
-kelime-logo** olarak kullanılıyor. Bu yüzden palet logodan çıkarılmadı; logoyu
-taşıyacak şekilde tasarlandı.
+**Yön (19.08.2026 revizyonu):** Site koyu ve **editoryal brutalist**. Devasa
+geniş kesitli tipografi, sert çizgiler, keskin köşeler ve tek bir yüksek
+enerjili aksan. Logo yine renkli değil, **beyaz** kullanılıyor.
 
-**Temel karar: marka rengi beyazın kendisi.** Logo beyaz olduğu için birincil
-butonlar da beyaz zemin/koyu yazı (ters kontrast). Böylece sayfadaki en güçlü
-vurgu logoyla aynı dili konuşuyor ve tek bir aksan rengi hem yeterli hem nadir
-kalıyor. Aksan yalnızca bağlantılarda, odak halkalarında ve küçük işaretlerde
-görünür — buton doldurmaz.
+**Temel karar: aksan asit sarısı ve birincil butonu o dolduruyor.**
+Önceki sürümde marka rengi beyazın kendisiydi ve aksan safran/pirinçti
+(`#D9A441`); ikisi de değişti. Gerekçe: 18.08 kararı "minimal ve ağırbaşlı" bir
+site varsayıyordu, 19.08'de seçilen yön "ilk saniyede çarpan" bir ana sayfa.
+Beyaz buton bu dilde nötr kalıyor, safran ise asit sarısının yanında sönük
+duruyordu. Asit sarısı üzerine mürekkep yazı **17:1** kontrast veriyor, yani
+en yüksek enerjili seçenek aynı zamanda en okunaklısı.
 
-**Zemin nötr siyah değil, mavi tarafa çekilmiş mürekkep.** `#000000` ve nötr gri
-skalası koyu temaların hazır cevabı; birkaç puan mavi kaydırmak ekranda ucuz
-görünmeyi engelliyor ve Yeditepe'nin lacivert kimliğiyle çakışmadan yan yana
-duruyor.
+**Dürüst not:** önceki sürüm safranı seçerken gerekçe olarak "koyu temaların
+iki klişesinden (asit yeşili, vermilyon) kaçınmak" demişti. Asit sarısı o
+uyarının tam sınırında ve bu bilinerek seçildi — üç aksan yan yana görülüp
+karşılaştırıldı (19.08.2026).
+
+**Zemin nötr siyah değil, mavi tarafa çekilmiş mürekkep.** Bu karar korundu:
+`#000000` ve nötr gri skalası koyu temaların hazır cevabı; birkaç puan mavi
+kaydırmak ekranda ucuz görünmeyi engelliyor.
 
 ```css
 /* Zemin ve yapı — soğuk mürekkep skalası */
---bg:            #0A0D12;
---surface:       #11151C;
---surface-2:     #181D26;
---border:        #232936;
---border-strong: #39414F;
+--bg:            #08090B;
+--surface:       #0E1015;
+--surface-2:     #14171D;
+--border:        #1C1F25;
+--border-strong: #2C3037;
 
 /* Yazı */
---text:          #F5F7FA;   /* 17:1 — gövde */
---text-muted:    #A7B0BF;   /*  8:1 — ikincil */
---text-subtle:   #7C8698;   /* 4.9:1 — etiket, üst başlık (AA sınırının üstünde) */
+--text:          #F5F7FA;   /* 18:1 — gövde */
+--text-muted:    #9AA0AA;   /* 8.4:1 — ikincil */
+--text-subtle:   #7D838D;   /* 5.1:1 — etiket, üst başlık (AA sınırının üstünde) */
 
-/* Marka ve aksan */
---brand:         #FFFFFF;   /* kelime-logo + birincil buton zemini */
---brand-fg:      #0A0D12;   /* birincil buton yazısı */
---accent:        #D9A441;   /* safran/pirinç — bağlantı, odak, küçük işaret */
+/* Marka ve aksan — ikisi de aynı asit sarısı */
+--brand:         #E8FE55;   /* birincil buton zemini, kayan şerit, vurgu */
+--brand-fg:      #08090B;   /* birincil buton yazısı — 17:1 */
+--accent:        #E8FE55;   /* bağlantı, odak halkası, küçük işaret */
 
 /* Anlamsal */
 --success:       #4FA97E;
@@ -351,8 +374,10 @@ duruyor.
 --radius:        0.75rem;
 ```
 
-Aksan safran/pirinç: soğuk mürekkebin karşısında sıcak duruyor ve koyu temaların
-iki klişesinden de (asit yeşili, vermilyon) kaçınıyor.
+**Aksan artık nadir değil, ama dar.** Butonu, kayan şeridi, kategori etiketini
+ve odak halkasını dolduruyor; gövde metninde **hiç** kullanılmıyor. Işık
+efektleri (hero'daki gezinen lekeler, kapanıştaki huzmeler) de aynı sarının
+%3–%30 opaklıklı hâlleri — yani sayfadaki tüm renk tek bir token'dan türüyor.
 
 **Not:** Sitede form yok — hepsi Google Forms'ta. Bu yüzden `--success` /
 `--warning` / `--danger` pratikte neredeyse hiç görünmeyecek; palet okunabilirlik

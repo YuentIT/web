@@ -4,7 +4,7 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -82,13 +82,15 @@ export function MobileMenu() {
             </div>
           ))}
 
-          <Button
-            size="lg"
-            className="mt-4 w-full"
-            render={<Link href={primaryCta.href} />}
+          <Link
+            href={primaryCta.href}
+            className={buttonVariants({
+              size: "lg",
+              className: "mt-4 w-full",
+            })}
           >
             {primaryCta.label}
-          </Button>
+          </Link>
         </nav>
       </SheetContent>
     </Sheet>

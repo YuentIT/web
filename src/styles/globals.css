@@ -133,13 +133,13 @@
   color-scheme: dark;
 
   /* Zemin ve yüzeyler */
-  --background: #0a0d12;
-  --card: #11151c;
-  --popover: #11151c;
-  --secondary: #181d26;
-  --muted: #181d26;
-  --accent: #181d26; /* shadcn: hover yüzeyi. Marka aksanı için --brand-accent */
-  --sidebar: #11151c;
+  --background: #08090b;
+  --card: #0e1015;
+  --popover: #0e1015;
+  --secondary: #14171d;
+  --muted: #14171d;
+  --accent: #14171d; /* shadcn: hover yüzeyi. Marka aksanı için --brand-accent */
+  --sidebar: #0e1015;
 
   /* Yazı */
   --foreground: #f5f7fa;
@@ -148,27 +148,28 @@
   --secondary-foreground: #f5f7fa;
   --accent-foreground: #f5f7fa;
   --sidebar-foreground: #f5f7fa;
-  --muted-foreground: #a7b0bf;
-  --text-subtle: #7c8698;
+  --muted-foreground: #9aa0aa; /* 8.4:1 */
+  --text-subtle: #7d838d; /* 5.1:1 — AA sınırının üstünde */
 
-  /* Marka — logo beyaz olduğu için birincil buton da ters kontrast */
-  --primary: #ffffff;
-  --primary-foreground: #0a0d12;
-  --sidebar-primary: #ffffff;
-  --sidebar-primary-foreground: #0a0d12;
+  /* Marka: asit sarısı. Birincil buton zemini, kayan şerit, vurgu.
+     Üzerine daima mürekkep yazı biner — 17:1. */
+  --primary: #e8fe55;
+  --primary-foreground: #08090b;
+  --sidebar-primary: #e8fe55;
+  --sidebar-primary-foreground: #08090b;
 
-  /* Aksan: safran/pirinç. Yalnızca bağlantı, odak halkası, küçük işaret. */
-  --brand-accent: #d9a441;
-  --ring: #d9a441;
+  /* Aynı asit sarısı; bağlantı, odak halkası ve küçük işaretler için ad. */
+  --brand-accent: #e8fe55;
+  --ring: #e8fe55;
 
   /* Kenarlar */
-  --border: #232936;
-  --border-strong: #39414f;
-  --input: #232936;
-  --sidebar-border: #232936;
-  --sidebar-accent: #181d26;
+  --border: #1c1f25;
+  --border-strong: #2c3037;
+  --input: #1c1f25;
+  --sidebar-border: #1c1f25;
+  --sidebar-accent: #14171d;
   --sidebar-accent-foreground: #f5f7fa;
-  --sidebar-ring: #d9a441;
+  --sidebar-ring: #e8fe55;
 
   /* Anlamsal — sitede form olmadığı için pratikte nadir görünür */
   --success: #4fa97e;
@@ -176,11 +177,11 @@
   --destructive: #d9614f;
 
   /* Grafik renkleri: aksan etrafında tek renkli bir skala */
-  --chart-1: #d9a441;
-  --chart-2: #a7b0bf;
-  --chart-3: #7c8698;
-  --chart-4: #39414f;
-  --chart-5: #232936;
+  --chart-1: #e8fe55;
+  --chart-2: #9aa0aa;
+  --chart-3: #7d838d;
+  --chart-4: #2c3037;
+  --chart-5: #1c1f25;
 
   --radius: 0.75rem;
 }
@@ -301,5 +302,535 @@
 
   .prose td {
     @apply border-b border-border py-2;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Ana sayfa atmosferi (F4-01 · 19.08.2026 görsel yön)
+
+   Buradaki her şey **yalnızca ana sayfada** kullanılıyor. Tailwind sınıfıyla
+   ifade edilemeyecek üç şey var: `@property` ile animasyonlanan açı, uzun
+   yörüngeli `@keyframes` ve `clip-path` konileri. Geri kalan her şey bileşenin
+   içinde Tailwind ile yazıldı.
+
+   Kaynaklar: buton Syntax UI "shiny button"ının uyarlaması — özgün kodundaki
+   Google Fonts CDN import'u **çıkarıldı** (SITE_PLAN §8.1 CDN font yasaklıyor,
+   Archivo zaten self-host) ve mavi vurgu asit sarısına çevrildi. `<style jsx>`
+   yerine burada duruyor: `@property` global bir at-rule, styled-jsx'in
+   kapsamlaması altında güvenilir çalışmıyor.
+--------------------------------------------------------------------------- */
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@property --gradient-angle-offset {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@property --gradient-percent {
+  syntax: "<percentage>";
+  initial-value: 5%;
+  inherits: false;
+}
+@property --gradient-shine {
+  syntax: "<color>";
+  initial-value: white;
+  inherits: false;
+}
+
+@keyframes yuent-rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes yuent-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes yuent-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(5px);
+    opacity: 1;
+  }
+}
+
+/* Hero'daki dört ışık lekesi. Süreler asal olmayan ama ortak katı büyük
+   sayılar (22/27/34/41 sn) — böylece dördü aynı anda başa dönmüyor ve
+   döngü gözle yakalanmıyor. */
+@keyframes yuent-orb-1 {
+  0% {
+    transform: translate(6vw, 12vh) scale(1);
+  }
+  25% {
+    transform: translate(48vw, 4vh) scale(1.25);
+  }
+  50% {
+    transform: translate(72vw, 34vh) scale(0.9);
+  }
+  75% {
+    transform: translate(26vw, 44vh) scale(1.15);
+  }
+  100% {
+    transform: translate(6vw, 12vh) scale(1);
+  }
+}
+@keyframes yuent-orb-2 {
+  0% {
+    transform: translate(78vw, 8vh) scale(1.1);
+  }
+  30% {
+    transform: translate(30vw, 40vh) scale(0.85);
+  }
+  60% {
+    transform: translate(8vw, 22vh) scale(1.3);
+  }
+  100% {
+    transform: translate(78vw, 8vh) scale(1.1);
+  }
+}
+@keyframes yuent-orb-3 {
+  0% {
+    transform: translate(40vw, 48vh) scale(0.95);
+  }
+  35% {
+    transform: translate(66vw, 14vh) scale(1.2);
+  }
+  70% {
+    transform: translate(14vw, 36vh) scale(1);
+  }
+  100% {
+    transform: translate(40vw, 48vh) scale(0.95);
+  }
+}
+@keyframes yuent-orb-4 {
+  0% {
+    transform: translate(60vw, 30vh) scale(1.15);
+  }
+  45% {
+    transform: translate(18vw, 6vh) scale(0.9);
+  }
+  80% {
+    transform: translate(52vw, 46vh) scale(1.25);
+  }
+  100% {
+    transform: translate(60vw, 30vh) scale(1.15);
+  }
+}
+
+@keyframes yuent-drift-l {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(18px);
+  }
+}
+@keyframes yuent-drift-r {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-18px);
+  }
+}
+
+@keyframes gradient-angle {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+@keyframes shimmer {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@layer components {
+  /* Hero ışık lekeleri */
+  .yuent-orb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    border-radius: 50%;
+    filter: blur(46px);
+    will-change: transform;
+  }
+  .yuent-orb-1 {
+    width: 340px;
+    height: 340px;
+    margin: -170px 0 0 -170px;
+    background: radial-gradient(circle, hsl(69 96% 72% / 0.3), transparent 68%);
+    animation: yuent-orb-1 34s ease-in-out infinite;
+  }
+  .yuent-orb-2 {
+    width: 260px;
+    height: 260px;
+    margin: -130px 0 0 -130px;
+    background: radial-gradient(
+      circle,
+      hsl(69 96% 72% / 0.24),
+      transparent 68%
+    );
+    animation: yuent-orb-2 27s ease-in-out infinite;
+  }
+  .yuent-orb-3 {
+    width: 420px;
+    height: 420px;
+    margin: -210px 0 0 -210px;
+    background: radial-gradient(
+      circle,
+      hsl(69 90% 66% / 0.16),
+      transparent 70%
+    );
+    animation: yuent-orb-3 41s ease-in-out infinite;
+  }
+  .yuent-orb-4 {
+    width: 200px;
+    height: 200px;
+    margin: -100px 0 0 -100px;
+    background: radial-gradient(
+      circle,
+      hsl(69 96% 76% / 0.26),
+      transparent 66%
+    );
+    animation: yuent-orb-4 22s ease-in-out infinite;
+  }
+
+  /* Izgara: yatayda kenarları, dikeyde alt ucu eriyor. İki maske gerektiği için
+     sarmalayıcı ile iç katman ayrı: bir öğeye tek maske uygulanabiliyor. */
+  .yuent-grid-mask {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0,
+      #000 58%,
+      rgb(0 0 0 / 0.55) 80%,
+      transparent 95%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0,
+      #000 58%,
+      rgb(0 0 0 / 0.55) 80%,
+      transparent 95%
+    );
+  }
+  .yuent-grid {
+    opacity: var(--yuent-grid-fade, 1);
+    transition: opacity 120ms linear;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.055) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
+  }
+
+  /* İmleci takip eden el feneri. Konumu JS `--yuent-torch-x/y` ile veriyor. */
+  .yuent-torch {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 820px;
+    height: 820px;
+    margin: -410px 0 0 -410px;
+    pointer-events: none;
+    background: radial-gradient(
+      circle closest-side,
+      hsl(69 96% 74% / 0.14),
+      hsl(69 90% 60% / 0.05) 44%,
+      transparent 72%
+    );
+    filter: blur(8px);
+    will-change: transform;
+    transform: translate3d(
+      var(--yuent-torch-x, -9999px),
+      var(--yuent-torch-y, -9999px),
+      0
+    );
+  }
+
+  /* Alıntı ve kapanış bandının ortak ışık huzmeleri. Blur sarmalayıcıda,
+     koni `clip-path` ile içeride: tersi olsaydı koninin kenarları keskin kalırdı. */
+  .yuent-shafts {
+    /* Bulanıklık ekran genişliğine göre ölçekleniyor: sabit bir px değeri dar
+       ekranda huzmeyi eritiyor, geniş ekranda ise koninin kenarını jilet gibi
+       bırakıyordu. */
+    filter: blur(clamp(20px, 2.6vw, 40px));
+  }
+  .yuent-shaft {
+    position: absolute;
+    inset: 0;
+    display: block;
+    background: linear-gradient(
+      to bottom,
+      hsl(69 98% 80% / 0.52) 0%,
+      hsl(69 96% 74% / 0.24) 24%,
+      hsl(69 92% 66% / 0.095) 52%,
+      hsl(69 88% 58% / 0.03) 78%,
+      transparent 95%
+    );
+  }
+  /* Sol üstte ince ve parlak başlayıp butonun üstünde genişliyor. */
+  .yuent-shaft-l {
+    clip-path: polygon(5% 0, 9.5% 0, 58% 88%, 34% 88%);
+    animation: yuent-drift-l 15s ease-in-out infinite;
+  }
+  .yuent-shaft-r {
+    clip-path: polygon(90.5% 0, 95% 0, 66% 88%, 42% 88%);
+    animation: yuent-drift-r 18s ease-in-out infinite;
+  }
+  /* Huzmelerin butonun altında oluşturduğu ışık havuzu. */
+  .yuent-pool {
+    position: absolute;
+    bottom: 5rem;
+    left: 50%;
+    width: min(480px, 90%);
+    height: 12rem;
+    transform: translateX(-50%);
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at center,
+      hsl(69 96% 74% / 0.2),
+      transparent 68%
+    );
+    filter: blur(18px);
+  }
+
+  /* Etkinlik kartının duran hâlindeki isim şeridi. Üst kenarı maskeyle
+     eriyor — sert bir çizgiyle bitmesi kartı ikiye bölüyordu. */
+  .yuent-kart-serit {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background: linear-gradient(
+      to top,
+      rgb(8 9 11 / 0.82) 0%,
+      rgb(8 9 11 / 0.62) 45%,
+      rgb(8 9 11 / 0.22) 78%,
+      rgb(8 9 11 / 0) 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to top,
+      #000 0,
+      #000 58%,
+      rgb(0 0 0 / 0.55) 80%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to top,
+      #000 0,
+      #000 58%,
+      rgb(0 0 0 / 0.55) 80%,
+      transparent 100%
+    );
+  }
+
+  /* Rayın kenarındaki ok tuşunun hover'da beliren buzlu cam yüzeyi. */
+  .yuent-ok-cam {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    opacity: 0;
+    transition: opacity 300ms ease;
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    background: linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.16),
+      rgb(255 255 255 / 0.07)
+    );
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 0.28),
+      0 0 22px -4px rgb(255 255 255 / 0.22);
+  }
+  .group:hover .yuent-ok-cam,
+  .group:focus-visible .yuent-ok-cam {
+    opacity: 1;
+  }
+
+  /* Syntax UI "shiny button" uyarlaması — asit sarısı, self-host font.
+     Özgün koddaki `span::before` (hover'da beliren oval hâle) **kaldırıldı**;
+     geriye yalnızca kenarda dönen ışık kaldı. */
+  .shiny-cta {
+    --shiny-cta-bg: var(--background);
+    --shiny-cta-bg-subtle: #15181e;
+    --shiny-cta-fg: var(--foreground);
+    --shiny-cta-highlight: var(--brand-accent);
+    --shiny-cta-highlight-subtle: #f4ff9e;
+    --animation: gradient-angle linear infinite;
+    --duration: 3s;
+    --shadow-size: 2px;
+    --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
+
+    isolation: isolate;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    cursor: pointer;
+    outline-offset: 4px;
+    padding: 1.15rem 2.4rem;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    border-radius: 360px;
+    color: var(--shiny-cta-fg);
+    background:
+      linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
+      conic-gradient(
+          from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+          transparent,
+          var(--shiny-cta-highlight) var(--gradient-percent),
+          var(--gradient-shine) calc(var(--gradient-percent) * 2),
+          var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
+          transparent calc(var(--gradient-percent) * 4)
+        )
+        border-box;
+    box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
+    transition: var(--transition);
+    transition-property:
+      --gradient-angle-offset, --gradient-percent, --gradient-shine;
+  }
+  .shiny-cta::before,
+  .shiny-cta::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset-inline-start: 50%;
+    inset-block-start: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+  }
+  .shiny-cta:active {
+    translate: 0 1px;
+  }
+  /* Nokta deseni */
+  .shiny-cta::before {
+    --size: calc(100% - var(--shadow-size) * 3);
+    --position: 2px;
+    --space: calc(var(--position) * 2);
+    width: var(--size);
+    height: var(--size);
+    background: radial-gradient(
+        circle at var(--position) var(--position),
+        white calc(var(--position) / 4),
+        transparent 0
+      )
+      padding-box;
+    background-size: var(--space) var(--space);
+    background-repeat: space;
+    -webkit-mask-image: conic-gradient(
+      from calc(var(--gradient-angle) + 45deg),
+      black,
+      transparent 10% 90%,
+      black
+    );
+    mask-image: conic-gradient(
+      from calc(var(--gradient-angle) + 45deg),
+      black,
+      transparent 10% 90%,
+      black
+    );
+    border-radius: inherit;
+    opacity: 0.4;
+    z-index: -1;
+  }
+  /* İç parıltı */
+  .shiny-cta::after {
+    --animation: shimmer linear infinite;
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(
+      -50deg,
+      transparent,
+      var(--shiny-cta-highlight),
+      transparent
+    );
+    -webkit-mask-image: radial-gradient(
+      circle at bottom,
+      transparent 40%,
+      black
+    );
+    mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+    opacity: 0.55;
+  }
+  .shiny-cta > span {
+    position: relative;
+    z-index: 1;
+  }
+  .shiny-cta,
+  .shiny-cta::before,
+  .shiny-cta::after {
+    animation:
+      var(--animation) var(--duration),
+      var(--animation) calc(var(--duration) / 0.4) reverse paused;
+    animation-composition: add;
+  }
+  .shiny-cta:is(:hover, :focus-visible) {
+    --gradient-percent: 20%;
+    --gradient-angle-offset: 95deg;
+    --gradient-shine: var(--shiny-cta-highlight-subtle);
+  }
+  .shiny-cta:is(:hover, :focus-visible),
+  .shiny-cta:is(:hover, :focus-visible)::before,
+  .shiny-cta:is(:hover, :focus-visible)::after {
+    animation-play-state: running;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Hareket kısıtı (F7-08'in ön ödemesi)
+
+   `prefers-reduced-motion: reduce` seçili kullanıcıda süregiden her hareket
+   duruyor: ışık lekeleri, huzme sallanması, kayan şerit, butonun dönen kenarı.
+   El feneri JS tarafında hiç bağlanmıyor (bkz. `el-feneri.tsx`), burada da
+   görünmez kalıyor ki `@media` ile JS kararı ayrışmasın.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .yuent-orb,
+  .yuent-shaft,
+  .shiny-cta,
+  .shiny-cta::before,
+  .shiny-cta::after,
+  [data-yuent-marquee],
+  [data-yuent-rise] span,
+  [data-yuent-bob] {
+    animation: none !important;
+  }
+  .yuent-torch {
+    display: none;
   }
 }

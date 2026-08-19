@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { Container } from "@/components/layout/container";
 import { Logo } from "@/components/layout/logo";
 import { MobileMenu } from "@/components/layout/mobile-menu";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -84,30 +84,35 @@ export function SiteHeader() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button
+              // Buton gibi görünen bir **bağlantı**: `<Button render={<Link/>}>`
+              // Base UI'ı bağlantıyı buton gibi yönetmeye zorluyor ve `<a>`ya
+              // `role="button"` ekleyerek ekran okuyucuda yanlış okutuyor.
+              <Link
                 key={item.href + item.label}
-                variant="ghost"
-                size="sm"
-                className={cn(
-                  isActive(pathname, item.href)
+                href={item.href}
+                className={buttonVariants({
+                  variant: "ghost",
+                  size: "sm",
+                  className: isActive(pathname, item.href)
                     ? "text-foreground"
                     : "text-text-muted",
-                )}
-                render={<Link href={item.href} />}
+                })}
               >
                 {item.label}
-              </Button>
+              </Link>
             ),
           )}
         </nav>
 
         <div className="ms-auto flex items-center gap-2 md:ms-0">
-          <Button
-            className="hidden md:inline-flex"
-            render={<Link href={primaryCta.href} />}
+          <Link
+            href={primaryCta.href}
+            className={buttonVariants({
+              className: "hidden md:inline-flex",
+            })}
           >
             {primaryCta.label}
-          </Button>
+          </Link>
 
           <MobileMenu />
         </div>

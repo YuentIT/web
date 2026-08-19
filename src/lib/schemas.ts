@@ -83,7 +83,19 @@ const ctaSchema = z.object({
 export const anasayfaSchema = z.object({
   hero: z.object({
     ustBaslik: z.string().optional(),
+    /**
+     * Satır sonları (`\n`) **anlamlı**: hero başlığı satır satır maskeden
+     * yükseldiği için kırılma noktaları içerikten geliyor, tarayıcının
+     * sarmasına bırakılmıyor. Bu metni bir yerde tek satır olarak kullanacak
+     * olan (ör. `<title>`) boşlukları kendisi sadeleştirmeli.
+     */
     baslik: dolu,
+    /**
+     * `baslik` içinde aksan rengiyle gösterilecek kelime/öbek. Metinde
+     * geçmiyorsa sessizce yok sayılır — vurgu, başlığın okunmasını değil
+     * yalnızca görünümünü etkiliyor.
+     */
+    vurgu: z.string().optional(),
     aciklama: dolu,
     birincilCta: ctaSchema,
     ikincilCta: ctaSchema.optional(),
@@ -94,6 +106,24 @@ export const anasayfaSchema = z.object({
     .array(z.object({ deger: dolu, etiket: dolu }))
     .max(4)
     .default([]),
+  /**
+   * Ana sayfanın alıntı bandı. `hakkimizda.json`daki `alintilar`dan **ayrı**
+   * duruyor (19.08.2026 kararı): oradaki liste Hakkımızda sayfasının kendi
+   * alıntıları, buradaki tek alıntı yalnızca ana sayfaya ait. Ortak bir havuzdan
+   * çekilseydi Hakkımızda'daki bir düzenleme ana sayfayı da sessizce değiştirirdi.
+   */
+  alinti: z
+    .object({ metin: dolu, kisi: dolu, unvan: z.string().optional() })
+    .optional(),
+  /** Sayfayı kapatan çağrı bandı. */
+  katil: z
+    .object({
+      ustBaslik: z.string().optional(),
+      baslik: dolu,
+      aciklama: dolu,
+      cta: ctaSchema,
+    })
+    .optional(),
 });
 
 /* -------------------------------------------------------------------------- */

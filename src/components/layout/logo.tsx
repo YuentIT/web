@@ -8,12 +8,16 @@ import { cn } from "@/lib/utils";
  *
  * Elimizdeki `logo_white.png` üç parçalı **dikey** bir kilit; 40 px'lik bir
  * header'da alt satırı ~9 px'e düşüp okunmaz hâle geliyor. Bu yüzden görsel
- * olarak yalnızca 262×262'lik monogram kullanılıyor, kulüp adı yanına **metinle**
- * yazılıyor — hem okunuyor hem de arama motoru ve ekran okuyucu için gerçek
- * metin oluyor.
+ * olarak yalnızca 262×262'lik monogram kullanılıyor, yanına da kısa ad
+ * **metinle** yazılıyor — hem okunuyor hem de gerçek metin oluyor.
  *
- * Görselin `alt`ı bilerek boş: hemen yanındaki metin aynı bilgiyi zaten
- * veriyor, ikisini birden okutmak ekran okuyucuda tekrara yol açar.
+ * Yanındaki metin 19.08.2026'da tam addan kısa ada (`YUENT`) indi: yeni
+ * görsel yönde header hero'nun üstünde saydam duruyor ve iki satırlık uzun ad
+ * devasa başlıkla görsel olarak yarışıyordu. Tam ad kaybolmadı — `aria-label`
+ * onu taşıyor, yani ekran okuyucu ve arama motoru için hâlâ orada.
+ *
+ * Görselin `alt`ı bilerek boş: `aria-label` aynı bilgiyi zaten veriyor,
+ * ikisini birden okutmak ekran okuyucuda tekrara yol açar.
  */
 export function Logo({
   className,
@@ -38,13 +42,8 @@ export function Logo({
         className="h-9 w-9 shrink-0"
       />
 
-      <span className="hidden leading-tight sm:block">
-        <span className="block text-[0.625rem] tracking-[0.14em] text-text-subtle uppercase">
-          Yeditepe Üniversitesi
-        </span>
-        <span className="block font-heading text-sm font-bold text-foreground">
-          Liderlik ve Girişimcilik Kulübü
-        </span>
+      <span className="font-heading text-base font-extrabold tracking-[0.06em] text-foreground">
+        YUENT
       </span>
     </Link>
   );

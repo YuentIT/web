@@ -55,3 +55,6 @@ next-env.d.ts
 # İşletim sistemi
 Thumbs.db
 desktop.ini
+
+# Superpowers gorsel eslikci oturumlari
+.superpowers/

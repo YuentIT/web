@@ -2,7 +2,8 @@
   "_todo": "TASLAK — Mustafa revize edecek. Hero metinleri hakkimizda.json'daki hikâye ve misyondan türetildi, uydurulmadı. sayilarlaBiz yalnızca içerikten doğrulanabilen iki rakamı taşıyor (Hult Prize kampüs finali yıl sayısı ve katılınan bölgesel final sayısı); üye sayısı, etkinlik sayısı gibi rakamlar ancak Mustafa doğrularsa eklenmeli.",
   "hero": {
     "ustBaslik": "Yeditepe Üniversitesi",
-    "baslik": "Fikrinin arkasından koşmaya cesaret edenler için",
+    "baslik": "Fikrinin\narkasından koşmaya\ncesaret edenler için",
+    "vurgu": "edenler",
     "aciklama": "Girişimcilik, liderlik ve sosyal girişimcilik alanında eğitimler, zirveler ve sosyal sorumluluk projeleri düzenliyoruz. İlham alırken ilham olmak temel hedefimiz.",
     "birincilCta": {
       "metin": "Bize Katıl",
@@ -22,5 +23,15 @@
     { "deger": "4", "etiket": "Yıldır Hult Prize kampüs finali" },
     { "deger": "9", "etiket": "Katıldığımız bölgesel final" },
     { "deger": "4", "etiket": "Dönemlik ekip arşivi" }
-  ]
+  ],
+  "alinti": {
+    "metin": "Bir milyon tane fikriniz olabilir; ancak onları hayata geçirmediğiniz sürece hepsi değersizdir.",
+    "kisi": "Lauren Amarante"
+  },
+  "katil": {
+    "ustBaslik": "İlham alırken ilham olmak",
+    "baslik": "YUENT ailesine katıl",
+    "aciklama": "İlham alırken ilham olmak yalnızca bir cümle değil, çalışma biçimimiz: öğrendiğimizi paylaşıyor, düzenlediğimiz her eğitimi, zirveyi ve sosyal sorumluluk projesini birlikte üretiyoruz. Fikrinin arkasından koşmaya cesaret ediyorsan, burada seni dinleyecek ve yanında yürüyecek bir ekip var.",
+    "cta": { "metin": "Bize Katılın", "href": "/katil" }
+  }
 }
