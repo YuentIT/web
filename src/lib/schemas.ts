@@ -130,14 +130,46 @@ export const anasayfaSchema = z.object({
 /* hakkimizda.json                                                             */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Değer kartlarındaki ikon adları.
+ *
+ * Serbest metin **değil**, kapalı bir liste: içerik dosyasına `lucide-react`ta
+ * karşılığı olmayan bir ad yazılırsa sayfada ikonsuz bir kutu çıkmasın, derleme
+ * dursun. Yeni bir ikon gerekince buraya ve `degerler.tsx`teki eşlemeye
+ * birlikte eklenir — ikisi ayrı düşerse TypeScript uyarır.
+ */
+export const degerIkonu = z.enum([
+  "flame",
+  "lightbulb",
+  "trending-up",
+  "heart-handshake",
+  "rocket",
+  "sparkles",
+  "compass",
+  "heart",
+]);
+
 export const hakkimizdaSchema = z.object({
+  /** Sayfanın h1'i. Verilmezse sayfa "Hakkımızda" diyor. */
+  baslik: z.string().optional(),
+  /** h1'in altındaki büyük cümle. */
+  slogan: z.string().optional(),
   hikaye: dolu,
   misyon: dolu,
   vizyon: dolu,
   alintilar: z
     .array(z.object({ metin: dolu, kisi: dolu, unvan: z.string().optional() }))
     .default([]),
+  /**
+   * Roketin arkasında beliren sayılar. Ana sayfadaki `sayilarlaBiz`den
+   * **ayrı**: oradakiler Hult Prize'a özel iki rakam, buradakiler kulübün
+   * genel büyüklüğü. Ortak bir listeden çekilselerdi biri değişince diğeri de
+   * sessizce değişirdi.
+   */
   istatistikler: z.array(z.object({ deger: dolu, etiket: dolu })).default([]),
+  degerler: z
+    .array(z.object({ baslik: dolu, aciklama: dolu, ikon: degerIkonu }))
+    .default([]),
 });
 
 /* -------------------------------------------------------------------------- */

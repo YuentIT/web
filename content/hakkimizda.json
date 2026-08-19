@@ -1,4 +1,7 @@
 {
+  "_todo": "TASLAK ALANLAR — Mustafa revize edecek. (1) `degerler`: dört değer kulübün kendi hikâye ve misyon metninden türetildi, uydurulmadı; başlık ve açıklamalar yine de gözden geçirilmeli. (2) `istatistikler`: rakamlar Mustafa tarafından verildi (19.08.2026) — ana sayfadaki `sayilarlaBiz` bunlardan farklı, o ikisi Hult Prize'a özel. `hikaye`, `misyon`, `vizyon` ve Emil Motycka alıntısı Wix'ten birebir taşındı, dokunulmadı.",
+  "baslik": "Biz Kimiz",
+  "slogan": "Dünyayı değiştiren eylemler",
   "hikaye": "Dünyayı değiştirme eylemi, daha iyisini yapma dürtüsüyle başlar, bir soruyla, bir fikirle şekillenir. Bir fikir bazen küçük bir odada başka meşguliyetleriniz varken geliverir, bazen de aradığınız o \"şey\" her ne ise biraz kovalanmak ister. Biz de, Yeditepe Üniversitesi Liderlik ve Girişimcilik Kulübü olarak, fikirlerinin arkasından koşmaya cesaret eden bireylerle birlikte girişimcilik, liderlik, sosyal girişimcilik anlayışı oluşturmak ve her düşünceye açık, gelişimi her zaman ön planda tutan liderler yetiştirmeyi hedefleyen kulüp olmayı amaçlıyoruz. Kulüp olarak; insanların hayatlarına dokunmak, çevremizi daha yaşanır kılmak ve herkes için daha iyi şartlar oluşturmak istiyoruz. Bu amaçla girişimcilik ekosisteminin önemli bir parçası olarak yer almayı hedefliyoruz. İlham alırken ilham olmak temel hedefimiz.",
   "misyon": "Yeditepe Üniversitesi Liderlik ve Girişimcilik Kulübü olarak misyonumuz, genç girişimcileri ve girişimci adaylarını girişimcilik felsefesi doğrultusunda eğitmek ve geliştirmek, ilgili kurum ve kuruluşlarla iş birliği içinde olmayı sağlamaktır. Bu amaç doğrultusunda dönem içerisinde çeşitli eğitimler, zirve organizasyonları ve sosyal sorumluluk projelerine kadar birçok etkinlik düzenlemekteyiz.",
   "vizyon": "Yeditepe Üniversitesi'nde girişimcilik, liderlik ve sosyal girişimcilik kültürünü oluşturarak aktif ve dinamik bir Girişimcilik ve Liderlik Topluluğu olarak ekosistemde yer almak.",
@@ -8,5 +11,32 @@
       "kisi": "Emil Motycka"
     }
   ],
-  "istatistikler": []
+  "istatistikler": [
+    { "deger": "2000+", "etiket": "Üye" },
+    { "deger": "35+", "etiket": "Yıllık etkinlik" },
+    { "deger": "150+", "etiket": "Konuşmacı" },
+    { "deger": "100+", "etiket": "Sponsor" }
+  ],
+  "degerler": [
+    {
+      "baslik": "Cesaret",
+      "aciklama": "Fikrinin arkasından koşmayı, denemeyi ve yanılmayı göze alıyoruz.",
+      "ikon": "flame"
+    },
+    {
+      "baslik": "Açıklık",
+      "aciklama": "Her düşünceye açığız; iyi fikrin kimden geldiğine bakmıyoruz.",
+      "ikon": "lightbulb"
+    },
+    {
+      "baslik": "Gelişim",
+      "aciklama": "Öğrenmeyi ve öğrendiğimizi paylaşmayı işin merkezine koyuyoruz.",
+      "ikon": "trending-up"
+    },
+    {
+      "baslik": "Etki",
+      "aciklama": "İnsanların hayatına dokunan, çevremizi daha yaşanır kılan işler üretiyoruz.",
+      "ikon": "heart-handshake"
+    }
+  ]
 }

@@ -1,44 +1,51 @@
-import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ElFeneri } from "@/components/atmosfer/el-feneri";
 import { IsikHuzmeleri } from "@/components/atmosfer/isik-huzmeleri";
 import { IzgaraKatmani } from "@/components/atmosfer/izgara-katmani";
+import { Degerler } from "@/components/hakkimizda/degerler";
+import { RoketSayilar } from "@/components/hakkimizda/roket-sayilar";
 import { AlintiBandi } from "@/components/icerik/alinti-bandi";
 import { Container } from "@/components/layout/container";
-import { PageHeader } from "@/components/layout/page-header";
+import { buttonVariants } from "@/components/ui/button";
 import { getHakkimizda, getSite } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
 /**
  * Sayfa başlığı da içerikten geliyor. `generateMetadata` async olabildiği için
  * `content/site.json`u okuyabiliyor — kulüp adını buraya elle yazmak, adın
  * değiştiği gün sessizce eskiyen ikinci bir kopya oluştururdu.
  *
- * F7-01 tüm sayfalarda metadata'yı sistematik hâle getirecek; buradaki o
- * geçene kadar kök başlığın her sayfada tekrarlanmasını engelliyor.
+ * F7-01 tüm sayfalarda metadata'yı sistematik hâle getirecek.
  */
 export async function generateMetadata(): Promise<Metadata> {
-  const site = await getSite();
+  const [site, hakkimizda] = await Promise.all([getSite(), getHakkimizda()]);
   return {
-    title: `Hakkımızda — ${site.ad}`,
+    title: `${hakkimizda.baslik ?? "Hakkımızda"} — ${site.ad}`,
     description: site.aciklama,
   };
 }
 
+/** Alt köprü butonları — hero'daki ikincil çağrıyla aynı ölçü ve davranış. */
+const KOPRU_SINIFI =
+  "yuent-cta-outline inline-flex h-12 shrink-0 items-center justify-center gap-2 border border-border-strong px-6 text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-text-muted uppercase outline-none select-none hover:border-brand-accent hover:text-brand-accent focus-visible:border-brand-accent focus-visible:text-brand-accent focus-visible:ring-3 focus-visible:ring-ring/50";
+
 /**
  * `/hakkimizda` (F4-02).
  *
- * Akış: sayfa başlığı → hikâye → misyon/vizyon → alıntı → ekibimiz ve katıl
- * köprüleri.
+ * Akış: tam ekran "Biz Kimiz" girişi → hikâye → misyon/vizyon → alıntı →
+ * roket ve dumandan doğan sayılar → değerlerimiz → ekibimiz ve katıl butonları.
  *
- * Ana sayfanın görsel dili sürüyor ama kısılmış: ızgara yalnızca sayfa
- * başlığının arkasında duruyor ve içerik başlamadan sönüyor, ışık huzmeleri
- * yalnızca alıntı bandında. Uzun metnin arkasında sürekli hareket olmaması
- * kasıtlı — hikâye sayfanın en çok okunan parçası.
+ * Ana sayfanın görsel dili sürüyor ama kısılmış: ızgara yalnızca giriş
+ * ekranının arkasında, ışık huzmeleri yalnızca alıntı bandında. Uzun metnin
+ * arkasında sürekli hareket bilerek yok.
  *
- * `istatistikler` şu an boş; dolduğunda buraya bir bölüm eklenmesi gerekir.
- * Boş diziyle çizim yapılmıyor, yer tutucu da konmuyor.
+ * **Hikâye bölümü akış tarifinde geçmiyordu ama duruyor:** kulübün kendi
+ * anlatısı sitede başka hiçbir yerde yok, düşürülürse Wix'ten taşınan metin
+ * hiçbir sayfada görünmez hâle gelir. Fazla geldiyse tek bir `<section>`
+ * silmek yeterli.
  *
  * Tüm metin `content/hakkimizda.json` ve `content/site.json`dan geliyor.
  */
@@ -59,25 +66,27 @@ export default async function HakkimizdaSayfasi() {
       <ElFeneri />
 
       <div className="relative z-10">
-        {/* Başlık bölgesi — arkasında ızgara, içerik başlamadan sönüyor */}
+        {/* Giriş — ilk ekranda yalnızca burası görünüyor */}
         <div className="relative">
           <IzgaraKatmani />
 
-          <section className="relative pt-16 pb-16 sm:pt-20 sm:pb-20">
-            <Container size="wide">
-              <PageHeader
-                eyebrow={site.universite}
-                title="Hakkımızda"
-                description={site.aciklama}
-              />
-            </Container>
+          <section className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center px-5 pb-16 text-center">
+            <h1 className="font-heading text-[clamp(2.25rem,7vw,5rem)] leading-[0.9] font-bold tracking-[-0.042em] text-balance uppercase">
+              {hakkimizda.baslik ?? "Hakkımızda"}
+            </h1>
+
+            {hakkimizda.slogan ? (
+              <p className="mt-6 max-w-3xl font-heading text-[clamp(1.125rem,2.6vw,1.875rem)] leading-tight font-bold tracking-[-0.02em] text-balance text-text-muted">
+                {hakkimizda.slogan}
+              </p>
+            ) : null}
           </section>
         </div>
 
         {/* Hikâye */}
-        <section className="pb-20 sm:pb-24">
+        <section className="pt-4 pb-20 sm:pb-24">
           <Container size="wide">
-            <div className="prose">
+            <div className="prose mx-auto">
               {paragraflar.map((p) => (
                 <p key={p.slice(0, 32)}>{p}</p>
               ))}
@@ -129,44 +138,46 @@ export default async function HakkimizdaSayfasi() {
           </div>
         ) : null}
 
-        {/* Sayfayı bitiren iki köprü */}
+        {/* Roket ve dumandan doğan sayılar */}
+        {hakkimizda.istatistikler.length > 0 ? (
+          <section className="pb-24 sm:pb-28">
+            <Container size="wide">
+              <RoketSayilar istatistikler={hakkimizda.istatistikler} />
+            </Container>
+          </section>
+        ) : null}
+
+        {/* Değerlerimiz */}
+        {hakkimizda.degerler.length > 0 ? (
+          <section className="pb-20 sm:pb-24">
+            <Container size="wide">
+              <h2 className="mb-10 text-center font-heading text-[clamp(1.5rem,3.4vw,2.375rem)] leading-none font-bold tracking-[-0.03em] uppercase">
+                Değerlerimiz
+              </h2>
+
+              <Degerler degerler={hakkimizda.degerler} />
+            </Container>
+          </section>
+        ) : null}
+
+        {/* Sayfayı bitiren iki buton */}
         <section className="pb-24 sm:pb-28">
           <Container size="wide">
-            <div className="grid gap-4 border-t border-border pt-10 sm:grid-cols-2">
-              <Link
-                href="/ekibimiz"
-                className="group flex items-center justify-between gap-4 border border-border p-6 transition-colors hover:border-brand-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-              >
-                <span>
-                  <span className="block font-heading text-base font-bold tracking-[0.04em] uppercase">
-                    Ekibimiz
-                  </span>
-                  <span className="mt-1.5 block text-sm text-text-muted">
-                    Bu işi birlikte yürüten insanlar ve dönem arşivi
-                  </span>
-                </span>
-                <ArrowRight
-                  aria-hidden="true"
-                  className="size-5 shrink-0 text-text-subtle transition-colors group-hover:text-brand-accent"
-                />
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Link href="/ekibimiz" className={KOPRU_SINIFI}>
+                Ekibimiz
+                <ArrowRight className="size-4" aria-hidden="true" />
               </Link>
 
               <Link
                 href="/katil"
-                className="group flex items-center justify-between gap-4 border border-border p-6 transition-colors hover:border-brand-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "yuent-cta h-12 rounded-none px-6 text-xs font-extrabold tracking-[0.08em] uppercase hover:bg-primary",
+                )}
               >
-                <span>
-                  <span className="block font-heading text-base font-bold tracking-[0.04em] uppercase">
-                    Bize Katıl
-                  </span>
-                  <span className="mt-1.5 block text-sm text-text-muted">
-                    {site.kisaAd} ailesine katılmak için ne gerekiyor
-                  </span>
-                </span>
-                <ArrowRight
-                  aria-hidden="true"
-                  className="size-5 shrink-0 text-text-subtle transition-colors group-hover:text-brand-accent"
-                />
+                {site.kisaAd} ailesine katıl
+                <ArrowRight className="size-4" aria-hidden="true" />
               </Link>
             </div>
           </Container>
