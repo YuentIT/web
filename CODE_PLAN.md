@@ -35,10 +35,13 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 Tarih          : 20.08.2026
 Aktif faz      : Faz 4 — Sayfalar (Faz 1, 2, 3 bitti; Faz 3'te F3-03/F3-04 içerik bekliyor)
 Son biten      : F4-11 — /iletisim canlıda (yanında F5-04 `FormCta` öne çekildi)
-Sıradaki       : F4-12 (/katil), F4-13 (/basvuru) — ikisi de `FormCta` hazır
-                 olduğu için doğrudan yazılabilir; adresler F5-03'te girilince
-                 butonlar kendiliğinden açılır. Sonra F4-15 (404/error) ve
-                 F4-08 (galeri — Mustafa'dan görsel bekliyor).
+Sıradaki       : 🎨 **F4-08 /galeri — tasarım oturumu yarım kaldı.** Kod
+                 yazılmadı. Kararlar, font testi ve cevaplanmamış 4 soru
+                 F4-08'in altında yazılı; yeni oturum oradan devam etmeli.
+                 Ayrıca hazır bekleyenler: F4-12 (/katil), F4-13 (/basvuru) —
+                 `FormCta` hazır olduğu için doğrudan yazılabilirler; adresler
+                 F5-03'te girilince butonlar kendiliğinden açılır. Sonra
+                 F4-15 (404/error).
 
 İNCELEME — 20.08.2026, Mustafa sayfaları baştan geçiyor. İşlenen geri bildirim:
   · Footer: tanım "liderlik ve girişimcilik" sırasına döndü, telefon düzeltildi
@@ -685,9 +688,119 @@ BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
 
 - [ ] **F4-08** **`/galeri`** — 🔻 **sadeleşti (18.08.2026):** albüm ve etkinlik
   filtresi **yok**. Galeri, kulüpten karışık kareler gösteren tek bir showroom.
-  Düz ızgara + lightbox. `content/galeri/galeri.json` içinde src+alt listesi.
+  ~~Düz ızgara + lightbox~~ → **3B polaroid küresi (20.08.2026, aşağıda).**
+  `content/galeri/galeri.json` içinde src+alt listesi.
   `next/image`, sayfa başına en fazla 2 `priority`, gerisi lazy.
   *(YTÜ'nün B5 hatası: 14 görsele birden `priority` — tekrarlanmayacak.)*
+
+  ---
+
+  ### 🎨 Tasarım oturumu — 20.08.2026 · **KOD YAZILMADI, TASARIM AÇIK**
+
+  > Bu blok yarım kalmış bir tasarım konuşmasının kaydıdır. Yeni bir oturumda
+  > devam eden kişi buradan başlasın: kararlar kesin, "açık sorular" cevapsız.
+
+  **Referans:** [collectui.com/designs/gallery-ui-design-inspiration/a1fcd655-c824-4474-80b7-c80e28738e02](https://collectui.com/designs/gallery-ui-design-inspiration/a1fcd655-c824-4474-80b7-c80e28738e02)
+  — Gabriel (@gabriell_lab). Tasarımcının kendi tarifi: *"A floating gallery of
+  polaroid-style images forms a clean 3D sphere on a white background."*
+  Yani ızgara değil: **polaroid çerçeveli fotoğraflardan oluşan, dönen bir 3B
+  küre.** Öndeki kareler büyük ve düz, kenara gidenler küçülüp açılanıyor.
+
+  #### ✅ Verilen kararlar
+
+  1. **Düzen:** Plandaki düz ızgara yerine 3B polaroid küresi.
+  2. **Zemin:** Referanstaki beyaz değil, **bizim koyu temamız + `IzgaraKatmani`**.
+     Küre bizim atmosferimizin içinde duracak.
+  3. **Teknik yön: saf CSS 3B + küçük JS.** Her fotoğraf küre koordinatlarıyla
+     `rotateY/rotateX/translateZ` ile yerleştirilir, kapsayıcı döner; derinlik
+     hissini `perspective` verir. **three.js KURULMAYACAK** — `SITE_PLAN.md` §4'teki
+     "hareketin tamamı saf CSS, `motion` kurulmadı" kararı korunuyor. JS yalnızca
+     sürükleme ve otomatik dönüş için. Kabul edilen sınır: ~40–50 kareden sonra
+     mobilde akıcılık düşebilir.
+  4. **Polaroid çerçevesinin sol alt köşesinde** küçük bir not: **tarih + etkinlik
+     adı**, el yazısı fontuyla. (Polaroid'in kalın alt kenarına düşülmüş not
+     metaforu.)
+  5. Metinleri **Mustafa fotoğraf fotoğraf verecek.**
+
+  #### ❓ Cevaplanmamış sorular — yeni oturum bunlarla başlamalı
+
+  1. **Kareye tıklayınca ne olacak?** Lightbox açılsın mı, yoksa küre sadece
+     dönsün mü?
+  2. **Küre kendiliğinden dönsün mü**, yoksa yalnızca sürüklenince mi?
+     (`prefers-reduced-motion` açıkken otomatik dönüş kapanacak — bu kesin.)
+  3. **JS kapalıyken yedek düzen nasıl görünecek?** Faz 4'ün ortak kabul kriteri
+     "JS kapalıyken içerik okunabiliyor" olduğu için düz ızgaraya düşmek
+     **zorunlu**; tartışılacak olan o ızgaranın görünümü.
+  4. **El yazısı fontu seçilmedi.** Kısa liste ve gerekçeler aşağıda.
+
+  #### 🔤 El yazısı fontu — Türkçe testi yapıldı
+
+  Test edilen glifler: `ğ Ğ ı İ ş Ş ç Ç ö Ö ü Ü`. Ölçüm `fontTools` ile
+  doğrudan `cmap` tablosundan yapıldı, göz kararı değil.
+
+  **❌ Elenenler — beşi de aynı beş glifi taşımıyor (`ğ Ğ İ ş Ş`):**
+  Satisfy · Yuji Syuku · Rock Salt · Tangerine · Reenie Beanie · Niconne ·
+  **Sofia** (bunda ayrıca `ı` da yok). Bu fontlarla "Şirket ve Girişim Ofisi
+  Gezileri" yazılırsa eksik harfler yedek fonta düşer ve tek satırda iki ayrı
+  yazı tipi görünür.
+
+  **✅ Türkçesi tam olanlar (11):**
+
+  | Font | Glif | Ağırlık | Not |
+  |---|---|---|---|
+  | **Caveat** | 753 | **değişken 400–700** | Önerilen. Bağlı yazı ile okunaklılık arasında en iyi denge; 11–12 px'te 600'e çekilebiliyor |
+  | **Dancing Script** | 559 | **değişken** | Senin listenden en dengeli olanı; Caveat'tan daha süslü |
+  | **Marck Script** | 483 | tek | Dancing Script'e yakın, daha yatık ve hızlı yazılmış hissi |
+  | **Cedarville Cursive** | 389 | tek | En "gerçek insan eli" duranı; bedeli incelik, küçük puntoda zayıf |
+  | Great Vibes | 1081 | tek | Klasik kaligrafi — çok zarif ama 11–12 px'te tüy gibi ipince kalıyor |
+  | Allura | 587 | tek | Great Vibes ile aynı sorun |
+  | Parisienne | 405 | tek | Rakamları fazla süslü — denemede "2023" neredeyse "9093" okunuyordu |
+  | Oooh Baby | 588 | tek | İnce kaligrafi, küçük puntoda okunmuyor |
+  | Yellowtail | 405 | tek | Dolu gövdeli ama fazla "retro tabela" |
+  | Kalam | 1026 | tek | Dik, kalem hissi; "not" değil "yazı" gibi duruyor |
+  | Patrick Hand | 550 | tek | En okunaklı ama en az kişisel, matbaa el yazısı gibi |
+
+  **Karar bekleyen kısa liste:** Caveat *(öneri)* · Dancing Script ·
+  Cedarville Cursive · Marck Script.
+  Seçilen font `public/fonts/` altına **woff2 olarak** konacak ve `src/lib/fonts.ts`'e
+  eklenecek — Google Fonts CDN'i kullanılmıyor (F2-03 kuralı).
+
+  **Testi yeniden üretmek için:** fontlar `github.com/google/fonts` deposundan
+  (`ofl/<ad>/` veya `apache/<ad>/`) indirilip `fontTools.ttLib` ile `cmap`
+  taranıyor. Karşılaştırma sayfası fontları polaroid çerçevesi içinde, koyu
+  zeminde ve gerçek etkinlik adıyla çiziyor — punto her font için ayrı ayarlı,
+  çünkü script fontların x-yüksekliği çok farklı ve aynı puntoda karşılaştırmak
+  yanıltıcı oluyor.
+
+  #### 🔧 Kod tarafında gerekecek değişiklikler
+
+  - **`galeriGorseliSchema` genişleyecek:** şu an yalnızca `src` + `alt` var;
+    `tarih` ve `etkinlik` alanları eklenecek. İkisi de opsiyonel olmalı —
+    her karenin künyesi olmayabilir, künyesiz kare çerçeveyi boş gösterir.
+  - **`src/lib/fonts.ts`** — üçüncü bir aile (`--font-el-yazisi`).
+  - Yeni bileşen(ler): küre + polaroid kartı + JS'siz yedek ızgara.
+
+  #### ⚠️ Not: tarih yayınlama kuralıyla ilişkisi
+
+  Sitede **etkinlik tarihleri bilerek yayınlanmıyor** (18.08.2026 kararı,
+  `etkinlikSchema`'dan `tarih`/`durum` alanları bu yüzden kaldırıldı). Galeride
+  tarih göstermek bu kuralla **çelişmiyor**: galeri geçmiş kareleri anlatıyor,
+  "2024 · Hult Prize Campus" geçmişi işaretliyor, gelecek bir etkinlik duyurmuyor.
+  Yine de Mustafa'nın onayıyla ilerlendi.
+
+  #### 🚧 Fiilî engeller
+
+  - `public/gorseller/galeri/` **boş**, `content/galeri/galeri.json` de boş dizi.
+    Sayfa geçici karelerle yazılabilir ama gerçek hâli ancak fotoğraflar gelince
+    görülür.
+  - El yazısı fontu dosyası henüz repoya konmadı (seçim yapılmadı).
+
+  #### 📋 Süreç notu
+
+  Bu iş **architectural** sınıfında: yeni bir hareket sistemi kuruyor, kayıtlı bir
+  mimari kararla (§4 "saf CSS") kesişiyor, yeni bir varlık (font) ve şema
+  değişikliği getiriyor. Yani kod yazmadan önce
+  `docs/superpowers/specs/` altına bir tasarım belgesi yazılıp onaylanmalı.
 
 - [ ] **F4-09** **`/blog` + `/blog/[slug]`**
 
