@@ -32,13 +32,13 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ## ŞU AN NEREDEYİZ
 
 ```
-Tarih          : 20.08.2026 (inceleme seansı)
+Tarih          : 20.08.2026
 Aktif faz      : Faz 4 — Sayfalar (Faz 1, 2, 3 bitti; Faz 3'te F3-03/F3-04 içerik bekliyor)
-Son biten      : F4-03 + F4-04 — /ekibimiz ve /ekibimiz/[donem] canlıda
-Sıradaki       : F4-05 (/etkinlikler — **tek sayfa**, kategori filtresi + arama,
-                 filtre URL'ye yazılır) → F4-06 (/etkinlikler/[slug]). İçerik
-                 hazır: 4 etkinlik, kapak görselleri ve MDX gövdeleriyle.
-                 Sonra F4-11 (iletişim), F4-15 (404).
+Son biten      : F4-05 + F4-06 — /etkinlikler ve /etkinlikler/[slug] canlıda
+Sıradaki       : F4-11 (/iletisim), F4-12 (/katil), F4-13 (/basvuru) — üçü de
+                 Faz 5'teki form bağlantısını beklemeden yazılabilir, CTA'lar
+                 F5-05'te bağlanır. Sonra F4-15 (404/error) ve F4-08 (galeri —
+                 Mustafa'dan görsel bekliyor).
 
 İNCELEME — 20.08.2026, Mustafa sayfaları baştan geçiyor. İşlenen geri bildirim:
   · Footer: tanım "liderlik ve girişimcilik" sırasına döndü, telefon düzeltildi
@@ -54,6 +54,9 @@ Sıradaki       : F4-05 (/etkinlikler — **tek sayfa**, kategori filtresi + ara
     artan son satır ortalı. Koordinatörlerdeki departman başlıkları kalktı,
     liste ada göre alfabetik (Türkçe sıralama).
   · Ana sayfa ve /hakkimizda: bu turda değişiklik istenmedi.
+  · Etkinlikler: **filtre ve arama iptal** (F4-05'in plandaki tanımı değişti).
+    Sayfa, ana sayfadakiyle aynı bento diziliminde tüm etkinlikleri gösteriyor;
+    kartlar kendi sayfalarına gidiyor. Ana sayfa artık seçki basıyor.
 
 Canlı          : https://web-yuent.vercel.app
 Depo           : github.com/YuentIT/web (public, main korumalı ✓)
@@ -68,13 +71,16 @@ GÖRSEL YÖN DEĞİŞTİ (19.08.2026) — ayrıntı SITE_PLAN §4 ve §8.2:
   katmanı, ışık huzmeleri, kaydırma ipucu).
 
 Açılan rotalar : /  /hakkimizda  /ekibimiz  /ekibimiz/[donem]
+                 /etkinlikler  /etkinlikler/[slug] (4 etkinliğin dördü de)
 Hâlâ 404 veren rotalar (Faz 4 boyunca açılacak):
-  /etkinlikler /egitimler /galeri /blog /sponsorluk /katil /basvuru
+  /egitimler /galeri /blog /sponsorluk /katil /basvuru
   /iletisim /oneri /kvkk /gizlilik /kullanim-kosullari
   Header ve footer bağlantıları hazır, hedefleri yazıldıkça açılacak.
   ⚠️ 20.08 menü sadeleştirmesinden sonra /egitimler, /blog ve /oneri'ye sitede
      hiçbir yerden bağlantı kalmadı. Sayfalar yazılacaksa bir giriş noktası da
-     belirlenmeli (ör. eğitimler /etkinlikler içinde bir kategori olarak).
+     belirlenmeli. Etkinliklerde artık kategori filtresi olmadığı için
+     "eğitimler /etkinlikler içinde bir kategori olur" seçeneği de kapandı —
+     eğitimler yazılacaksa kendi giriş noktasını gerektiriyor.
 
 MUSTAFA'DAN BEKLENENLER (hiçbiri Faz 4'ü bloke etmiyor):
   · /hakkimizda "Değerlerimiz" YENİLENECEK — 20.08'de karar verildi: şu anki
@@ -635,14 +641,31 @@ BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
   Bu geçici bir veri eksikliği değil, kalıcı bir durum: kod her iki hâli de
   desteklemeli çünkü gelecek dönemler yeniden koordinatör alabilir.
 
-- [ ] **F4-05** **`/etkinlikler`** — kategori filtresi + arama, filtre URL'ye yazılır.
+- [x] **F4-05** **`/etkinlikler`** ✅ canlıda — ~~kategori filtresi + arama, filtre
+  URL'ye yazılır~~ **iptal (20.08.2026).** Dört etkinlik ve üç kategoriyle filtre,
+  sayfayı göstermesi gereken şeyin önüne geçen bir araca çeviriyordu. Sayfa artık
+  ana sayfayla aynı bento diziliminde tüm etkinlikleri basıyor, kartlar kendi
+  sayfalarına gidiyor. Liste anlamlı ölçüde büyürse karar yeniden açılabilir.
 
-- [ ] **F4-06** **`/etkinlikler/[slug]`** — detay + kayıt CTA'sı (Faz 5'te bağlanacak).
+  Izgara `EtkinlikIzgarasi` olarak `components/icerik/` altında paylaşılıyor.
+  Düzen artık sabit dörtlü bir desen değil, sayıdan türetiliyor: ikişerli
+  satırlar 7/5 ve 5/7 dönüşümlü, tek kalan kart tam genişlikte. Böylece hiçbir
+  etkinlik sayısında satır sonu boşluğu kalmıyor.
+
+  **Ana sayfa daraldı:** artık `oneCikanEtkinlikler`i basıyor, tümünü değil —
+  etkinlik listesi büyüyeceği için iki sayfa birbirinin kopyası olacaktı.
+  Şemadaki üst sınır 3'ten 4'e çıkarıldı.
+
+- [x] **F4-06** **`/etkinlikler/[slug]`** ✅ canlıda — detay + kayıt CTA'sı
+  (Faz 5'te bağlanacak).
   *Bitti sayılır:* ~~7~~ **4** etkinliğin her biri kendi adresinde açılıyor.
   **Sayfa bilgilendirme amaçlı** (18.08.2026 kararı): tarih, yer ve kayıt durumu
   gösterilmiyor. `kayitLinki` doluysa tek bir "Kayıt Formu" butonu çiziliyor,
   boşsa hiçbir kayıt öğesi görünmüyor. Tarih dahil ayrıntılar formun içinde.
   *(YTÜ'nün en iyi yaptığı iş buydu — her etkinliğe ayrı URL.)*
+  Dördü de `generateStaticParams` ile derleme anında üretiliyor; olmayan slug
+  gerçek 404 dönüyor. Hiçbir etkinlikte `kayitLinki` dolu olmadığı için şu an
+  sayfalarda kayıt öğesi görünmüyor — beklenen davranış.
 
 - [ ] **F4-07** **`/egitimler`**
 
@@ -863,6 +886,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 20.08.2026 | **F4-05 ve F4-06 tamamlandı.** `/etkinlikler` tüm etkinlikleri, `/etkinlikler/[slug]` her birinin kendi sayfasını gösteriyor; dördü de derleme anında üretiliyor. **Plandan sapma:** kategori filtresi ve arama yazılmadı (Mustafa'nın kararı) — dört etkinlik ve üç kategoriyle sayfayı yönetilmesi gereken bir araca çeviriyordu. Bento ızgarası `components/anasayfa/` → `components/icerik/` taşındı ve iki sayfanın ortak malı oldu; sabit dörtlü desen yerine sayıdan düzen türeten bir fonksiyona çevrildi (ikişerli satırlar 7/5 ve 5/7, tek kalan kart tam genişlik) — eski desen 4'ün katı olmayan sayılarda satır sonunda boşluk bırakıyordu. Sınıf adları birebir yazılıyor: Tailwind kaynağı metin olarak taradığı için `col-span-${n}` gibi çalışma anında birleşen bir adı üretmiyor. **Ana sayfa daraldı:** tümünü değil `oneCikanEtkinlikler`i basıyor (şemada `.max(3)` → `.max(4)`), yoksa liste büyüdükçe `/etkinlikler`in kopyası olacaktı; kayan şerit tüm adları okumaya devam ediyor. Kullanılmayan `EventCard` silindi. 28/73. |
 | 19.08.2026 | **F4-03 ve F4-04 tamamlandı.** `/ekibimiz` güncel dönemi, `/ekibimiz/[donem]` arşivi gösteriyor; ikisi de aynı `EkipListesi`yi kullanıyor. Yönetim kurulu dizilimi plandaki gibi (başkan tek, altında yardımcı + genel sekreter, altında üyeler), koordinatörler departmana göre gruplu. Geçiş tuşu koşullu: 2025-2026'da koordinatör olmadığı için hiç çizilmiyor. Güncel dönem `generateStaticParams`a girmiyor, `/ekibimiz/2025-2026` 307 ile `/ekibimiz`e gidiyor — aynı ekip iki adreste yayınlanmıyor. **Erişilebilirlik:** sekmeli düzen JS'siz tarayıcıda ikinci listeyi gizliyordu; paneller `keepMounted` yapıldı ve bir `<noscript>` stili gizlemeyi geri alıyor. 26/73. |
 | 19.08.2026 | **F4-02 `/hakkimizda` tamamlandı.** Ayrıntı görevin altında. Yol üstünde ortak `atmosfer/` bileşenleri çıkarıldı (el feneri, ızgara, ışık huzmeleri, kaydırma ipucu) ve alıntı bandı paylaşıldı; ana sayfa da onları kullanıyor. `PageHeader`'ın h1'i büyük harfe geçti — iç sayfalar ana sayfayla aynı dili konuşsun diye kural tek yerde. Sayfa metadata'sı `generateMetadata` ile içerikten okunuyor (F7-01 geçene kadarki ara çözüm). Şemaya `hakkimizda.baslik/slogan/degerler` ve kapalı bir ikon listesi eklendi: içerikte karşılığı olmayan ikon adı yazılırsa sayfa ikonsuz çıkmıyor, derleme duruyor. 24/73. |
 | 19.08.2026 | **Ana sayfa yeniden tasarlandı (F4-01 v2) ve görsel dil değişti.** Yön: editoryal brutalist; aksan safran `#D9A441` → **asit sarısı `#E8FE55`**, birincil buton beyaz yerine asit (SITE_PLAN §8.2 güncellendi). Akış: tam ekran hero → misyon/vizyon → sayılarla biz → yatay etkinlik rayı → alıntı → bize katıl. Sayfanın omurgası **tek ızgara katmanı**: hero'da tam güçte, hem maskeyle kesilerek hem kaydırmayla opaklığı düşerek etkinlikler bitmeden yok oluyor; alıntı ve kapanış ızgarasız, iki ışık huzmesinin altında. İmleci takip eden el feneri sayfanın tamamında. `motion` **kurulmadı** — tasarımdaki hiçbir efekt ona ihtiyaç duymuyor, gerekçe SITE_PLAN §4'te. **Yan düzeltme:** `<Button render={<Link/>}>` kalıbı Base UI'da `<a>`ya `role="button"` ekletip bağlantıyı ekran okuyucuda "buton" diye okutuyordu; header, mobil menü ve hero'daki 5 çağrı `buttonVariants` ile stillenmiş `Link`e çevrildi. İçerik: `anasayfa.json`a `alinti` + `katil` eklendi, hero başlığı satır kırılımı (`\n`) ve `vurgu` alanı kazandı. |

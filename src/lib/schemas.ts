@@ -100,8 +100,15 @@ export const anasayfaSchema = z.object({
     birincilCta: ctaSchema,
     ikincilCta: ctaSchema.optional(),
   }),
-  /** Ana sayfada öne çıkarılacak etkinlikler. Doğrulaması F3-02'de. */
-  oneCikanEtkinlikler: z.array(slugSchema).max(3),
+  /**
+   * Ana sayfada öne çıkarılacak etkinlikler; ızgaraya yazıldıkları sırayla
+   * giriyorlar. Slug'ların gerçekten bir etkinliğe karşılık geldiği F3-02'de
+   * denetleniyor.
+   *
+   * Üst sınır 4 (20.08.2026): bento düzeni dördü delik bırakmadan taşıyor,
+   * beşincisi ana sayfayı `/etkinlikler`in kopyasına çevirmeye başlıyor.
+   */
+  oneCikanEtkinlikler: z.array(slugSchema).max(4),
   sayilarlaBiz: z
     .array(z.object({ deger: dolu, etiket: dolu }))
     .max(4)

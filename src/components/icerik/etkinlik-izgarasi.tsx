@@ -15,23 +15,52 @@ export type EtkinlikKarti = {
 };
 
 /**
- * Bento düzeni — dörtlü bir desen hâlinde tekrar ediyor: geniş/dar, dar/geniş.
- * Kartların hepsi aynı boyda olsaydı ızgara katalog gibi görünürdü; boy farkı
- * hangi etkinliğin daha büyük olduğunu değil, sayfanın ritmini kuruyor.
+ * Bento düzeni — kartlar ikişerli satırlara giriyor, satır genişlikleri sırayla
+ * geniş/dar ve dar/geniş oluyor. Kartların hepsi aynı boyda olsaydı ızgara
+ * katalog gibi görünürdü; boy farkı hangi etkinliğin daha büyük olduğunu değil,
+ * sayfanın ritmini kuruyor.
  *
- * Desen dörder dörder tekrarladığı için etkinlik sayısı 4'ün katı değilse son
- * satırda boşluk kalır. Şu an dört etkinlik var; sayı değişip düzen bozulursa
- * çözüm bu diziyi uzatmak, kartı esnetmek değil.
+ * Düzen sabit bir desen dizisi **değil**, sayıdan türetiliyor: eskiden dörtlü
+ * bir desen tekrarlıyordu ve etkinlik sayısı 4'ün katı olmadığında son satırda
+ * boşluk kalıyordu. Etkinlik listesi büyüyeceği için (20.08.2026) tek kalan
+ * kart artık tam genişliğe yayılıyor — hiçbir sayıda delik kalmıyor.
+ *
+ * Yükseklikler satır satır 400/340 arasında dönüşüyor; tam genişlikteki
+ * kapanış kartı daha alçak duruyor ki 12 sütuna yayılmış bir görsel sayfayı
+ * ezmesin.
+ *
+ * Sınıf adları **birebir** yazılıyor, parça parça kurulmuyor: Tailwind kaynağı
+ * metin olarak tarıyor ve `col-span-${n}` gibi çalışma anında birleşen bir adı
+ * hiç görmediği için o yardımcı sınıfı üretmez.
  */
-const DUZEN = [
-  "lg:col-span-7 lg:h-[400px]",
-  "lg:col-span-5 lg:h-[400px]",
-  "lg:col-span-5 lg:h-[320px]",
-  "lg:col-span-7 lg:h-[320px]",
+const SATIR_DUZENLERI = [
+  ["lg:col-span-7 lg:h-[400px]", "lg:col-span-5 lg:h-[400px]"],
+  ["lg:col-span-5 lg:h-[340px]", "lg:col-span-7 lg:h-[340px]"],
 ];
 
+/** Satırda tek başına kalan kart: 12 sütunun tamamı, daha alçak. */
+const KAPANIS_KARTI = "lg:col-span-12 lg:h-[300px]";
+
+function bentoDuzeni(adet: number): string[] {
+  const siniflar: string[] = [];
+
+  for (let satir = 0; satir * 2 < adet; satir++) {
+    if (satir * 2 + 1 === adet) {
+      siniflar.push(KAPANIS_KARTI);
+      break;
+    }
+
+    siniflar.push(...SATIR_DUZENLERI[satir % SATIR_DUZENLERI.length]);
+  }
+
+  return siniflar;
+}
+
 /**
- * Ana sayfadaki etkinlik ızgarası (F4-01 · 19.08.2026).
+ * Etkinlik ızgarası (F4-01 · görsel yön 19.08.2026).
+ *
+ * Ana sayfa ile `/etkinlikler` bunu paylaşıyor (20.08.2026): ana sayfa
+ * `oneCikanEtkinlikler`i, liste sayfası ise etkinliklerin tamamını basıyor.
  *
  * Yerleşim ytugirisim.org'daki gibi asimetrik; hareket ise bize ait. Kart
  * hover'ı Uiverse'teki JohnnyCSilva kartının uyarlaması: görsel kaybolmuyor,
@@ -54,6 +83,8 @@ export function EtkinlikIzgarasi({
 }) {
   if (etkinlikler.length === 0) return null;
 
+  const duzen = bentoDuzeni(etkinlikler.length);
+
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
       {etkinlikler.map((etkinlik, i) => (
@@ -63,7 +94,7 @@ export function EtkinlikIzgarasi({
           className={cn(
             "group relative h-[300px] overflow-hidden rounded-[20px] bg-surface-2 shadow-[0_0_0_1px_var(--border)] transition duration-200 ease-in-out [clip-path:inset(0_round_20px)]",
             "hover:scale-[1.02] hover:-rotate-[0.5deg] focus-visible:scale-[1.02] focus-visible:-rotate-[0.5deg] focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
-            DUZEN[i % DUZEN.length],
+            duzen[i],
           )}
         >
           {etkinlik.kapakGorsel ? (

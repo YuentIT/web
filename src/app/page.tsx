@@ -2,12 +2,12 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { ElFeneri } from "@/components/atmosfer/el-feneri";
-import { EtkinlikIzgarasi } from "@/components/anasayfa/etkinlik-izgarasi";
 import { Hero } from "@/components/anasayfa/hero";
 import { IsikBolgesi } from "@/components/anasayfa/isik-bolgesi";
 import { IzgaraKatmani } from "@/components/atmosfer/izgara-katmani";
 import { KayanSerit } from "@/components/anasayfa/kayan-serit";
 import { Container } from "@/components/layout/container";
+import { EtkinlikIzgarasi } from "@/components/icerik/etkinlik-izgarasi";
 import { getAnasayfa, getEtkinlikler, getHakkimizda } from "@/lib/content";
 
 /**
@@ -22,10 +22,14 @@ import { getAnasayfa, getEtkinlikler, getHakkimizda } from "@/lib/content";
  * kendi ışık huzmelerinin altında duruyor — bölüm değişimi böylece ani bir
  * kesme değil, ışığın el değiştirmesi oluyor.
  *
- * Izgara **tüm** etkinlikleri gösteriyor, `oneCikanEtkinlikler`i değil: bento
- * düzeni hepsini bir arada taşıyabildiği için üçle sınırlamanın karşılığı
- * kalmadı. Alan `content/anasayfa.json`da duruyor, `/etkinlikler` sayfası (F5)
- * onu kullanacak.
+ * Izgara yalnızca `content/anasayfa.json → oneCikanEtkinlikler`i gösteriyor
+ * (20.08.2026). Bir süre tüm etkinlikleri basıyordu; etkinlik listesi büyümeye
+ * başlayınca ana sayfa `/etkinlikler`in kopyası hâline gelecekti. Şimdi ana
+ * sayfa seçki, `/etkinlikler` ise tam liste. Sıralama da o listeden geliyor:
+ * hangisinin önce görüneceği editoryal bir karar, `sira` alanının işi değil.
+ *
+ * Kayan şerit **tüm** etkinliklerin adlarını okumaya devam ediyor — o bir
+ * içindekiler listesi değil, hero'nun altındaki atmosfer.
  *
  * Tüm metin `content/` altından geliyor; bu dosyada hiçbir içerik gömülü değil.
  */
@@ -36,16 +40,24 @@ export default async function Home() {
     getEtkinlikler(),
   ]);
 
-  // Kartın göstermediği MDX gövdesini taşımamak için ihtiyaç duyulan alanlara
+  // Öne çıkanlar, `oneCikanEtkinlikler`deki sırayla. Slug'ların gerçekten bir
+  // etkinliğe karşılık geldiğini `getAnasayfa()` derleme anında denetliyor, o
+  // yüzden burada eksik bir eşleşme kalamaz; yine de tip düzeyinde ayıklanıyor.
+  //
+  // Kartın göstermediği MDX gövdesi taşınmıyor, ihtiyaç duyulan alanlara
   // indirgeniyor.
-  const etkinlikKartlari = etkinlikler.map((e) => ({
-    slug: e.slug,
-    baslik: e.baslik,
-    kisaAciklama: e.kisaAciklama,
-    kategori: e.kategori,
-    kapakGorsel: e.kapakGorsel,
-    ozellikler: e.ozellikler,
-  }));
+  const slugaGore = new Map(etkinlikler.map((e) => [e.slug, e]));
+  const etkinlikKartlari = anasayfa.oneCikanEtkinlikler
+    .map((slug) => slugaGore.get(slug))
+    .filter((e) => e !== undefined)
+    .map((e) => ({
+      slug: e.slug,
+      baslik: e.baslik,
+      kisaAciklama: e.kisaAciklama,
+      kategori: e.kategori,
+      kapakGorsel: e.kapakGorsel,
+      ozellikler: e.ozellikler,
+    }));
 
   return (
     <>
@@ -116,26 +128,29 @@ export default async function Home() {
               </section>
             ) : null}
 
-            {/* Etkinlikler */}
-            <section className="pt-20 pb-24 sm:pt-24 sm:pb-28">
-              <Container size="wide">
-                <div className="mb-10 flex flex-col items-center text-center">
-                  <h2 className="font-heading text-[clamp(1.75rem,4vw,3rem)] leading-none font-bold tracking-[-0.03em] uppercase">
-                    Etkinliklerimiz
-                  </h2>
+            {/* Etkinlikler — seçki boşsa başlık da çizilmiyor: kartsız bir
+                "Etkinliklerimiz" bandı sayfada bir şeyin bozulduğunu düşündürür. */}
+            {etkinlikKartlari.length > 0 ? (
+              <section className="pt-20 pb-24 sm:pt-24 sm:pb-28">
+                <Container size="wide">
+                  <div className="mb-10 flex flex-col items-center text-center">
+                    <h2 className="font-heading text-[clamp(1.75rem,4vw,3rem)] leading-none font-bold tracking-[-0.03em] uppercase">
+                      Etkinliklerimiz
+                    </h2>
 
-                  <Link
-                    href="/etkinlikler"
-                    className="yuent-parla mt-4 inline-flex items-center gap-1.5 rounded text-[0.6875rem] tracking-[0.14em] text-brand-accent uppercase focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-                  >
-                    Tümünü gör
-                    <ArrowRight className="size-3.5" aria-hidden="true" />
-                  </Link>
-                </div>
+                    <Link
+                      href="/etkinlikler"
+                      className="yuent-parla mt-4 inline-flex items-center gap-1.5 rounded text-[0.6875rem] tracking-[0.14em] text-brand-accent uppercase focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                    >
+                      Tümünü gör
+                      <ArrowRight className="size-3.5" aria-hidden="true" />
+                    </Link>
+                  </div>
 
-                <EtkinlikIzgarasi etkinlikler={etkinlikKartlari} />
-              </Container>
-            </section>
+                  <EtkinlikIzgarasi etkinlikler={etkinlikKartlari} />
+                </Container>
+              </section>
+            ) : null}
           </div>
         </div>
 
