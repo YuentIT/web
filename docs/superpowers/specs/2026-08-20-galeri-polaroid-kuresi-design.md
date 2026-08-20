@@ -226,15 +226,28 @@ export const galeriGorseliSchema = z.object({
 });
 ```
 
-- `tarih` ISO olarak saklanır (blog şemasıyla aynı idiom), ekranda
-  `Intl.DateTimeFormat("tr-TR", { month: "long", year: "numeric" })` ile
-  **"Mart 2024"** diye basılır ve `<time dateTime>` içine sarılır. Polaroid'e
-  düşülen bir nota gün bilgisi fazla; ay + yıl doğru ölçek.
+- `tarih` ISO olarak saklanır (blog şemasıyla aynı idiom), ekranda **tam tarih**
+  olarak `12.03.2024` biçiminde basılır (Mustafa'nın kararı, 20.08.2026) ve
+  `<time dateTime>` içine sarılır. Biçimleme
+  `Intl.DateTimeFormat("tr-TR", { day: "2-digit", month: "2-digit", year: "numeric" })`.
+  Sayısal biçim seçildi çünkü `12 Mart 2024` küçük polaroid şeridinde etkinlik
+  adının yanında yer bırakmıyor.
 - Etkinlik tarihi yayınlamama politikası (`schemas.ts` 250–262) **geçmiş
   kareler için geçerli değil** — o kural yaklaşan etkinlikleri önden duyurmamak
   içindi.
-- Not satırı: `Mart 2024 · Şirket Gezisi`. Yalnızca biri varsa yalnızca o
-  basılır; ikisi de yoksa satır çizilmez ama polaroid kalın alt kenarını korur.
+
+**Notun düzeni.** Polaroid 84–132 px geniş, not 11–12 px. `Şirket ve Girişim
+Ofisi Gezileri` gibi bir ad tek satıra sığmaz, bu yüzden not **iki satır**:
+
+```
+Şirket ve Girişim
+Ofisi Gezileri          ← etkinlik, en fazla 2 satır (line-clamp)
+12.03.2024              ← tarih, bir tık küçük ve soluk
+```
+
+Alt şerit bu iki satırı alacak kadar kalın. Yalnızca biri varsa yalnızca o
+basılır; ikisi de yoksa şerit boş kalır ama **kalınlığını korur** — polaroid'i
+polaroid yapan şey o boşluk.
 
 ## 9. Görseller
 
@@ -323,8 +336,12 @@ olmadan da bitirilebilir; sayfa boş durumda anlamlı bir metin gösterir.
 - `content/galeri/galeri.json` **boş** (`gorseller: []`).
 - Not metinleri (tarih · etkinlik) Mustafa'dan fotoğraf fotoğraf gelecek.
 
-Geliştirme sırasında geçici yer tutucu karelerle çalışılacak; içerik gelince
-yalnızca JSON doldurulacak, kod değişmeyecek.
+**Yer tutucu kararı (Mustafa, 20.08.2026):** sayfa şimdi yer tutucu karelerle
+yazılacak. Yer tutucular `public/gorseller/galeri/` altına **konmaz** — o klasör
+gerçek fotoğrafların yeri ve karışmamalı. Bunun yerine üretilmiş bir avuç SVG
+`public/gorseller/yer-tutucu/galeri/` altında durur; `galeri.json` geliştirme
+boyunca onlara işaret eder, gerçek kareler gelince dosya baştan yazılır ve
+yer tutucu klasörü silinir. **Kod hiçbir aşamada değişmez.**
 
 ## 14. Kapsam dışı
 
