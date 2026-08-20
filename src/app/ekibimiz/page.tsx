@@ -31,8 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
  * bileşeni kullanıyor.
  */
 export default async function EkibimizSayfasi() {
-  const [site, donemler, guncel] = await Promise.all([
-    getSite(),
+  const [donemler, guncel] = await Promise.all([
     getDonemler(),
     getGuncelDonem(),
   ]);
@@ -49,11 +48,9 @@ export default async function EkibimizSayfasi() {
 
           <section className="relative pt-16 pb-16 sm:pt-20 sm:pb-20">
             <Container size="wide">
-              <PageHeader
-                eyebrow={guncel.baslik}
-                title="Ekibimiz"
-                description={`${site.kisaAd} bu dönem ${guncel.uyeler.length} kişilik bir ekiple çalışıyor.`}
-              >
+              {/* Özet metni yok: kişi sayısını cümleyle söylemek kartların
+                  kendisiyle aynı bilgiyi tekrarlıyordu (20.08.2026 kararı). */}
+              <PageHeader eyebrow={guncel.baslik} title="Ekibimiz">
                 <DonemSecici
                   donemler={donemler}
                   aktifSlug={guncel.slug}

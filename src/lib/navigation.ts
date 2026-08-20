@@ -12,34 +12,19 @@ export type NavLink = {
   href: string;
 };
 
-export type NavItem = NavLink & {
-  /** Doluysa açılır menü olarak çizilir; `href` yine de tıklanabilir kalır. */
-  children?: NavLink[];
-};
-
-export const mainNav: NavItem[] = [
+/**
+ * Header menüsü — **düz liste, açılır menü yok** (20.08.2026 kararı).
+ *
+ * "Etkinlikler" tek bir sayfa: eğitimler ve sponsorluk için ayrı üst menü
+ * girdisi yok. "Ekibimiz" de üstüne gelince menü açmıyor, tıklanınca doğrudan
+ * güncel dönem açılıyor; arşiv dönemlerine o sayfadaki dönem seçicisinden
+ * gidiliyor.
+ */
+export const mainNav: NavLink[] = [
   { label: "Anasayfa", href: "/" },
   { label: "Hakkımızda", href: "/hakkimizda" },
-  {
-    label: "Etkinlikler",
-    href: "/etkinlikler",
-    children: [
-      { label: "Tüm Etkinlikler", href: "/etkinlikler" },
-      { label: "Eğitimler", href: "/egitimler" },
-      { label: "Sponsorluk", href: "/sponsorluk" },
-    ],
-  },
-  {
-    label: "Ekibimiz",
-    href: "/ekibimiz",
-    children: [
-      { label: "Güncel Ekip", href: "/ekibimiz" },
-      { label: "2025-2026", href: "/ekibimiz/2025-2026" },
-      { label: "2022-2023", href: "/ekibimiz/2022-2023" },
-      { label: "2021-2022", href: "/ekibimiz/2021-2022" },
-      { label: "2020-2021", href: "/ekibimiz/2020-2021" },
-    ],
-  },
+  { label: "Etkinlikler", href: "/etkinlikler" },
+  { label: "Ekibimiz", href: "/ekibimiz" },
   { label: "Galeri", href: "/galeri" },
   { label: "İletişim", href: "/iletisim" },
 ];
@@ -51,34 +36,21 @@ export const primaryCta: NavLink = {
 };
 
 /**
- * Footer sütunları — sitenin **tam dizini**.
+ * Footer sütunları — iki kısa liste (20.08.2026 kararı).
  *
- * Bu liste header'ın kopyası değil, tamamlayıcısı ve bir açığı kapatıyor:
- * Base UI açılır menülerin içeriğini ancak menü açıldığında basıyor, yani
- * `/etkinlikler`, `/egitimler`, `/sponsorluk` ve dönem sayfaları ilk HTML'de
- * hiç yok. JS kapalıyken header'dan erişilemiyor, tarayıcı botu da onları
- * header'da göremiyor. Footer düz `<a>` listesi olduğu için her iki durumu da
- * çözüyor. Buradan bir bağlantı silinirse o açık geri gelir.
+ * "Keşfet" header'ın kısayolu; "Katıl ve Destekle" ise header'da hiç olmayan
+ * dört adrese tek giriş noktası (başvurular, sponsorluk, iletişim). Uzun dizin
+ * mantığı bırakıldı: açılır menüler kalktığı için header zaten ilk HTML'de tüm
+ * ana bağlantıları basıyor, footer'ın onları tekrar sayması gerekmiyor.
  */
 export const footerNav: Array<{ baslik: string; links: NavLink[] }> = [
   {
-    baslik: "Kulüp",
+    baslik: "Keşfet",
     links: [
       { label: "Hakkımızda", href: "/hakkimizda" },
       { label: "Ekibimiz", href: "/ekibimiz" },
-      { label: "2025-2026 Ekibi", href: "/ekibimiz/2025-2026" },
-      { label: "2022-2023 Ekibi", href: "/ekibimiz/2022-2023" },
-      { label: "2021-2022 Ekibi", href: "/ekibimiz/2021-2022" },
-      { label: "2020-2021 Ekibi", href: "/ekibimiz/2020-2021" },
-    ],
-  },
-  {
-    baslik: "Etkinlikler",
-    links: [
-      { label: "Tüm Etkinlikler", href: "/etkinlikler" },
-      { label: "Eğitimler", href: "/egitimler" },
+      { label: "Etkinlikler", href: "/etkinlikler" },
       { label: "Galeri", href: "/galeri" },
-      { label: "Blog", href: "/blog" },
     ],
   },
   {
@@ -87,7 +59,6 @@ export const footerNav: Array<{ baslik: string; links: NavLink[] }> = [
       { label: "Bize Katıl", href: "/katil" },
       { label: "Koordinatör Başvurusu", href: "/basvuru" },
       { label: "Sponsorluk", href: "/sponsorluk" },
-      { label: "İstek ve Öneri", href: "/oneri" },
       { label: "İletişim", href: "/iletisim" },
     ],
   },

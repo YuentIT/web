@@ -5,6 +5,67 @@ import { Tabs } from "@base-ui/react/tabs";
 import { UyeKarti } from "@/components/ekip/uye-karti";
 import type { Uye } from "@/types";
 
+/**
+ * Listeyi **dengeli** satırlara böler: en fazla `enFazla` sütun, satır başına
+ * düşen kişi sayısı olabildiğince eşit.
+ *
+ * 4 → [4] · 5 → [3, 2] · 6 → [3, 3] · 7 → [4, 3] · 8 → [4, 4] · 10 → [4, 3, 3]
+ *
+ * Amaç, dört kişilik bir satırın altında tek başına duran beşinci kişiyi
+ * önlemek: satır sayısı yine `ceil(n / enFazla)`, ama kalan kişiler alt satıra
+ * itilmek yerine satırlara paylaştırılıyor.
+ */
+function dengeliSatirlar(liste: Uye[], enFazla = 4): Uye[][] {
+  if (liste.length === 0) return [];
+
+  const satirSayisi = Math.ceil(liste.length / enFazla);
+  const taban = Math.floor(liste.length / satirSayisi);
+  // Bölünmeden kalanlar baştaki satırlara birer birer dağıtılıyor; böylece
+  // kalabalık satır hep üstte kalıyor ve piramit aşağı doğru daralıyor.
+  const artan = liste.length % satirSayisi;
+
+  const satirlar: Uye[][] = [];
+  let indeks = 0;
+  for (let i = 0; i < satirSayisi; i += 1) {
+    const uzunluk = taban + (i < artan ? 1 : 0);
+    satirlar.push(liste.slice(indeks, indeks + uzunluk));
+    indeks += uzunluk;
+  }
+  return satirlar;
+}
+
+/**
+ * Listeyi **dolu** satırlara böler: her satırda `enFazla` kişi, artanlar son
+ * satırda. Koordinatörler böyle diziliyor — kalabalık bir listede dengeli
+ * dağıtım tüm satırları seyrelttiği için orada 4-4-4 daha derli toplu duruyor.
+ */
+function doluSatirlar(liste: Uye[], enFazla = 4): Uye[][] {
+  const satirlar: Uye[][] = [];
+  for (let i = 0; i < liste.length; i += enFazla) {
+    satirlar.push(liste.slice(i, i + enFazla));
+  }
+  return satirlar;
+}
+
+/**
+ * Satırları çizer. Her satır kendi içinde ortalanıyor, yani eksik kalan son
+ * satır sola yapışmıyor. Kart genişliği `.yuent-ekip-karti`den geliyor
+ * (`globals.css`) — bütün satırlarda aynı.
+ */
+function KartSatirlari({ satirlar }: { satirlar: Uye[][] }) {
+  return (
+    <div className="flex flex-col gap-4">
+      {satirlar.map((satir) => (
+        <div key={satir[0].ad} className="flex flex-wrap justify-center gap-4">
+          {satir.map((uye) => (
+            <UyeKarti key={uye.ad} uye={uye} className="yuent-ekip-karti" />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /** Yönetim kurulu dizilimi: başkan tek, altında iki kişi, altında üyeler. */
 function YonetimKurulu({ uyeler }: { uyeler: Uye[] }) {
   const baskan = uyeler.find((u) => u.rol === "baskan");
@@ -33,46 +94,29 @@ function YonetimKurulu({ uyeler }: { uyeler: Uye[] }) {
       ) : null}
 
       {digerleri.length > 0 ? (
-        <div className="mt-2 grid w-full grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {digerleri.map((uye) => (
-            <UyeKarti key={uye.ad} uye={uye} />
-          ))}
+        <div className="mt-2 w-full">
+          <KartSatirlari satirlar={dengeliSatirlar(digerleri)} />
         </div>
       ) : null}
     </div>
   );
 }
 
-/** Koordinatörler: departmana göre gruplanmış ızgaralar. */
+/**
+ * Koordinatörler: tek bir liste, ada göre alfabetik (20.08.2026 kararı).
+ *
+ * Departman başlıkları kaldırıldı — koordinatörlerin görevi zaten kartın
+ * üstünde yazıyor ("Etkinlik Koordinatörü"), başlıklar aynı bilgiyi ikinci kez
+ * söylüyor ve iki kişilik departmanlar sayfayı gereksiz yere parçalıyordu.
+ * İçerikteki `grup` alanı duruyor; sadece çizilmiyor.
+ *
+ * Sıralama Türkçe yerelle: `localeCompare` olmadan "Ç" ve "İ" listenin sonuna
+ * düşüyor.
+ */
 function Koordinatorler({ uyeler }: { uyeler: Uye[] }) {
-  // Gruplar içerikteki sırayı koruyor — alfabetik sıralamak departmanlar
-  // arasında kulüpte olmayan bir hiyerarşi kurardı.
-  const gruplar = new Map<string, Uye[]>();
-  for (const uye of uyeler) {
-    const ad = uye.grup ?? "Diğer";
-    const mevcut = gruplar.get(ad);
-    if (mevcut) mevcut.push(uye);
-    else gruplar.set(ad, [uye]);
-  }
+  const sirali = [...uyeler].sort((a, b) => a.ad.localeCompare(b.ad, "tr"));
 
-  return (
-    <div className="flex flex-col gap-12">
-      {Array.from(gruplar, ([grup, kisiler]) => (
-        <section key={grup}>
-          <h3 className="mb-5 flex items-center gap-3 font-heading text-sm font-bold tracking-[0.14em] uppercase">
-            <span aria-hidden="true" className="h-0.5 w-6 bg-brand-accent" />
-            {grup}
-          </h3>
-
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {kisiler.map((uye) => (
-              <UyeKarti key={uye.ad} uye={uye} />
-            ))}
-          </div>
-        </section>
-      ))}
-    </div>
-  );
+  return <KartSatirlari satirlar={doluSatirlar(sirali)} />;
 }
 
 /**

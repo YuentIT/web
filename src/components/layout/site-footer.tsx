@@ -49,7 +49,7 @@ export async function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-border bg-surface">
       <Container size="wide" className="py-14">
-        <div className="grid gap-10 md:grid-cols-[minmax(0,1.2fr)_repeat(3,minmax(0,1fr))]">
+        <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr)_repeat(2,minmax(0,1fr))]">
           <div className="flex flex-col gap-4">
             <Logo />
             <p className="max-w-xs text-sm leading-relaxed text-text-muted">

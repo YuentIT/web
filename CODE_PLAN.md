@@ -32,18 +32,28 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ## ŞU AN NEREDEYİZ
 
 ```
-Tarih          : 19.08.2026 (seans sonu)
+Tarih          : 20.08.2026 (inceleme seansı)
 Aktif faz      : Faz 4 — Sayfalar (Faz 1, 2, 3 bitti; Faz 3'te F3-03/F3-04 içerik bekliyor)
 Son biten      : F4-03 + F4-04 — /ekibimiz ve /ekibimiz/[donem] canlıda
-Sıradaki       : F4-05 (/etkinlikler — kategori filtresi + arama, filtre URL'ye yazılır)
-                 → F4-06 (/etkinlikler/[slug]). İçerik hazır: 4 etkinlik, kapak
-                 görselleri ve MDX gövdeleriyle. Sonra F4-11 (iletişim), F4-15 (404).
+Sıradaki       : F4-05 (/etkinlikler — **tek sayfa**, kategori filtresi + arama,
+                 filtre URL'ye yazılır) → F4-06 (/etkinlikler/[slug]). İçerik
+                 hazır: 4 etkinlik, kapak görselleri ve MDX gövdeleriyle.
+                 Sonra F4-11 (iletişim), F4-15 (404).
 
-⚠️ YARIN İLK İŞ — Mustafa şimdiye kadarki TÜM sayfaları baştan inceleyecek
-   (/ , /hakkimizda, /ekibimiz, /ekibimiz/[donem]). Yeni sayfa yazmadan önce
-   bu incelemenin geri bildirimi alınacak; düzeltmeler yeni sayfalardan önce
-   gelir. 19.08 kararı: her sayfa önce ana sayfaya benzer bir ilk sürüm olarak
-   çıkıyor, deseni ve yerleşimi Mustafa üstünde şekillendiriyor.
+İNCELEME — 20.08.2026, Mustafa sayfaları baştan geçiyor. İşlenen geri bildirim:
+  · Footer: tanım "liderlik ve girişimcilik" sırasına döndü, telefon düzeltildi
+    (536 945 39 44), kısayollar iki sütuna indi — Keşfet (hakkımızda, ekibimiz,
+    etkinlikler, galeri) ve Katıl ve Destekle (bize katıl, koordinatör başvurusu,
+    sponsorluk, iletişim). Bülten, konum ve hukuki şerit olduğu gibi kaldı.
+  · Header: açılır menüler tamamen kalktı. Etkinlikler tek sayfa olacağı için
+    alt menüsü yok; Ekibimiz'e tıklayınca doğrudan güncel dönem açılıyor,
+    arşive o sayfadaki dönem seçicisinden gidiliyor.
+  · Ekip sayfaları: "bu dönem N kişilik ekiple çalışıyor" cümlesi kaldırıldı.
+    Yönetim kurulu üyeleri artık dengeli satırlara bölünüyor (5 → 3+2, 6 → 3+3,
+    7 → 4+3) ve her satır ortalanıyor; koordinatörler 4'erli satırlar hâlinde,
+    artan son satır ortalı. Koordinatörlerdeki departman başlıkları kalktı,
+    liste ada göre alfabetik (Türkçe sıralama).
+  · Ana sayfa ve /hakkimizda: bu turda değişiklik istenmedi.
 
 Canlı          : https://web-yuent.vercel.app
 Depo           : github.com/YuentIT/web (public, main korumalı ✓)
@@ -62,18 +72,22 @@ Hâlâ 404 veren rotalar (Faz 4 boyunca açılacak):
   /etkinlikler /egitimler /galeri /blog /sponsorluk /katil /basvuru
   /iletisim /oneri /kvkk /gizlilik /kullanim-kosullari
   Header ve footer bağlantıları hazır, hedefleri yazıldıkça açılacak.
+  ⚠️ 20.08 menü sadeleştirmesinden sonra /egitimler, /blog ve /oneri'ye sitede
+     hiçbir yerden bağlantı kalmadı. Sayfalar yazılacaksa bir giriş noktası da
+     belirlenmeli (ör. eğitimler /etkinlikler içinde bir kategori olarak).
 
 MUSTAFA'DAN BEKLENENLER (hiçbiri Faz 4'ü bloke etmiyor):
-  · TÜM SAYFALARIN İNCELEMESİ ← yarının ilk işi
-  · /hakkimizda "Değerlerimiz" metinleri TASLAK — dört değer kulübün kendi
-    hikâye/misyon metninden türetildi, uydurulmadı; onay bekliyor
+  · /hakkimizda "Değerlerimiz" YENİLENECEK — 20.08'de karar verildi: şu anki
+    dört değer taslak, metinler baştan yazılacak. Mustafa yeni metinleri
+    verince content/hakkimizda.json güncellenecek. Sayfanın geri kalanında
+    bu turda değişiklik yok.
   · Ana sayfa taslak metinlerinin revizyonu (content/anasayfa.json)
   · Yeni konsepte göre etkinlik listesi (4 etkinlik şu an Wix'ten geldi)
   · Galeri görselleri → public/gorseller/galeri/ (düz liste, klasörsüz)
   · Ekip fotoğrafları — şimdilik baş harf kartı kullanılıyor, karar verildi
   · Logonun gerçek SVG'si — gelen dosya boş çıktı, PNG ile devam ediliyor
 
-BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (yarın konuşulacak, acil değil):
+BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
   · Ana sayfadaki `sayilarlaBiz` (4/9/4) ile /hakkimizda'daki `istatistikler`
     (2000+/35+/150+/100+) farklı şeyleri sayıyor. Mustafa "önemli değil" dedi,
     yan yana görülünce tuhaf gelirse ana sayfadakiler değiştirilebilir.

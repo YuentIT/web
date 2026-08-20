@@ -46,11 +46,7 @@ export default async function DonemEkibiSayfasi({
   params,
 }: PageProps<"/ekibimiz/[donem]">) {
   const { donem: slug } = await params;
-  const [site, donemler, donem] = await Promise.all([
-    getSite(),
-    getDonemler(),
-    getDonem(slug),
-  ]);
+  const [donemler, donem] = await Promise.all([getDonemler(), getDonem(slug)]);
 
   if (!donem) notFound();
 
@@ -68,11 +64,8 @@ export default async function DonemEkibiSayfasi({
 
           <section className="relative pt-16 pb-16 sm:pt-20 sm:pb-20">
             <Container size="wide">
-              <PageHeader
-                eyebrow="Arşiv"
-                title={donem.baslik}
-                description={`${site.kisaAd} bu dönem ${donem.uyeler.length} kişilik bir ekiple çalıştı.`}
-              >
+              {/* Özet metni yok — `/ekibimiz` ile aynı gerekçe. */}
+              <PageHeader eyebrow="Arşiv" title={donem.baslik}>
                 <DonemSecici
                   donemler={donemler}
                   aktifSlug={donem.slug}

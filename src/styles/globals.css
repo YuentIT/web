@@ -801,6 +801,28 @@
       width 350ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
+  /* Ekip ızgarasındaki kart genişliği (F4-03).
+     Satırlar ızgara değil `flex … justify-center`: eksik kalan son satır
+     böyle sola yapışmak yerine ortalanıyor. Kart genişliği yine de ızgaradaki
+     gibi sabit kalıyor — 2 → 3 → 4 sütun — ki üç kişilik bir satırın kartları
+     dört kişilik satırınkinden geniş görünmesin. Sondaki 0.02px'lik kırpma,
+     dört kart ve üç boşluk satır genişliğine tam eşit olduğunda tarayıcının
+     yuvarlama farkıyla son kartı alt satıra atmasını engelliyor.
+     Aradaki boşluğun `gap-4` (1rem) olduğu varsayılıyor. */
+  .yuent-ekip-karti {
+    width: calc((100% - 1rem) / 2 - 0.02px);
+  }
+  @media (min-width: 40rem) {
+    .yuent-ekip-karti {
+      width: calc((100% - 2rem) / 3 - 0.02px);
+    }
+  }
+  @media (min-width: 64rem) {
+    .yuent-ekip-karti {
+      width: calc((100% - 3rem) / 4 - 0.02px);
+    }
+  }
+
   /* Çerçevesiz bağlantının hover'da parlaması. */
   .yuent-parla {
     transition:

@@ -17,9 +17,8 @@ import { mainNav, primaryCta } from "@/lib/navigation";
 /**
  * Mobil menü (F2-06).
  *
- * Açılır menüler burada açılır-kapanır değil, **düz liste** olarak veriliyor:
- * dokunmatik ekranda iki kademeli menü gezinmeyi yavaşlatıyor ve alt başlıklar
- * zaten toplam 9 bağlantı — hepsi tek ekrana sığıyor.
+ * Menü header'ın birebir aynısı: altı bağlantı, tek kademe. Açılır menüler
+ * 20.08.2026'da tamamen kaldırıldığı için burada da alt liste kalmadı.
  *
  * Odak tuzağı, `Esc` ile kapanma ve arka planı inert yapma işini Base UI'ın
  * Dialog primitifi üstleniyor; elle klavye yönetimi yazılmadı.
@@ -58,28 +57,13 @@ export function MobileMenu() {
           }}
         >
           {mainNav.map((item) => (
-            <div key={item.href + item.label} className="flex flex-col">
-              <Link
-                href={item.href}
-                className="rounded-lg px-3 py-2.5 text-base font-medium hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-              >
-                {item.label}
-              </Link>
-
-              {item.children ? (
-                <div className="ms-3 flex flex-col border-s border-border ps-3">
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.href + child.label}
-                      href={child.href}
-                      className="rounded-lg px-3 py-2 text-sm text-text-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              ) : null}
-            </div>
+            <Link
+              key={item.href + item.label}
+              href={item.href}
+              className="rounded-lg px-3 py-2.5 text-base font-medium hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+            >
+              {item.label}
+            </Link>
           ))}
 
           <Link

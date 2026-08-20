@@ -1,6 +1,5 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,13 +7,7 @@ import { useEffect, useState } from "react";
 import { Container } from "@/components/layout/container";
 import { Logo } from "@/components/layout/logo";
 import { MobileMenu } from "@/components/layout/mobile-menu";
-import { Button, buttonVariants } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { buttonVariants } from "@/components/ui/button";
 import { mainNav, primaryCta } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
@@ -52,56 +45,24 @@ export function SiteHeader() {
           aria-label="Ana menü"
           className="ms-auto hidden items-center gap-1 md:flex"
         >
-          {mainNav.map((item) =>
-            item.children ? (
-              <DropdownMenu key={item.href + item.label}>
-                <DropdownMenuTrigger
-                  render={
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className={cn(
-                        "gap-1",
-                        isActive(pathname, item.href) && "text-foreground",
-                        !isActive(pathname, item.href) && "text-text-muted",
-                      )}
-                    />
-                  }
-                >
-                  {item.label}
-                  <ChevronDown className="size-3.5" />
-                </DropdownMenuTrigger>
-
-                <DropdownMenuContent align="start" className="min-w-44">
-                  {item.children.map((child) => (
-                    <DropdownMenuItem
-                      key={child.href + child.label}
-                      render={<Link href={child.href} />}
-                    >
-                      {child.label}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              // Buton gibi görünen bir **bağlantı**: `<Button render={<Link/>}>`
-              // Base UI'ı bağlantıyı buton gibi yönetmeye zorluyor ve `<a>`ya
-              // `role="button"` ekleyerek ekran okuyucuda yanlış okutuyor.
-              <Link
-                key={item.href + item.label}
-                href={item.href}
-                className={buttonVariants({
-                  variant: "ghost",
-                  size: "sm",
-                  className: isActive(pathname, item.href)
-                    ? "text-foreground"
-                    : "text-text-muted",
-                })}
-              >
-                {item.label}
-              </Link>
-            ),
-          )}
+          {mainNav.map((item) => (
+            // Buton gibi görünen bir **bağlantı**: `<Button render={<Link/>}>`
+            // Base UI'ı bağlantıyı buton gibi yönetmeye zorluyor ve `<a>`ya
+            // `role="button"` ekleyerek ekran okuyucuda yanlış okutuyor.
+            <Link
+              key={item.href + item.label}
+              href={item.href}
+              className={buttonVariants({
+                variant: "ghost",
+                size: "sm",
+                className: isActive(pathname, item.href)
+                  ? "text-foreground"
+                  : "text-text-muted",
+              })}
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="ms-auto flex items-center gap-2 md:ms-0">
