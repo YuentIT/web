@@ -89,7 +89,7 @@ da doğru görünüyor ve kendiliğinden dönüyor.
 .yuent-kure-sahne          perspective — 3B derinliğin kaynağı
 └ .yuent-kure-otomatik     @keyframes yuent-kure-don · rotateY 0→360° · sonsuz
   └ .yuent-kure-elle       rotateY(var(--kure-elle-y)) rotateX(var(--kure-elle-x))
-    └ .yuent-polaroid ×N   rotateY(var(--lon)) rotateX(var(--lat)) translateZ(var(--kure-r))
+    └ .yuent-polaroid ×N   rotateY(var(--lon)) rotateX(var(--egim-x)) translateZ(var(--kure-r))
 ```
 
 Dönüşün **iki ayrı katmana** bölünmesi tasarımın kilit noktası:
@@ -118,10 +118,14 @@ const lat = Math.asin(y);              // enlem, -90° .. 90°
 const lon = ALTIN_ACI * i;             // boylam
 ```
 
-Karonun transform'u `rotateY(var(--lon)) rotateX(var(--lat)) translateZ(var(--kure-r))`.
-CSS'te fazladan işaret çevirmesi olmasın diye `--lat` değişkeni **enlemin eksisi**
-olarak basılır (`-lat`, derece cinsinden); `kure.ts` bunu böyle döndürür ve
-alanın adı `lat` yerine `egimX` olur ki okuyanı yanıltmasın.
+Karonun transform'u
+`translate(-50%, -50%) rotateY(var(--lon)) rotateX(var(--egim-x)) translateZ(var(--kure-r))`.
+Baştaki `translate(-50%, -50%)` karoyu önce küre merkezine oturtur; dönüşler o
+merkez etrafında olur ve karo en son yarıçap kadar dışarı itilir.
+
+CSS'te fazladan işaret çevirmesi olmasın diye değişken **enlemin eksisini**
+taşır ve adı bu yüzden `--lat` değil `--egim-x`; `kure.ts` alanı da aynı
+nedenle `lat` yerine `egimX` diye döndürür.
 
 Sonuç: karolar küreye **teğet** durur — öndekiler düz ve büyük, kenara gidenler
 açılanıp küçülür, tam da referanstaki görünüm.
@@ -251,8 +255,10 @@ polaroid yapan şey o boşluk.
 
 ## 9. Görseller
 
-- Karolar `next/image`, `sizes="(max-width: 640px) 24vw, 140px"` — karo küçük
-  olduğu için tarayıcı ~140–280 px genişliğinde dosya çeker.
+- Karolar `next/image`, `sizes="(max-width: 640px) 24vw, 176px"` — karo küçük
+  olduğu için tarayıcı ~176–352 px genişliğinde dosya çeker. Üst sınır küredeki
+  132 px değil masa düzenindeki 176 px: `sizes` iki düzenin genişini kapsamalı,
+  yoksa hareket kısıtı altındaki kullanıcı bulanık görsel görür.
 - **2 karo `priority`, gerisi lazy.** (YTÜ'nün B5 hatası: 14 görsele birden
   `priority`. Tekrarlanmayacak.) `priority` verilenler listenin ilk ikisi
   **değil**: Fibonacci sırasında 0. ve 1. karo kutba düşer, yani ekrana teğet
