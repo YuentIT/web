@@ -1,32 +1,12 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
-
-import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
 import { Logo } from "@/components/layout/logo";
 import { NewsletterForm } from "@/components/layout/newsletter-form";
+import { SosyalBaglantilar } from "@/components/layout/sosyal-baglantilar";
 import { getSite } from "@/lib/content";
-import { footerNav, hukukiNav, sosyalEtiketleri } from "@/lib/navigation";
-
-/**
- * Sosyal ikon dosyası yüklendi mi?
- *
- * Derleme sırasında diske bakılıyor; dosya yoksa düz metin gösteriliyor.
- * Böylece ikonlar hazır olmadan da footer çalışıyor, dosya eklendiği anda
- * kendiliğinden devreye giriyor ve hiçbir zaman kırık görsel simgesi çıkmıyor.
- *
- * Hem `.svg` hem `.png` kabul ediliyor: marka ikonlarının bir kısmı yalnızca
- * PNG olarak bulunabiliyor (X'in resmî SVG'si dağıtılmıyor).
- */
-function ikonYolu(anahtar: string): string | null {
-  for (const uzanti of ["svg", "png"]) {
-    const gorecel = `/ikonlar/sosyal/${anahtar}.${uzanti}`;
-    if (existsSync(path.join(process.cwd(), "public", gorecel))) return gorecel;
-  }
-  return null;
-}
+import { footerNav, hukukiNav } from "@/lib/navigation";
 
 /**
  * Site altbilgisi (F2-07).
@@ -42,10 +22,6 @@ function ikonYolu(anahtar: string): string | null {
 export async function SiteFooter() {
   const site = await getSite();
 
-  const sosyalGirdiler = Object.entries(site.sosyal).filter(
-    (girdi): girdi is [string, string] => Boolean(girdi[1]),
-  );
-
   return (
     <footer className="mt-auto border-t border-border bg-surface">
       <Container size="wide" className="py-14">
@@ -56,58 +32,7 @@ export async function SiteFooter() {
               {site.aciklama}
             </p>
 
-            {sosyalGirdiler.length > 0 ? (
-              <ul className="flex flex-wrap gap-x-4 gap-y-2 pt-1">
-                {sosyalGirdiler.map(([anahtar, url]) => {
-                  const etiket = sosyalEtiketleri[anahtar] ?? anahtar;
-                  const ikon = ikonYolu(anahtar);
-
-                  return (
-                    <li key={anahtar}>
-                      <a
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        // İkon gösterildiğinde görsel dekoratif kalıyor
-                        // (`alt=""`); erişilebilir adı bu etiket veriyor.
-                        aria-label={ikon ? etiket : undefined}
-                        title={ikon ? etiket : undefined}
-                        className="inline-flex items-center gap-0.5 rounded text-sm text-text-muted transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-                      >
-                        {ikon ? (
-                          // Düz <img>, `next/image` değil. İkonlar 24 px'lik
-                          // statik varlıklar; optimize edilecek bir şey yok.
-                          // Ayrıca `next/image` SVG'yi ancak
-                          // `dangerouslyAllowSVG` açılırsa servis ediyor ve o
-                          // bayrak tüm site için SVG'yi güvenilir sayıyor —
-                          // dört ikon için açılacak bir kapı değil.
-                          // Görünen boyutu CSS belirliyor; dosyaların kendi
-                          // 800×800 bildirimi bu yüzden sorun değil.
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={ikon}
-                            alt=""
-                            width={20}
-                            height={20}
-                            loading="lazy"
-                            decoding="async"
-                            className="size-5 opacity-80 transition-opacity hover:opacity-100"
-                          />
-                        ) : (
-                          <>
-                            {etiket}
-                            <ArrowUpRight
-                              className="size-3.5"
-                              aria-hidden="true"
-                            />
-                          </>
-                        )}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : null}
+            <SosyalBaglantilar sosyal={site.sosyal} className="pt-1" />
           </div>
 
           {footerNav.map((sutun) => (

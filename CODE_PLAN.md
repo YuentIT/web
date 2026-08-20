@@ -34,11 +34,11 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ```
 Tarih          : 20.08.2026
 Aktif faz      : Faz 4 — Sayfalar (Faz 1, 2, 3 bitti; Faz 3'te F3-03/F3-04 içerik bekliyor)
-Son biten      : F4-05 + F4-06 — /etkinlikler ve /etkinlikler/[slug] canlıda
-Sıradaki       : F4-11 (/iletisim), F4-12 (/katil), F4-13 (/basvuru) — üçü de
-                 Faz 5'teki form bağlantısını beklemeden yazılabilir, CTA'lar
-                 F5-05'te bağlanır. Sonra F4-15 (404/error) ve F4-08 (galeri —
-                 Mustafa'dan görsel bekliyor).
+Son biten      : F4-11 — /iletisim canlıda (yanında F5-04 `FormCta` öne çekildi)
+Sıradaki       : F4-12 (/katil), F4-13 (/basvuru) — ikisi de `FormCta` hazır
+                 olduğu için doğrudan yazılabilir; adresler F5-03'te girilince
+                 butonlar kendiliğinden açılır. Sonra F4-15 (404/error) ve
+                 F4-08 (galeri — Mustafa'dan görsel bekliyor).
 
 İNCELEME — 20.08.2026, Mustafa sayfaları baştan geçiyor. İşlenen geri bildirim:
   · Footer: tanım "liderlik ve girişimcilik" sırasına döndü, telefon düzeltildi
@@ -72,9 +72,10 @@ GÖRSEL YÖN DEĞİŞTİ (19.08.2026) — ayrıntı SITE_PLAN §4 ve §8.2:
 
 Açılan rotalar : /  /hakkimizda  /ekibimiz  /ekibimiz/[donem]
                  /etkinlikler  /etkinlikler/[slug] (4 etkinliğin dördü de)
+                 /iletisim
 Hâlâ 404 veren rotalar (Faz 4 boyunca açılacak):
   /egitimler /galeri /blog /sponsorluk /katil /basvuru
-  /iletisim /oneri /kvkk /gizlilik /kullanim-kosullari
+  /oneri /kvkk /gizlilik /kullanim-kosullari
   Header ve footer bağlantıları hazır, hedefleri yazıldıkça açılacak.
   ⚠️ 20.08 menü sadeleştirmesinden sonra /egitimler, /blog ve /oneri'ye sitede
      hiçbir yerden bağlantı kalmadı. Sayfalar yazılacaksa bir giriş noktası da
@@ -695,7 +696,25 @@ BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
   **tanıtım dosyası** indirmesi olacak; sponsorluk paketleri iletişim üzerinden
   yürüyor. `sponsorluk.json → dosyalar` tek girdi taşıyacak.
 
-- [ ] **F4-11** **`/iletisim`** — bilgiler + harita gömüsü + form CTA'sı.
+- [x] **F4-11** **`/iletisim`** ✅ canlıda — bilgiler + ~~harita gömüsü~~ + form CTA'sı.
+
+  **Harita gömüsü iptal (20.08.2026, Mustafa'nın kararı).** Yerine adresin
+  altında bir "Yol tarifi al" bağlantısı var; adresi Google Maps'in arama
+  adresine yolluyor. Bu bir bağlantı, gömü değil: sayfa açılırken Google'a
+  hiçbir istek gitmiyor, F7-06'daki CSP'ye harita istisnası gerekmiyor ve
+  F7-07'nin Lighthouse ≥90 hedefi bir iframe yüzünden riske girmiyor.
+  Telefonda bağlantı doğrudan Haritalar uygulamasını açıyor.
+
+  İçeriğin tamamı `content/site.json`'dan: e-posta (`mailto:`), iki telefon
+  (`tel:`, görünen metin boşluklu kalıyor ama adres yalnızca rakam), adres ve
+  sosyal hesaplar. Sayfada gömülü tek bir iletişim bilgisi yok.
+
+  Yol üstünde footer'ın sosyal bloğu `layout/sosyal-baglantilar.tsx`'e çıkarıldı
+  ve iki yer paylaşıyor; `etiketli` bayrağı footer'daki ikon-only sunumla
+  /iletisim'deki adlı sunumu ayırıyor. **Yan düzeltme:** elimizdeki X dosyası
+  X'in siyah rozeti (siyah kare + beyaz glif) ve koyu zemine karışıp görünmez
+  oluyordu — footer'da da öyleydi. Koyu zemin için `invert` ediliyor. Saydam
+  zeminli beyaz bir X dosyası gelirse çevirme kaldırılır.
 
 - [ ] **F4-12** **`/katil`** — üyeliğin ne getirdiğini anlatan sayfa + form CTA'sı.
 
@@ -738,11 +757,19 @@ BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
   Kod içine URL gömülmeyecek — tek kaynaktan okunacak.
   *Bitti sayılır:* Bir formun adresi değiştiğinde tek satır güncellemek yetiyor.
 
-- [ ] **F5-04** **`FormCta` bileşenini yaz**
-  Başlık, kimin için, ne kadar sürer, son tarih, "Formu Doldur" butonu.
+- [x] **F5-04** **`FormCta` bileşenini yaz** ✅ **F4-11'de öne çekildi (20.08.2026)**
+  Başlık, ~~kimin için, ne kadar sürer, son tarih,~~ "Formu Doldur" butonu.
   Buton `target="_blank" rel="noopener noreferrer"` ile açılır.
   URL yoksa buton yerine gerekçe gösterilir — **asla çalışmayan buton render edilmez.**
   *Bitti sayılır:* `site.json`'dan URL silinince sayfa çökmüyor, bilgi mesajı çıkıyor.
+  ✅ **Şu anki gerçek durumda doğrulandı:** `formlar` nesnesi henüz tamamen boş,
+  yani `/iletisim` bugün butonu değil gerekçeyi gösteriyor. Formlar F5-01'de
+  açılıp adresleri F5-03'te yazılınca butonlar kendiliğinden belirecek.
+
+  Sırası Faz 5'ti ama `/iletisim`in çağrısı için gerekiyordu; geçici bir sürüm
+  yazıp üç sayfa sonra atmaktansa gerçeği yazıldı. `src/components/form/form-cta.tsx`.
+  `kimlerIcin` / `süre` / `son tarih` alanları **yazılmadı** — `/iletisim`in
+  ihtiyacı olmadı. `/katil` ya da `/basvuru` gerçekten isterse o zaman eklenir.
 
 - [ ] **F5-05** **Form CTA'larını sayfalara bağla**
   `/iletisim`, `/katil`, `/basvuru`, `/oneri`.
@@ -899,6 +926,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 20.08.2026 | **F4-11 tamamlandı, yanında F5-04 öne çekildi.** `/iletisim` e-posta, iki telefon, adres ve sosyal hesapları `site.json`dan okuyup basıyor; sayfada gömülü tek bir bilgi yok. **Plandan sapma:** harita gömüsü yazılmadı (Mustafa'nın kararı), yerine adresin altında Google Maps'in arama adresine giden bir "Yol tarifi al" bağlantısı var — gömü olmadığı için sayfa açılırken Google'a istek gitmiyor, F7-06'daki CSP'ye istisna gerekmiyor ve F7-07'nin Lighthouse hedefi risk altına girmiyor. `FormCta` (F5-04) sırası Faz 5'te olmasına rağmen burada yazıldı: `/iletisim`in çağrısı için gerekiyordu ve geçici bir sürümü üç sayfa sonra atmak israftı. Kabul kriteri şu anki gerçek durumda doğrulandı — `formlar` boş olduğu için sayfa butonu değil gerekçeyi gösteriyor. Footer'ın sosyal bloğu `layout/sosyal-baglantilar.tsx`'e çıkarıldı, footer ve /iletisim paylaşıyor. Yan düzeltme: X'in siyah rozeti koyu zeminde görünmüyordu, koyu zemin için `invert` ediliyor. 30/73. |
 | 20.08.2026 | **F4-05 ve F4-06 tamamlandı.** `/etkinlikler` tüm etkinlikleri, `/etkinlikler/[slug]` her birinin kendi sayfasını gösteriyor; dördü de derleme anında üretiliyor. **Plandan sapma:** kategori filtresi ve arama yazılmadı (Mustafa'nın kararı) — dört etkinlik ve üç kategoriyle sayfayı yönetilmesi gereken bir araca çeviriyordu. Bento ızgarası `components/anasayfa/` → `components/icerik/` taşındı ve iki sayfanın ortak malı oldu; sabit dörtlü desen yerine sayıdan düzen türeten bir fonksiyona çevrildi (ikişerli satırlar 7/5 ve 5/7, tek kalan kart tam genişlik) — eski desen 4'ün katı olmayan sayılarda satır sonunda boşluk bırakıyordu. Sınıf adları birebir yazılıyor: Tailwind kaynağı metin olarak taradığı için `col-span-${n}` gibi çalışma anında birleşen bir adı üretmiyor. **Ana sayfa daraldı:** tümünü değil `oneCikanEtkinlikler`i basıyor (şemada `.max(3)` → `.max(4)`), yoksa liste büyüdükçe `/etkinlikler`in kopyası olacaktı; kayan şerit tüm adları okumaya devam ediyor. Kullanılmayan `EventCard` silindi. 28/73. |
 | 19.08.2026 | **F4-03 ve F4-04 tamamlandı.** `/ekibimiz` güncel dönemi, `/ekibimiz/[donem]` arşivi gösteriyor; ikisi de aynı `EkipListesi`yi kullanıyor. Yönetim kurulu dizilimi plandaki gibi (başkan tek, altında yardımcı + genel sekreter, altında üyeler), koordinatörler departmana göre gruplu. Geçiş tuşu koşullu: 2025-2026'da koordinatör olmadığı için hiç çizilmiyor. Güncel dönem `generateStaticParams`a girmiyor, `/ekibimiz/2025-2026` 307 ile `/ekibimiz`e gidiyor — aynı ekip iki adreste yayınlanmıyor. **Erişilebilirlik:** sekmeli düzen JS'siz tarayıcıda ikinci listeyi gizliyordu; paneller `keepMounted` yapıldı ve bir `<noscript>` stili gizlemeyi geri alıyor. 26/73. |
 | 19.08.2026 | **F4-02 `/hakkimizda` tamamlandı.** Ayrıntı görevin altında. Yol üstünde ortak `atmosfer/` bileşenleri çıkarıldı (el feneri, ızgara, ışık huzmeleri, kaydırma ipucu) ve alıntı bandı paylaşıldı; ana sayfa da onları kullanıyor. `PageHeader`'ın h1'i büyük harfe geçti — iç sayfalar ana sayfayla aynı dili konuşsun diye kural tek yerde. Sayfa metadata'sı `generateMetadata` ile içerikten okunuyor (F7-01 geçene kadarki ara çözüm). Şemaya `hakkimizda.baslik/slogan/degerler` ve kapalı bir ikon listesi eklendi: içerikte karşılığı olmayan ikon adı yazılırsa sayfa ikonsuz çıkmıyor, derleme duruyor. 24/73. |
