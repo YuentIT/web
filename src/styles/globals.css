@@ -21,6 +21,10 @@
   --font-mono:
     ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 
+  /* F4-08 — polaroid notlarının el yazısı. Yalnızca /galeri'de kullanılıyor;
+     değişken de o sayfanın kapsayıcısında tanımlanıyor, kök düzende değil. */
+  --font-elyazisi: var(--font-caveat);
+
   /* §8.2'deki, shadcn'de karşılığı olmayan token'lar.
      `--color-accent` shadcn'de "hover yüzeyi" demek, marka aksanı değil —
      bu yüzden safran ayrı ad altında duruyor. */

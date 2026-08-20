@@ -53,3 +53,34 @@ export const archivoExpanded = localFont({
   display: "swap",
   fallback: ["system-ui", "Segoe UI", "Roboto", "Helvetica Neue", "sans-serif"],
 });
+
+/**
+ * Polaroid notları (F4-08). Tek dosya, değişken ağırlık 400–700.
+ *
+ * Not 11–12 px'te basılıyor; o boyda bağlı bir el yazısının okunabilmesi için
+ * ağırlığın 600'e çekilebilmesi gerekiyordu. Aday listesindeki tek ağırlığa
+ * sahip fontlarda bu imkân yok — Caveat bu yüzden seçildi.
+ *
+ * **Kök düzene bilerek eklenmedi.** Archivo'lar `layout.tsx`'te duruyor çünkü
+ * her sayfada gerekli; bu 77 KB ise yalnızca `/galeri`'nin süsü. Değişken o
+ * sayfanın kapsayıcısına veriliyor, böylece font yalnızca o rotada yükleniyor.
+ *
+ * Altkümede yalnızca `calt`, `liga` ve `locl` var. `calt` tek başına 31 KB
+ * ama Caveat'ın harfleri birbirine bağlaması ondan geliyor — fontun seçilme
+ * gerekçesi buydu. `frac`, `ordn`, `subs`, `sups`, `ss01/02`, `aalt`, `salt`
+ * ve `dlig` atıldı; hiçbiri kullanılmıyor.
+ */
+export const caveat = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Caveat-Variable.woff2",
+      weight: "400 700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-caveat",
+  display: "swap",
+  // El yazısı yedekleri. Hiçbiri Caveat'a benzemiyor ama "elle yazılmış"
+  // hissini koruyorlar; son çare genel `cursive`.
+  fallback: ["Segoe Script", "Bradley Hand", "cursive"],
+});
