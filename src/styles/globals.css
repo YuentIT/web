@@ -970,6 +970,86 @@
 }
 
 /* ---------------------------------------------------------------------------
+   Galeri — polaroid küresi (F4-08)
+
+   Sahne yapısı üç katman:
+     .yuent-kure-sahne     → perspektif, ölçüler, sürükleme yüzeyi
+     .yuent-kure-otomatik  → kendiliğinden dönen katman
+     .yuent-kure-elle      → elle çevrilen katman + karoların kapsayıcısı
+
+   Bu bloktaki ilk kurallar **masa düzenini** tanımlıyor: düz ızgara, hafif
+   eğik kareler. 3B kuralları bunun üstüne biniyor. Hareketi azaltılmış
+   kullanıcıda 3B geri sökülüyor ve buradaki masa düzeni yeniden ortaya
+   çıkıyor — iki düzen ayrı ayrı yazılmadı, aynı kuralların iki hâli.
+--------------------------------------------------------------------------- */
+@layer components {
+  .yuent-kure-sahne {
+    /* Masa düzenindeki karo genişliği. Küre kuralları bunu küçültüyor. */
+    --polaroid-w: clamp(120px, 22vw, 176px);
+    position: relative;
+  }
+
+  .yuent-kure-elle {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+    gap: clamp(1rem, 3vw, 2.25rem);
+    justify-items: center;
+  }
+
+  .yuent-polaroid {
+    position: relative;
+    inline-size: var(--polaroid-w);
+    /* Alt şerit iki satırlık nota göre kalın. Not yoksa da kalıyor. */
+    padding: 0.4rem 0.4rem 2.35rem;
+    /* Fotoğraf kartonu. Paletin dışında ve bu kasıtlı: polaroid çerçevesi
+       marka rengi değil, malzeme — kırık beyaz olmazsa kâğıt gibi durmuyor. */
+    background: #f2efe6;
+    box-shadow: 0 12px 26px -14px rgb(0 0 0 / 0.8);
+    rotate: var(--egim, 0deg);
+    /* `figure`ün tarayıcı varsayılanı olan yatay margin'i ızgarada boşluğu
+       iki kez sayardı. */
+    margin: 0;
+  }
+
+  .yuent-polaroid-cerceve {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    /* Görsel yüklenene kadar boşluk beyaz parlamasın. */
+    background: #1b1e24;
+  }
+
+  .yuent-polaroid-not {
+    position: absolute;
+    inset-inline: 0.55rem;
+    inset-block-end: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+    font-family: var(--font-elyazisi);
+    /* 11-12 px'te bağlı el yazısının okunabilmesi için ağırlık 600.
+       Caveat'ın değişken ekseni tam bunun için seçildi. */
+    font-weight: 600;
+    line-height: 1.12;
+    color: #2b2924;
+  }
+
+  .yuent-polaroid-etkinlik {
+    font-size: 0.75rem;
+    /* Uzun etkinlik adları şeridi taşırmasın. */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .yuent-polaroid-tarih {
+    font-size: 0.68rem;
+    color: #6b6559;
+  }
+}
+
+/* ---------------------------------------------------------------------------
    Hareket kısıtı (F7-08'in ön ödemesi)
 
    `prefers-reduced-motion: reduce` seçili kullanıcıda süregiden her hareket
