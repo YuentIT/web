@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 
 import { ElFeneri } from "@/components/atmosfer/el-feneri";
 import { IzgaraKatmani } from "@/components/atmosfer/izgara-katmani";
-import { FormCta } from "@/components/form/form-cta";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/layout/page-header";
 import { SosyalBaglantilar } from "@/components/layout/sosyal-baglantilar";
@@ -30,15 +29,30 @@ function telAdresi(numara: string): string {
 }
 
 /**
- * Adresi Google Maps'in arama adresine yollar.
+ * Adresi Google Maps'in arama adresine yollar — "Yol tarifi al" bağlantısı.
  *
- * Bilerek **gömü değil bağlantı** (20.08.2026 kararı): sayfa açılırken Google'a
- * hiçbir istek gitmiyor, Faz 7'de yazılacak CSP'ye harita istisnası gerekmiyor
- * ve Lighthouse performans hedefi (F7-07, ≥90) bir iframe yüzünden düşmüyor.
- * Telefonda bağlantı doğrudan Haritalar uygulamasını açıyor.
+ * Haritanın kendisi sayfada gömülü olsa da bu bağlantı ayrıca duruyor: gömü
+ * sadece konumu *gösteriyor*, tarif için yine Maps'e geçmek gerekiyor ve
+ * telefonda bu bağlantı doğrudan Haritalar uygulamasını açıyor.
  */
 function yolTarifiAdresi(adres: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(adres)}`;
+}
+
+/**
+ * Gömülü harita adresi.
+ *
+ * `output=embed` **anahtar istemeyen** biçim. Google'ın resmî Embed API'si
+ * (`maps/embed/v1/place`) bir API anahtarı ve dolayısıyla devredilecek
+ * listeye bir hesap daha demek olurdu; planın ana ilkesi "en az devir".
+ *
+ * ⚠️ Bu gerçek bir gömü: sayfa açılırken Google'a istek gidiyor. F7-06'da
+ * yazılacak CSP `frame-src`e `https://maps.google.com` istisnası içermeli,
+ * yoksa harita canlıda boş çerçeve olarak çıkar. `loading="lazy"` ile ilk
+ * ekranın altındaysa yükleme erteleniyor (F7-07).
+ */
+function haritaAdresi(adres: string): string {
+  return `https://maps.google.com/maps?q=${encodeURIComponent(adres)}&output=embed`;
 }
 
 /**
@@ -46,7 +60,12 @@ function yolTarifiAdresi(adres: string): string {
  *
  * İçeriğin tamamı `content/site.json`'dan geliyor; sayfada gömülü bilgi yok.
  * Bir numara ya da adres değişince tek dosya güncelleniyor ve hem burası hem
- * footer aynı anda doğruya dönüyor.
+ * footer aynı anda doğruya dönüyor. Harita da aynı `adres` alanından
+ * besleniyor — ayrıca enlem/boylam tutulmuyor ki ikisi birbirinden ayrı
+ * düşmesin.
+ *
+ * **İletişim formu yok** (20.08.2026 kararı): ulaşma yolu e-posta, telefon ve
+ * sosyal hesaplar. Sağdaki alanı `FormCta` yerine harita dolduruyor.
  */
 export default async function IletisimSayfasi() {
   const site = await getSite();
@@ -152,14 +171,22 @@ export default async function IletisimSayfasi() {
                 </div>
               </div>
 
-              <FormCta
-                baslik="Bize yazın"
-                aciklama="Soru, iş birliği teklifi ya da aklınıza takılan herhangi bir şey için iletişim formunu doldurun; en kısa sürede dönüş yapıyoruz."
-                url={site.formlar.iletisim}
-                butonMetni="İletişim Formu"
-                bosMesaj="İletişim formu henüz açılmadı. O zamana kadar yukarıdaki e-posta adresinden ya da sosyal hesaplarımızdan bize ulaşabilirsiniz."
-                className="h-fit"
-              />
+              {site.adres ? (
+                <div className="min-h-[420px] overflow-hidden rounded-xl border border-border bg-surface-2">
+                  <iframe
+                    src={haritaAdresi(site.adres)}
+                    // Boş bir çerçeve ekran okuyucuda adsız kalmasın diye:
+                    // iframe'in erişilebilir adı yalnızca `title`dan gelir.
+                    title={`Harita: ${site.adres}`}
+                    loading="lazy"
+                    // Google yönlendirme zincirinde tam adresi değil yalnızca
+                    // alan adını görsün — sitenin genel Referrer-Policy'siyle
+                    // aynı çizgi (F1-09).
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    className="size-full min-h-[420px] border-0"
+                  />
+                </div>
+              ) : null}
             </div>
           </Container>
         </section>

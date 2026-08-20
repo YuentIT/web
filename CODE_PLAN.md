@@ -696,18 +696,30 @@ BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
   **tanıtım dosyası** indirmesi olacak; sponsorluk paketleri iletişim üzerinden
   yürüyor. `sponsorluk.json → dosyalar` tek girdi taşıyacak.
 
-- [x] **F4-11** **`/iletisim`** ✅ canlıda — bilgiler + ~~harita gömüsü~~ + form CTA'sı.
+- [x] **F4-11** **`/iletisim`** ✅ canlıda — bilgiler + harita gömüsü + ~~form CTA'sı~~.
 
-  **Harita gömüsü iptal (20.08.2026, Mustafa'nın kararı).** Yerine adresin
-  altında bir "Yol tarifi al" bağlantısı var; adresi Google Maps'in arama
-  adresine yolluyor. Bu bir bağlantı, gömü değil: sayfa açılırken Google'a
-  hiçbir istek gitmiyor, F7-06'daki CSP'ye harita istisnası gerekmiyor ve
-  F7-07'nin Lighthouse ≥90 hedefi bir iframe yüzünden riske girmiyor.
-  Telefonda bağlantı doğrudan Haritalar uygulamasını açıyor.
+  **İletişim formu YOK (20.08.2026, Mustafa'nın kararı).** Sayfada iki sütun
+  var: solda ulaşma bilgileri, sağda gömülü harita. Ulaşma yolu e-posta,
+  telefon ve sosyal hesaplar. ⚠️ **Faz 5'e etkisi aşağıda, F5-01'de.**
+
+  **Harita gömülü.** Adres `maps.google.com/maps?q=…&output=embed` ile
+  çiziliyor — **API anahtarı istemeyen** biçim; Google'ın resmî Embed API'si
+  bir anahtar ve dolayısıyla devredilecek listeye bir hesap daha demek olurdu.
+  `z` parametresi bilerek verilmiyor: elle bir yakınlaştırma yazıldığında
+  işaretçi çerçevenin dışına kayıyordu, Google kendi seçtiğinde ortalanıyor.
+  `loading="lazy"` + `title` (iframe'in erişilebilir adı yalnızca ondan gelir).
+  ⚠️ **F7-06'da yazılacak CSP `frame-src`e `https://maps.google.com` istisnası
+  içermeli**, yoksa harita canlıda boş çerçeve olarak çıkar.
+
+  Adresin altındaki **"Yol tarifi al"** bağlantısı ayrıca duruyor: gömü sadece
+  konumu gösteriyor, tarif için yine Maps'e geçmek gerekiyor ve telefonda o
+  bağlantı doğrudan Haritalar uygulamasını açıyor.
 
   İçeriğin tamamı `content/site.json`'dan: e-posta (`mailto:`), iki telefon
   (`tel:`, görünen metin boşluklu kalıyor ama adres yalnızca rakam), adres ve
-  sosyal hesaplar. Sayfada gömülü tek bir iletişim bilgisi yok.
+  sosyal hesaplar. Harita da aynı `adres` alanından besleniyor — ayrıca
+  enlem/boylam tutulmuyor ki ikisi birbirinden ayrı düşmesin. Sayfada gömülü
+  tek bir iletişim bilgisi yok.
 
   Yol üstünde footer'ın sosyal bloğu `layout/sosyal-baglantilar.tsx`'e çıkarıldı
   ve iki yer paylaşıyor; `etiketli` bayrağı footer'daki ikon-only sunumla
@@ -734,12 +746,19 @@ BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
 > Veritabanı, API ucu, kimlik doğrulama ve yönetim paneli **yok**. Bu fazın tamamı
 > Google Forms hazırlamak ve siteye doğru bağlamaktan ibaret.
 
-- [ ] **F5-01** 🔐 **5 Google Form'u oluştur**
+- [ ] **F5-01** 🔐 **~~5~~ 4 Google Form'u oluştur**
   Hepsi F0-04'teki **paylaşılan** klasörde, kişisel Drive'da değil.
+
+  ⚠️ **İletişim formu kapsam dışı (20.08.2026):** `/iletisim` sayfasında form
+  yok, sağdaki alanı harita dolduruyor (F4-11). Ulaşma yolu e-posta, telefon
+  ve sosyal hesaplar. Dolayısıyla bu form açılmayacak, `site.json → formlar`
+  altındaki `iletisim` alanı boş kalacak ve F5-05 dört değil **üç** sayfa
+  bağlayacak. Alan şemadan **silinmedi**: karar geri döner ve form istenirse
+  `FormCta` zaten hazır, tek satır yeter.
 
   | Form | Alanlar |
   |---|---|
-  | İletişim | Ad, Soyad, E-posta, Konu, Mesaj, KVKK onayı |
+  | ~~İletişim~~ | ❌ kapsam dışı — sayfada form yok |
   | Üyelik (Bize Katıl) | Ad Soyad, E-posta, Telefon, Öğrenci No, Bölüm, Sınıf, İlgi alanları, Neden katılmak istiyorsun, KVKK |
   | Koordinatör Başvurusu | + Departman 1. ve 2. tercih, Motivasyon, Deneyim, **CV yükleme**, KVKK |
   | İstek ve Öneri | Kategori, Mesaj, (opsiyonel) İletişim — anonim seçeneği |
@@ -766,14 +785,18 @@ BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
   yani `/iletisim` bugün butonu değil gerekçeyi gösteriyor. Formlar F5-01'de
   açılıp adresleri F5-03'te yazılınca butonlar kendiliğinden belirecek.
 
-  Sırası Faz 5'ti ama `/iletisim`in çağrısı için gerekiyordu; geçici bir sürüm
-  yazıp üç sayfa sonra atmaktansa gerçeği yazıldı. `src/components/form/form-cta.tsx`.
+  Sırası Faz 5'ti ama `/iletisim`in çağrısı için yazılmıştı. **Aynı gün
+  `/iletisim`den form kalktı** (F4-11), dolayısıyla bileşen şu an hiçbir
+  sayfada kullanılmıyor — ilk kullanıcısı `/katil` (F4-12) olacak. Silinmedi:
+  yazılmış, doğrulanmış ve üç sayfanın bekleyen ihtiyacı.
+  `src/components/form/form-cta.tsx`.
   `kimlerIcin` / `süre` / `son tarih` alanları **yazılmadı** — `/iletisim`in
   ihtiyacı olmadı. `/katil` ya da `/basvuru` gerçekten isterse o zaman eklenir.
 
 - [ ] **F5-05** **Form CTA'larını sayfalara bağla**
-  `/iletisim`, `/katil`, `/basvuru`, `/oneri`.
-  *Bitti sayılır:* Dört butonun dördü de doğru forma gidiyor (elle tıklanarak test edildi).
+  ~~`/iletisim`,~~ `/katil`, `/basvuru`, `/oneri` — **üç sayfa** (20.08.2026:
+  `/iletisim`de form yok, bkz. F4-11 ve F5-01).
+  *Bitti sayılır:* ~~Dört~~ **Üç** butonun üçü de doğru forma gidiyor (elle tıklanarak test edildi).
 
 - [ ] **F5-06** **Etkinlik kayıt bağlantısı** — 🔻 **kapsam küçüldü (18.08.2026)**
   `/etkinlikler/[slug]` sayfasındaki "Kayıt Ol" butonu içerik dosyasındaki
@@ -926,6 +949,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 
 | Tarih | Ne değişti |
 |---|---|
+| 20.08.2026 | **`/iletisim` yeniden düzenlendi (aynı gün, inceleme sonrası).** Sağdaki `FormCta` kaldırıldı, yerine **gömülü harita** kondu; sol sütun (e-posta, telefonlar, adres + yol tarifi, sosyaller) olduğu gibi kaldı. **İletişim formu artık sitede yok:** ulaşma yolu e-posta, telefon ve sosyal hesaplar. Bunun Faz 5'e sonucu işlendi — F5-01 beş değil **dört** form açacak, F5-05 dört değil **üç** sayfa bağlayacak; `formlar.iletisim` alanı şemada duruyor ki karar geri dönerse tek satırla açılsın. Harita `output=embed` ile çiziliyor (API anahtarı istemeyen biçim — anahtarlı Embed API devredilecek listeye bir hesap daha eklerdi). `z` parametresi elle verilmiyor: yazıldığında işaretçi çerçeve dışına kayıyordu, Google kendi seçince ortalanıyor. ⚠️ **F7-06'daki CSP `frame-src`e `https://maps.google.com` istisnası içermeli**, yoksa harita canlıda boş çerçeve çıkar. `FormCta` silinmedi; ilk kullanıcısı `/katil` olacak. |
 | 20.08.2026 | **F4-11 tamamlandı, yanında F5-04 öne çekildi.** `/iletisim` e-posta, iki telefon, adres ve sosyal hesapları `site.json`dan okuyup basıyor; sayfada gömülü tek bir bilgi yok. **Plandan sapma:** harita gömüsü yazılmadı (Mustafa'nın kararı), yerine adresin altında Google Maps'in arama adresine giden bir "Yol tarifi al" bağlantısı var — gömü olmadığı için sayfa açılırken Google'a istek gitmiyor, F7-06'daki CSP'ye istisna gerekmiyor ve F7-07'nin Lighthouse hedefi risk altına girmiyor. `FormCta` (F5-04) sırası Faz 5'te olmasına rağmen burada yazıldı: `/iletisim`in çağrısı için gerekiyordu ve geçici bir sürümü üç sayfa sonra atmak israftı. Kabul kriteri şu anki gerçek durumda doğrulandı — `formlar` boş olduğu için sayfa butonu değil gerekçeyi gösteriyor. Footer'ın sosyal bloğu `layout/sosyal-baglantilar.tsx`'e çıkarıldı, footer ve /iletisim paylaşıyor. Yan düzeltme: X'in siyah rozeti koyu zeminde görünmüyordu, koyu zemin için `invert` ediliyor. 30/73. |
 | 20.08.2026 | **F4-05 ve F4-06 tamamlandı.** `/etkinlikler` tüm etkinlikleri, `/etkinlikler/[slug]` her birinin kendi sayfasını gösteriyor; dördü de derleme anında üretiliyor. **Plandan sapma:** kategori filtresi ve arama yazılmadı (Mustafa'nın kararı) — dört etkinlik ve üç kategoriyle sayfayı yönetilmesi gereken bir araca çeviriyordu. Bento ızgarası `components/anasayfa/` → `components/icerik/` taşındı ve iki sayfanın ortak malı oldu; sabit dörtlü desen yerine sayıdan düzen türeten bir fonksiyona çevrildi (ikişerli satırlar 7/5 ve 5/7, tek kalan kart tam genişlik) — eski desen 4'ün katı olmayan sayılarda satır sonunda boşluk bırakıyordu. Sınıf adları birebir yazılıyor: Tailwind kaynağı metin olarak taradığı için `col-span-${n}` gibi çalışma anında birleşen bir adı üretmiyor. **Ana sayfa daraldı:** tümünü değil `oneCikanEtkinlikler`i basıyor (şemada `.max(3)` → `.max(4)`), yoksa liste büyüdükçe `/etkinlikler`in kopyası olacaktı; kayan şerit tüm adları okumaya devam ediyor. Kullanılmayan `EventCard` silindi. 28/73. |
 | 19.08.2026 | **F4-03 ve F4-04 tamamlandı.** `/ekibimiz` güncel dönemi, `/ekibimiz/[donem]` arşivi gösteriyor; ikisi de aynı `EkipListesi`yi kullanıyor. Yönetim kurulu dizilimi plandaki gibi (başkan tek, altında yardımcı + genel sekreter, altında üyeler), koordinatörler departmana göre gruplu. Geçiş tuşu koşullu: 2025-2026'da koordinatör olmadığı için hiç çizilmiyor. Güncel dönem `generateStaticParams`a girmiyor, `/ekibimiz/2025-2026` 307 ile `/ekibimiz`e gidiyor — aynı ekip iki adreste yayınlanmıyor. **Erişilebilirlik:** sekmeli düzen JS'siz tarayıcıda ikinci listeyi gizliyordu; paneller `keepMounted` yapıldı ve bir `<noscript>` stili gizlemeyi geri alıyor. 26/73. |
