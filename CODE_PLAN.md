@@ -93,7 +93,20 @@ MUSTAFA'DAN BEKLENENLER (hiçbiri Faz 4'ü bloke etmiyor):
   · Ekip fotoğrafları — şimdilik baş harf kartı kullanılıyor, karar verildi
   · Logonun gerçek SVG'si — gelen dosya boş çıktı, PNG ile devam ediliyor
 
+SONRADAN YENİLENECEK — Mustafa'nın 20.08'deki notu:
+  · **Kart hover'ında çıkan ayrıntılar** (kategori · başlık · kısa açıklama ·
+    ilk iki özellik · "Detay →"). Hem ana sayfada hem /etkinlikler'de aynı
+    bileşenden geliyor: src/components/icerik/etkinlik-izgarasi.tsx. Dizilim
+    ve kırpma beğenildi, **yenilenecek olan hover'ın içeriği ve sunumu.**
+  · **Etkinlik sayfalarının kendisi** (/etkinlikler/[slug]). Şu anki düzen
+    çalışıyor ve doğrulandı ama kalıcı tasarım değil.
+  İkisi de F4-05/F4-06'yı geri açmıyor: sayfalar bitti sayılıyor, bu bir
+  sonraki görsel tur. Yeni etkinlik metinleri geldiğinde birlikte ele alınacak.
+
 BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
+  · Ana sayfadaki seçki şu an dört etkinliğin dördünü de içeriyor, yani
+    /etkinlikler ile aynı kartları gösteriyor. Bilinçli geçici durum: yeni
+    etkinlikler eklendikçe ana sayfa dörtte kalacak, liste sayfası büyüyecek.
   · Ana sayfadaki `sayilarlaBiz` (4/9/4) ile /hakkimizda'daki `istatistikler`
     (2000+/35+/150+/100+) farklı şeyleri sayıyor. Mustafa "önemli değil" dedi,
     yan yana görülünce tuhaf gelirse ana sayfadakiler değiştirilebilir.
