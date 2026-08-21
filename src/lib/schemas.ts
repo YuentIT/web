@@ -112,10 +112,17 @@ export const anasayfaSchema = z.object({
    * giriyorlar. Slug'ların gerçekten bir etkinliğe karşılık geldiği F3-02'de
    * denetleniyor.
    *
-   * Üst sınır 4 (20.08.2026): bento düzeni dördü delik bırakmadan taşıyor,
-   * beşincisi ana sayfayı `/etkinlikler`in kopyasına çevirmeye başlıyor.
+   * Üst sınır ~~4~~ **5 (21.08.2026).** Eski gerekçe şuydu: "beşincisi ana
+   * sayfayı `/etkinlikler`in kopyasına çevirmeye başlıyor." O sırada toplam
+   * dört etkinlik vardı, yani dördünü öne çıkarmak gerçekten kopyalamaktı.
+   * Etkinlik sayısı ona çıkınca beş seçmek kopya değil **seçki** oldu ve
+   * gerekçe geçersiz kaldı.
+   *
+   * Bu bir düzen kısıtı değil, içerik kararı: `bentoDuzeni()` herhangi bir
+   * sayıyı taşıyor (7/5 → 5/7 → artan tek kart tam genişlik). Sınır yine de
+   * duruyor, çünkü asıl mesele ana sayfanın seçki olarak kalması.
    */
-  oneCikanEtkinlikler: z.array(slugSchema).max(4),
+  oneCikanEtkinlikler: z.array(slugSchema).max(5),
   sayilarlaBiz: z
     .array(z.object({ deger: dolu, etiket: dolu }))
     .max(4)

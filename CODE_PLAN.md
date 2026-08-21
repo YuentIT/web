@@ -127,7 +127,8 @@ MUSTAFA'DAN BEKLENENLER (hiçbiri Faz 4'ü bloke etmiyor):
     verince content/hakkimizda.json güncellenecek. Sayfanın geri kalanında
     bu turda değişiklik yok.
   · Ana sayfa taslak metinlerinin revizyonu (content/anasayfa.json)
-  · Yeni konsepte göre etkinlik listesi (4 etkinlik şu an Wix'ten geldi)
+  · Sosyal Sorumluluk Projeleri'nin gerçek metni + kapak görseli (şu an yer tutucu)
+  · Yeni etkinliklere kapak görselleri — görselsizler tipografik kartla çiziliyor
   · Galeri görselleri → public/gorseller/galeri/ (düz liste, klasörsüz).
     Artık F4-08'in engeli, F3-04'ün değil.
   · Ekip fotoğrafları — şimdilik baş harf kartı kullanılıyor, karar verildi
@@ -534,10 +535,25 @@ BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
   · `hakkimizda.json` — hikaye, misyon, vizyon, Emil Motycka alıntısı
   · `site.json` — e-posta, iki telefon, adres, Instagram/LinkedIn/X/Facebook
   · `donemler/*.json` — 4 dönem, **77 kişi**
-  · `etkinlikler/*.mdx` — **4 etkinlik**
+  · `etkinlikler/*.mdx` — ~~4 etkinlik~~ → **21.08.2026'da 9'a çıktı, aşağıya bak**
 
-  ⚠️ **Plan 7 etkinlik diyordu, Wix'te 4 var.** Sayfalama dahil kontrol edildi;
-  başka kayıt yok. Plandaki rakam hatalıymış.
+  ❌ **BU NOT YANLIŞTI — düzeltildi 21.08.2026.** Burada şöyle yazıyordu:
+  *"Plan 7 etkinlik diyordu, Wix'te 4 var. Sayfalama dahil kontrol edildi; başka
+  kayıt yok. Plandaki rakam hatalıymış."* Gerçekte Wix'te **9 etkinlik** var;
+  hepsi `/etkinliklerimiz` altında blog yazısı olarak duruyor ve ilk taşımada
+  beşi atlanmış. Plandaki 7 rakamı hatalı değil, **eksikti.**
+
+  Sonradan taşınan beşi (Wix metinleri birebir alındı, yeniden yazılmadı):
+  How to Change the Game · YET: Yeditepe Entrepreneur Talks · LGK Liderlik Kampı
+  · İhtiyaç Haritası · Sosyal Etkinlikler.
+
+  Kampın Wix'teki adı "Olimpos Liderlik Kampı"ydı; Mustafa **"LGK Liderlik
+  Kampı"** olarak değiştirdi (21.08.2026), gövde metnindeki geçiş de buna
+  uyduruldu — yani "Olimpos" adı sitede artık geçmiyor.
+
+  Ayrıca **Sosyal Sorumluluk Projeleri** eklendi: Wix'te karşılığı yok, tamamen
+  yeni. Şu an `[YER TUTUCU]` metinleriyle **canlıda görünüyor** — Mustafa böyle
+  istedi, gerçek metni ve kapak görselini sonra verecek.
 
   ✅ **`degerler` Mustafa'nın kendi metniyle değişti (21.08.2026).** Önceki dört
   değer (Cesaret · Açıklık · Gelişim · Etki) hikâye ve misyondan türetilmiş

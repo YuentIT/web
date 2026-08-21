@@ -50,7 +50,7 @@ const VARYANTLAR: Variants = {
  */
 export function TextLoop({
   kelimeler,
-  aralik = 2200,
+  aralik = 1700,
   className,
 }: {
   kelimeler: string[];
