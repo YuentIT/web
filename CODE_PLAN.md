@@ -32,51 +32,80 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ## ŞU AN NEREDEYİZ
 
 ```
-Tarih          : 21.08.2026
-Aktif faz      : Faz 4 — Sayfalar (**Faz 1, 2 ve 3 bitti**)
-Son biten      : F3-03 ve F3-04 — Faz 3 kapandı. Değerler Mustafa'nın metniyle
-                 değişti, ana sayfa sayıları /hakkimizda ile eşitlendi ve sayaç
-                 animasyonu eklendi; logo SVG'sinden vazgeçildi, tanıtım PDF'i
-                 doğrulandı, şablon SVG'leri silindi.
-Sıradaki       : F4-12 (/katil), F4-13 (/basvuru) — ikisi de `FormCta` hazır
-                 olduğu için doğrudan yazılabilir; adresler F5-03'te girilince
-                 butonlar kendiliğinden açılır. Sonra F4-15 (404/error) ve
-                 F4-08 (galeri — Mustafa'dan görsel bekliyor).
+Tarih          : 21.08.2026 — seans sonu
+Aktif faz      : Faz 4 — Sayfalar (**Faz 1, 2 ve 3 bitti.** 15 görevin 7'si bitti)
+Son biten      : Ekip fotoğrafları — 77 kişinin 77'sinde fotoğraf var.
+                 Mevcut sayfalarda içerik eksiği pratikte kalmadı.
 
-ANA SAYFA METİNLERİ ONAYLANDI — 21.08.2026. `anasayfa.json`da taslak kalmadı:
-  hero başlığı ve dönen kelimeler, hero açıklaması, katıl bölümünün üç parçası
-  ve buton metinleri Mustafa'nın kendi metni. Üç "Bize Katıl" butonu artık aynı
-  çekimde (önce alttaki "Bize Katılın" diye ayrışıyordu).
+╔═══════════════════════════════════════════════════════════════════════════╗
+║  YARIN BURADAN DEVAM ET                                                   ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+  Kod tarafında hiçbir şey Mustafa'yı beklemiyor. Üçü de metin gelmeden
+  iskeletiyle yazılabilir, önerilen sıra:
+
+    1. F4-12  /katil     — `FormCta` hazır; form adresi F5-03'te girilince
+                           buton kendiliğinden açılır. Header'daki "Bize Katıl"
+                           ve footer buraya gidiyor, **şu an 404 veriyor.**
+    2. F4-13  /basvuru   — footer'da "Koordinatör Başvurusu", **404.**
+    3. F4-15  not-found.tsx + error.tsx — olmayan adres gerçek HTTP 404
+                           dönmeli (İTÜ'de 200 dönüyormuş, o hataya düşme).
+
+  Sonra: F4-10 /sponsorluk (giriş metni yazılı, yalnızca onay bekliyor),
+  F4-14 hukuki sayfalar (⚠️ KVKK **Faz 5'in tamamını kilitliyor**),
+  F4-08 /galeri (görsel bekliyor), F4-07 ve F4-09 (önce ne olacaklarına
+  karar verilmeli).
+
+  Mustafa'dan bekleyen tek içerik: **etkinlik metinlerinin yeni konsepte göre
+  gözden geçirilmesi.** 9 etkinlik Wix'ten birebir taşınmış hâlde; yenilenirse
+  kart hover'ı ve /etkinlikler/[slug] düzeni turuyla birlikte ele alınacak.
+
+  ⚠️ Doğrulanmamış tek şey: ekip fotoğraflarının **doğru kişiyle eşleştiği**.
+  Eşleştirme Wix kartlarındaki isim metnine göre yapıldı ve sayılar tuttu,
+  ama Mustafa yüzleri gözüyle geçirmedi. Yanlış eşleşme bildirirse tek tek
+  düzeltilecek.
+
+──────────────────────────── 21.08.2026 SEANSI ────────────────────────────
+
+  · **/galeri GERİ ALINDI.** 20.08'de başlanan 3B polaroid küresi tasarımı ve
+    yazılan kod tamamen silindi. `/galeri` yeniden 404; header ve footer'daki
+    bağlantılar zaten o hâldeydi, dokunulmadı. Geriye yalnızca **Caveat font
+    tercihi** bırakıldı (gerekçesi F4-08'in altında). Yeniden başlanırsa çıkış
+    noktası F4-08'deki özgün tarif: düz ızgara + lightbox.
+
+  · **Faz 3 kapandı.** F3-03 ve F3-04 bitti. /hakkimizda'daki dört değer
+    Mustafa'nın metniyle değişti (İnovasyon · Gelişim · Liderlik · Sinerji).
+
+  · **Ana sayfa metinleri onaylandı**, `anasayfa.json`da taslak kalmadı.
+    Hero başlığı artık sabit "İzlemekle Kalma," + dönen satır
+    [Sahneye Çık → Yön Ver → Öncü Ol → İz Bırak], ~1,7 sn arayla.
+    Şemada `hero.vurgu` kalktı, `hero.donenKelimeler` geldi.
+
+  · **`motion@13.1.1` kuruldu** — SITE_PLAN §4'teki "ilk gerçek ihtiyaçta
+    kurulur" maddesi işledi. İki kullanıcısı var, ikisi de CSS'in yapamadığı
+    iş: `counting-number.tsx` (ana sayfa sayacı) ve `text-loop.tsx` (hero).
+    "Hareketin tamamı saf CSS" kuralı hâlâ geçerli; paket geldi diye başka
+    yere serpilmiyor.
+
+  · **Etkinlikler 4'ten 10'a çıktı.** F3-03'teki "Wix'te 4 etkinlik var" notu
+    yanlışmış — 9 varmış, beşi atlanmış. Taşındı, üstüne Sosyal Sorumluluk
+    Projeleri eklendi. 10'unun da kapak görseli ve ayrı sayfası var.
+    Ana sayfa seçkisi 4'ten 5'e çıktı; tek kalan kart sona değil **başa**
+    alındı ve 460 px'e yükseltildi.
+
+  · **Ekip fotoğrafları tamam** — 77/77. Wix'ten 800x1000 olarak yeniden
+    indirildi (verilen kopyalar 210x220 idi).
+
+  ⚠️ **GÖRSEL TESLİMİNDE TEKRARLANAN HATA:** bu seansta gelen görsellerin
+  neredeyse tamamı `.jpg` uzantılıydı ama içerikleri JPEG değildi — AVIF ve
+  HEIC. HEIC olanı hiçbir tarayıcı göstermiyor ve `sharp` bile açamıyor;
+  `next/image` o dosyada patlar. **Yeni görsel gelince önce ilk 3 bayta bak:
+  `ff d8 ff` değilse JPEG değildir.** Türkçe karakterli ve büyük harfli dosya
+  adları da ASCII'ye çevrilmeli — Vercel Linux'ta derliyor.
 
 ONAY BEKLEYEN TEK METİN:
   · `sponsorluk.json → giris` — yazıldı, onay bekliyor. Sayfası (F4-10) henüz
     yazılmadığı için canlıda görünmüyor.
-
-HERO BAŞLIĞI DEĞİŞTİ — 21.08.2026, Mustafa'nın metni:
-  Sabit satır "İzlemekle Kalma," + dönen satır
-  [Sahneye Çık → Yön Ver → Öncü Ol → İz Bırak], aksan renginde, ~2,2 sn arayla.
-  Şemada `hero.vurgu` **kalktı**, yerine `hero.donenKelimeler` geldi (min 1,
-  max 6). Bileşen `src/components/ui/text-loop.tsx` — motion-primitives
-  `TextLoop`'unun uyarlaması, `motion` paketinin ikinci kullanıcısı.
-  Listenin **ilk kelimesi ayrıcalıklı**: sunucu onu basıyor, hareket kısıtında
-  o duruyor ve H1'in `aria-label`ı ondan kuruluyor ("İzlemekle Kalma, Sahneye
-  Çık"). Dönen kısım `aria-hidden` — iki saniyede bir değişen bir kelime ekran
-  okuyucuda başlığı sürekli yeniden okuturdu. SEO tarafını Mustafa "önemli
-  değil" diye geçti.
-
-`motion` KURULDU — 21.08.2026: SITE_PLAN §4'teki "ilk gerçek ihtiyaçta kurulur"
-  maddesi işledi. Tek kullanıcısı ana sayfadaki sayaç
-  (`src/components/ui/counting-number.tsx`, Animate UI `counting-number`'ın
-  uyarlaması). Kurulum sürüm sabitli: `motion@13.1.1`.
-
-GERİ ALINDI — 21.08.2026: F4-08 için 20.08'de başlanan **3B polaroid küresi**
-  tasarımı ve yazılan kod tamamen silindi (rota, `Polaroid`, `kure.ts`, galeri
-  CSS'i, yer tutucu kareler, şemadaki `tarih`/`etkinlik` alanları, tasarım
-  belgesi ve 9 görevlik uygulama planı). `/galeri` yeniden 404 veriyor; header
-  ve footer'daki bağlantılar zaten o hâldeydi, dokunulmadı. **Geriye yalnızca
-  Caveat font tercihi bırakıldı** — gerekçesi ve dosyaları F4-08'in altında.
-  Galeriye yeniden başlanırsa çıkış noktası F4-08'deki özgün tarif: düz ızgara
-  + lightbox.
 
 İNCELEME — 20.08.2026, Mustafa sayfaları baştan geçiyor. İşlenen geri bildirim:
   · Footer: tanım "liderlik ve girişimcilik" sırasına döndü, telefon düzeltildi
@@ -1098,6 +1127,7 @@ Spotify ve YouTube gömüleri yeterli; ayrı modül gerekmiyor.
 |---|---|
 | 20.08.2026 | **`/iletisim` yeniden düzenlendi (aynı gün, inceleme sonrası).** Sağdaki `FormCta` kaldırıldı, yerine **gömülü harita** kondu; sol sütun (e-posta, telefonlar, adres + yol tarifi, sosyaller) olduğu gibi kaldı. **İletişim formu artık sitede yok:** ulaşma yolu e-posta, telefon ve sosyal hesaplar. Bunun Faz 5'e sonucu işlendi — F5-01 beş değil **dört** form açacak, F5-05 dört değil **üç** sayfa bağlayacak; `formlar.iletisim` alanı şemada duruyor ki karar geri dönerse tek satırla açılsın. Harita `output=embed` ile çiziliyor (API anahtarı istemeyen biçim — anahtarlı Embed API devredilecek listeye bir hesap daha eklerdi). `z` parametresi elle verilmiyor: yazıldığında işaretçi çerçeve dışına kayıyordu, Google kendi seçince ortalanıyor. ⚠️ **F7-06'daki CSP `frame-src`e `https://maps.google.com` istisnası içermeli**, yoksa harita canlıda boş çerçeve çıkar. `FormCta` silinmedi; ilk kullanıcısı `/katil` olacak. |
 | 20.08.2026 | **F4-11 tamamlandı, yanında F5-04 öne çekildi.** `/iletisim` e-posta, iki telefon, adres ve sosyal hesapları `site.json`dan okuyup basıyor; sayfada gömülü tek bir bilgi yok. **Plandan sapma:** harita gömüsü yazılmadı (Mustafa'nın kararı), yerine adresin altında Google Maps'in arama adresine giden bir "Yol tarifi al" bağlantısı var — gömü olmadığı için sayfa açılırken Google'a istek gitmiyor, F7-06'daki CSP'ye istisna gerekmiyor ve F7-07'nin Lighthouse hedefi risk altına girmiyor. `FormCta` (F5-04) sırası Faz 5'te olmasına rağmen burada yazıldı: `/iletisim`in çağrısı için gerekiyordu ve geçici bir sürümü üç sayfa sonra atmak israftı. Kabul kriteri şu anki gerçek durumda doğrulandı — `formlar` boş olduğu için sayfa butonu değil gerekçeyi gösteriyor. Footer'ın sosyal bloğu `layout/sosyal-baglantilar.tsx`'e çıkarıldı, footer ve /iletisim paylaşıyor. Yan düzeltme: X'in siyah rozeti koyu zeminde görünmüyordu, koyu zemin için `invert` ediliyor. 30/73. |
+| 21.08.2026 | **Faz 3 kapandı, /galeri geri alındı, etkinlikler 4'ten 10'a çıktı.** F4-08'in 3B polaroid küresi tamamen silindi; geriye yalnızca Caveat font tercihi kaldı ve `/galeri` yine 404. F3-03/F3-04 bitti: /hakkimizda'nın dört değeri ve ana sayfanın tüm metinleri Mustafa'nın metniyle değişti, taslak kalmadı. `motion@13.1.1` kuruldu (SITE_PLAN §4'teki "ilk gerçek ihtiyaçta kurulur" maddesi işledi) — iki kullanıcısı var, ikisi de CSS'in yapamadığı iş: ana sayfa sayacı ve hero'nun dönen başlığı. Hero artık sabit "İzlemekle Kalma," + dönen [Sahneye Çık → Yön Ver → Öncü Ol → İz Bırak]; `hero.vurgu` kalkıp `hero.donenKelimeler` geldi. F3-03'teki "Wix'te 4 etkinlik var" notu **yanlışmış** — 9 varmış, beşi atlanmış; taşındı, üstüne Sosyal Sorumluluk Projeleri eklendi, 10'unun da kapağı ve ayrı sayfası var. Ana sayfa seçkisi 4'ten 5'e çıktı, tek kalan kart sona değil başa alınıp 460 px'e yükseltildi. Ekip fotoğrafları 77/77 — verilen kopyalar 210x220 olduğu için Wix'ten 800x1000 yeniden indirildi. **Üç kırpma/format hatası yakalandı:** hero maskesi `İ Ö Ü` noktalarını ve virgülü kesiyordu (`.yuent-glif-payi`), `MotionValue.set()` DOM'a yansımadığı için sayaç hedeften sıfıra sıçrıyordu, gelen görsellerin çoğu `.jpg` uzantılı ama AVIF/HEIC içerikliydi. 30/73. |
 | 20.08.2026 | **F4-05 ve F4-06 tamamlandı.** `/etkinlikler` tüm etkinlikleri, `/etkinlikler/[slug]` her birinin kendi sayfasını gösteriyor; dördü de derleme anında üretiliyor. **Plandan sapma:** kategori filtresi ve arama yazılmadı (Mustafa'nın kararı) — dört etkinlik ve üç kategoriyle sayfayı yönetilmesi gereken bir araca çeviriyordu. Bento ızgarası `components/anasayfa/` → `components/icerik/` taşındı ve iki sayfanın ortak malı oldu; sabit dörtlü desen yerine sayıdan düzen türeten bir fonksiyona çevrildi (ikişerli satırlar 7/5 ve 5/7, tek kalan kart tam genişlik) — eski desen 4'ün katı olmayan sayılarda satır sonunda boşluk bırakıyordu. Sınıf adları birebir yazılıyor: Tailwind kaynağı metin olarak taradığı için `col-span-${n}` gibi çalışma anında birleşen bir adı üretmiyor. **Ana sayfa daraldı:** tümünü değil `oneCikanEtkinlikler`i basıyor (şemada `.max(3)` → `.max(4)`), yoksa liste büyüdükçe `/etkinlikler`in kopyası olacaktı; kayan şerit tüm adları okumaya devam ediyor. Kullanılmayan `EventCard` silindi. 28/73. |
 | 19.08.2026 | **F4-03 ve F4-04 tamamlandı.** `/ekibimiz` güncel dönemi, `/ekibimiz/[donem]` arşivi gösteriyor; ikisi de aynı `EkipListesi`yi kullanıyor. Yönetim kurulu dizilimi plandaki gibi (başkan tek, altında yardımcı + genel sekreter, altında üyeler), koordinatörler departmana göre gruplu. Geçiş tuşu koşullu: 2025-2026'da koordinatör olmadığı için hiç çizilmiyor. Güncel dönem `generateStaticParams`a girmiyor, `/ekibimiz/2025-2026` 307 ile `/ekibimiz`e gidiyor — aynı ekip iki adreste yayınlanmıyor. **Erişilebilirlik:** sekmeli düzen JS'siz tarayıcıda ikinci listeyi gizliyordu; paneller `keepMounted` yapıldı ve bir `<noscript>` stili gizlemeyi geri alıyor. 26/73. |
 | 19.08.2026 | **F4-02 `/hakkimizda` tamamlandı.** Ayrıntı görevin altında. Yol üstünde ortak `atmosfer/` bileşenleri çıkarıldı (el feneri, ızgara, ışık huzmeleri, kaydırma ipucu) ve alıntı bandı paylaşıldı; ana sayfa da onları kullanıyor. `PageHeader`'ın h1'i büyük harfe geçti — iç sayfalar ana sayfayla aynı dili konuşsun diye kural tek yerde. Sayfa metadata'sı `generateMetadata` ile içerikten okunuyor (F7-01 geçene kadarki ara çözüm). Şemaya `hakkimizda.baslik/slogan/degerler` ve kapalı bir ikon listesi eklendi: içerikte karşılığı olmayan ikon adı yazılırsa sayfa ikonsuz çıkmıyor, derleme duruyor. 24/73. |
