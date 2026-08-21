@@ -23,11 +23,15 @@ export type EtkinlikKarti = {
  * Düzen sabit bir desen dizisi **değil**, sayıdan türetiliyor: eskiden dörtlü
  * bir desen tekrarlıyordu ve etkinlik sayısı 4'ün katı olmadığında son satırda
  * boşluk kalıyordu. Etkinlik listesi büyüyeceği için (20.08.2026) tek kalan
- * kart artık tam genişliğe yayılıyor — hiçbir sayıda delik kalmıyor.
+ * kart tam genişliğe yayılıyor — hiçbir sayıda delik kalmıyor.
  *
- * Yükseklikler satır satır 400/340 arasında dönüşüyor; tam genişlikteki
- * kapanış kartı daha alçak duruyor ki 12 sütuna yayılmış bir görsel sayfayı
- * ezmesin.
+ * **Tek kalan kart 21.08.2026'da sona değil başa alındı.** Altta kapanış kartı
+ * olarak durduğunda sayfayı bitiren şey en son etkinlik oluyordu; başta
+ * durunca listeyi açan, öne çıkan kart oluyor. Aynı sebeple *alçaltılmıyor*
+ * artık yükseltiliyor: kapanışta 300 px'e indirilmişti ki 12 sütuna yayılmış
+ * bir görsel sayfayı ezmesin, açılışta ise 300 px 12 sütuna yayılınca basık
+ * duruyor. 460 px, satır yüksekliklerinin (400/340) üzerinde kalarak kartı
+ * listenin başı yapıyor.
  *
  * Sınıf adları **birebir** yazılıyor, parça parça kurulmuyor: Tailwind kaynağı
  * metin olarak tarıyor ve `col-span-${n}` gibi çalışma anında birleşen bir adı
@@ -38,18 +42,22 @@ const SATIR_DUZENLERI = [
   ["lg:col-span-5 lg:h-[340px]", "lg:col-span-7 lg:h-[340px]"],
 ];
 
-/** Satırda tek başına kalan kart: 12 sütunun tamamı, daha alçak. */
-const KAPANIS_KARTI = "lg:col-span-12 lg:h-[300px]";
+/** Listeyi açan tam genişlikte kart: 12 sütun, satırlardan yüksek. */
+const ACILIS_KARTI = "lg:col-span-12 lg:h-[460px]";
+
+/** Kartın 12 sütuna yayılıp yayılmadığı — `sizes` bunu bilmek zorunda. */
+export function tamGenislikMi(sinif: string): boolean {
+  return sinif.includes("col-span-12");
+}
 
 function bentoDuzeni(adet: number): string[] {
-  const siniflar: string[] = [];
+  // Tek sayıda kart varsa ilki tam genişlikte açılış kartı; geriye kalan çift
+  // sayı ikişerli satırlara tam oturuyor.
+  const acilisVar = adet % 2 === 1;
+  const siniflar: string[] = acilisVar ? [ACILIS_KARTI] : [];
 
-  for (let satir = 0; satir * 2 < adet; satir++) {
-    if (satir * 2 + 1 === adet) {
-      siniflar.push(KAPANIS_KARTI);
-      break;
-    }
-
+  const kalan = adet - (acilisVar ? 1 : 0);
+  for (let satir = 0; satir * 2 < kalan; satir++) {
     siniflar.push(...SATIR_DUZENLERI[satir % SATIR_DUZENLERI.length]);
   }
 
@@ -102,7 +110,14 @@ export function EtkinlikIzgarasi({
               src={etkinlik.kapakGorsel}
               alt=""
               fill
-              sizes="(min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw"
+              // Tam genişlikteki kart `lg`de 12 sütunun tamamını kaplıyor;
+              // ona da 40vw denseydi tarayıcı yarısı kadar bir kesit çekip
+              // iki katına esnetir, kart bulanık çıkardı.
+              sizes={
+                tamGenislikMi(duzen[i])
+                  ? "(min-width: 1024px) 90vw, (min-width: 640px) 50vw, 100vw"
+                  : "(min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw"
+              }
               priority={i < 2}
               className="scale-[1.04] object-cover transition duration-200 ease-in-out group-hover:scale-[1.1] group-hover:blur-[13px] group-hover:brightness-[0.7] group-hover:saturate-[0.85] group-focus-visible:scale-[1.1] group-focus-visible:blur-[13px] group-focus-visible:brightness-[0.7] group-focus-visible:saturate-[0.85]"
             />

@@ -121,18 +121,39 @@ Hâlâ 404 veren rotalar (Faz 4 boyunca açılacak):
      "eğitimler /etkinlikler içinde bir kategori olur" seçeneği de kapandı —
      eğitimler yazılacaksa kendi giriş noktasını gerektiriyor.
 
-MUSTAFA'DAN BEKLENENLER (hiçbiri Faz 4'ü bloke etmiyor):
-  · /hakkimizda "Değerlerimiz" YENİLENECEK — 20.08'de karar verildi: şu anki
-    dört değer taslak, metinler baştan yazılacak. Mustafa yeni metinleri
-    verince content/hakkimizda.json güncellenecek. Sayfanın geri kalanında
-    bu turda değişiklik yok.
-  · Ana sayfa taslak metinlerinin revizyonu (content/anasayfa.json)
-  · Sosyal Sorumluluk Projeleri'nin gerçek metni + kapak görseli (şu an yer tutucu)
-  · Yeni etkinliklere kapak görselleri — görselsizler tipografik kartla çiziliyor
-  · Galeri görselleri → public/gorseller/galeri/ (düz liste, klasörsüz).
-    Artık F4-08'in engeli, F3-04'ün değil.
-  · Ekip fotoğrafları — şimdilik baş harf kartı kullanılıyor, karar verildi
-  · ~~Logonun gerçek SVG'si~~ — 21.08.2026'da vazgeçildi, PNG'lerle devam
+MUSTAFA'DAN BEKLENENLER — 21.08.2026'da tazelendi. Hiçbiri mevcut sayfaları
+bozmuyor, hepsi eksik içerik. Öncelik sırasıyla:
+
+  1. SOSYAL SORUMLULUK PROJELERİ — gerçek metin + kapak görseli.
+     Tek "yalancı" içerik bu: `content/etkinlikler/sosyal-sorumluluk-projeleri.mdx`
+     `[YER TUTUCU]` metinleriyle **canlıda görünüyor** (Mustafa böyle istedi).
+     Gereken: kısa açıklama (2 satır) · 3 paragraf gövde · 3 özellik maddesi ·
+     kapak görseli. Kodda değişiklik gerekmiyor, dosya baştan yazılacak.
+
+  2. YENİ 5 ETKİNLİĞİN KAPAK GÖRSELLERİ — how-to-change-the-game,
+     yeditepe-entrepreneur-talks, lgk-liderlik-kampi, ihtiyac-haritasi,
+     sosyal-etkinlikler. Zorunlu değil: kapak yoksa kart başlığın ilk iki
+     harfini tipografik olarak basıyor ("stok fotoğraf yok" kuralı).
+     ⚠️ Ama **Sosyal Etkinlikler ile Sosyal Sorumluluk Projeleri'nin ikisi de
+     "SO" gösteriyor** ve yan yana geldiklerinde ayırt edilmiyor — bu ikisinin
+     görseli diğerlerinden daha acil.
+     `public/gorseller/etkinlikler/` altına konup frontmatter'a `kapakGorsel`
+     olarak eklenecek.
+
+  3. ETKİNLİK METİNLERİNİN YENİ KONSEPTE GÖRE GÖZDEN GEÇİRİLMESİ — 9 etkinliğin
+     metni şu an Wix'ten birebir taşınmış hâlde (5'i 21.08'de taşındı). Kulüp
+     yeni konsept hazırlıyordu; metinler yenilenecekse hover ve detay düzeni
+     turuyla (aşağıdaki "SONRADAN YENİLENECEK") birlikte ele alınmalı.
+
+  4. GALERİ GÖRSELLERİ → `public/gorseller/galeri/` (düz liste, klasörsüz).
+     F4-08'in engeli, F3-04'ün değil. Her karenin Türkçe alt metni de gerekiyor.
+
+  5. EKİP FOTOĞRAFLARI — 77 kişi, şu an baş harf kartı. Karar zaten "baş harf"
+     olduğu için bu bir eksik değil, isteğe bağlı iyileştirme.
+
+  ✅ Kapananlar: ana sayfa metinleri (21.08 onaylandı) · /hakkimizda
+     "Değerlerimiz" (21.08'de Mustafa'nın metniyle değişti) · logonun SVG'si
+     (vazgeçildi, PNG'lerle devam)
 
 SONRADAN YENİLENECEK — Mustafa'nın 20.08'deki notu:
   · **Kart hover'ında çıkan ayrıntılar** (kategori · başlık · kısa açıklama ·
