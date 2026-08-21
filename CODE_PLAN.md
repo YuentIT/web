@@ -132,8 +132,16 @@ bozmuyor, hepsi eksik içerik. Öncelik sırasıyla:
   2. GALERİ GÖRSELLERİ → `public/gorseller/galeri/` (düz liste, klasörsüz).
      F4-08'in engeli. Her karenin Türkçe alt metni de gerekiyor.
 
-  3. EKİP FOTOĞRAFLARI — 77 kişi, şu an baş harf kartı. Karar zaten "baş harf"
-     olduğu için bu bir eksik değil, isteğe bağlı iyileştirme.
+  ✅ EKİP FOTOĞRAFLARI TAMAMLANDI (21.08.2026) — 77 kişinin 77'sinde fotoğraf
+     var, baş harf kartına düşen kimse kalmadı. Kaynak: Wix'teki dönem
+     sayfaları. Mustafa siteden indirdiği kopyaları vermişti ama hepsi
+     **210x220 px** idi (Wix'in önizleme boyutu) ve kart 256 px'te çizildiği
+     için bulanık çıkardı. Bunun yerine Wix'in görsel URL'indeki boyut
+     parametresi (`fill/w_...,h_...`) 800x1000'e çekilip orijinaller yeniden
+     indirildi; kulübün kendi seçtiği kırpma (`/crop/`) korundu.
+     Adlandırma: `public/gorseller/ekip/<donem>/<ad-soyad-slug>.jpg`, ASCII.
+     Eşleştirme dosya adına göre değil, Wix kartındaki **isim metnine** göre
+     yapıldı — dosya adları yalnızca ilk isimdi ve birden çok kişiye uyuyordu.
 
   ✅ 21.08.2026'da kapananlar:
      · Ana sayfa metinleri (hero, dönen kelimeler, açıklama, katıl bölümü)
