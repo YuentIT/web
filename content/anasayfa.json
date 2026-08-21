@@ -1,5 +1,5 @@
 {
-  "_todo": "TASLAK — Mustafa revize edecek. Hero metinleri hakkimizda.json'daki hikâye ve misyondan türetildi, uydurulmadı. sayilarlaBiz yalnızca içerikten doğrulanabilen iki rakamı taşıyor (Hult Prize kampüs finali yıl sayısı ve katılınan bölgesel final sayısı); üye sayısı, etkinlik sayısı gibi rakamlar ancak Mustafa doğrularsa eklenmeli.",
+  "_todo": "TASLAK — hero metinleri Mustafa'nın revizyonunu bekliyor; hakkimizda.json'daki hikâye ve misyondan türetildi, uydurulmadı. sayilarlaBiz artık hakkimizda.json'daki istatistiklerin aynısı (21.08.2026 kararı): aynı dört rakam sitede bilerek iki yerde duruyor, sunumları farklı — burada sayaç, /hakkimizda'da roket.",
   "hero": {
     "ustBaslik": "Yeditepe Üniversitesi",
     "baslik": "Fikrinin\narkasından koşmaya\ncesaret edenler için",
@@ -21,9 +21,22 @@
     "sirket-ve-girisim-ofisi-gezileri"
   ],
   "sayilarlaBiz": [
-    { "deger": "4", "etiket": "Yıldır Hult Prize kampüs finali" },
-    { "deger": "9", "etiket": "Katıldığımız bölgesel final" },
-    { "deger": "4", "etiket": "Dönemlik ekip arşivi" }
+    {
+      "deger": "2000+",
+      "etiket": "Üye"
+    },
+    {
+      "deger": "35+",
+      "etiket": "Yıllık etkinlik"
+    },
+    {
+      "deger": "150+",
+      "etiket": "Konuşmacı"
+    },
+    {
+      "deger": "100+",
+      "etiket": "Sponsor"
+    }
   ],
   "alinti": {
     "metin": "Bir milyon tane fikriniz olabilir; ancak onları hayata geçirmediğiniz sürece hepsi değersizdir.",
@@ -33,6 +46,9 @@
     "ustBaslik": "İlham alırken ilham olmak",
     "baslik": "YUENT ailesine katıl",
     "aciklama": "İlham alırken ilham olmak yalnızca bir cümle değil, çalışma biçimimiz: öğrendiğimizi paylaşıyor, düzenlediğimiz her eğitimi, zirveyi ve sosyal sorumluluk projesini birlikte üretiyoruz. Fikrinin arkasından koşmaya cesaret ediyorsan, burada seni dinleyecek ve yanında yürüyecek bir ekip var.",
-    "cta": { "metin": "Bize Katılın", "href": "/katil" }
+    "cta": {
+      "metin": "Bize Katılın",
+      "href": "/katil"
+    }
   }
 }

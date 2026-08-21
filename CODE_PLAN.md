@@ -32,16 +32,35 @@ yönetim paneli kaldırıldı; tüm formlar Google Forms'a taşındı)
 ## ŞU AN NEREDEYİZ
 
 ```
-Tarih          : 20.08.2026
-Aktif faz      : Faz 4 — Sayfalar (Faz 1, 2, 3 bitti; Faz 3'te F3-03/F3-04 içerik bekliyor)
-Son biten      : F4-11 — /iletisim canlıda (yanında F5-04 `FormCta` öne çekildi)
-Sıradaki       : 🎨 **F4-08 /galeri — tasarım oturumu yarım kaldı.** Kod
-                 yazılmadı. Kararlar, font testi ve cevaplanmamış 4 soru
-                 F4-08'in altında yazılı; yeni oturum oradan devam etmeli.
-                 Ayrıca hazır bekleyenler: F4-12 (/katil), F4-13 (/basvuru) —
-                 `FormCta` hazır olduğu için doğrudan yazılabilirler; adresler
-                 F5-03'te girilince butonlar kendiliğinden açılır. Sonra
-                 F4-15 (404/error).
+Tarih          : 21.08.2026
+Aktif faz      : Faz 4 — Sayfalar (**Faz 1, 2 ve 3 bitti**)
+Son biten      : F3-03 ve F3-04 — Faz 3 kapandı. Değerler Mustafa'nın metniyle
+                 değişti, ana sayfa sayıları /hakkimizda ile eşitlendi ve sayaç
+                 animasyonu eklendi; logo SVG'sinden vazgeçildi, tanıtım PDF'i
+                 doğrulandı, şablon SVG'leri silindi.
+Sıradaki       : F4-12 (/katil), F4-13 (/basvuru) — ikisi de `FormCta` hazır
+                 olduğu için doğrudan yazılabilir; adresler F5-03'te girilince
+                 butonlar kendiliğinden açılır. Sonra F4-15 (404/error) ve
+                 F4-08 (galeri — Mustafa'dan görsel bekliyor).
+
+ONAY BEKLEYEN İKİ METİN (F3-03'ü açık tutmuyor, yayın öncesi bakılmalı):
+  · `anasayfa.json → hero` ve `katil` — Wix'te karşılığı yoktu, hikâye ve
+    misyondan türetilerek yazıldı. Taslak.
+  · `sponsorluk.json → giris` — yazıldı, onay bekliyor.
+
+`motion` KURULDU — 21.08.2026: SITE_PLAN §4'teki "ilk gerçek ihtiyaçta kurulur"
+  maddesi işledi. Tek kullanıcısı ana sayfadaki sayaç
+  (`src/components/ui/counting-number.tsx`, Animate UI `counting-number`'ın
+  uyarlaması). Kurulum sürüm sabitli: `motion@13.1.1`.
+
+GERİ ALINDI — 21.08.2026: F4-08 için 20.08'de başlanan **3B polaroid küresi**
+  tasarımı ve yazılan kod tamamen silindi (rota, `Polaroid`, `kure.ts`, galeri
+  CSS'i, yer tutucu kareler, şemadaki `tarih`/`etkinlik` alanları, tasarım
+  belgesi ve 9 görevlik uygulama planı). `/galeri` yeniden 404 veriyor; header
+  ve footer'daki bağlantılar zaten o hâldeydi, dokunulmadı. **Geriye yalnızca
+  Caveat font tercihi bırakıldı** — gerekçesi ve dosyaları F4-08'in altında.
+  Galeriye yeniden başlanırsa çıkış noktası F4-08'deki özgün tarif: düz ızgara
+  + lightbox.
 
 İNCELEME — 20.08.2026, Mustafa sayfaları baştan geçiyor. İşlenen geri bildirim:
   · Footer: tanım "liderlik ve girişimcilik" sırasına döndü, telefon düzeltildi
@@ -93,9 +112,10 @@ MUSTAFA'DAN BEKLENENLER (hiçbiri Faz 4'ü bloke etmiyor):
     bu turda değişiklik yok.
   · Ana sayfa taslak metinlerinin revizyonu (content/anasayfa.json)
   · Yeni konsepte göre etkinlik listesi (4 etkinlik şu an Wix'ten geldi)
-  · Galeri görselleri → public/gorseller/galeri/ (düz liste, klasörsüz)
+  · Galeri görselleri → public/gorseller/galeri/ (düz liste, klasörsüz).
+    Artık F4-08'in engeli, F3-04'ün değil.
   · Ekip fotoğrafları — şimdilik baş harf kartı kullanılıyor, karar verildi
-  · Logonun gerçek SVG'si — gelen dosya boş çıktı, PNG ile devam ediliyor
+  · ~~Logonun gerçek SVG'si~~ — 21.08.2026'da vazgeçildi, PNG'lerle devam
 
 SONRADAN YENİLENECEK — Mustafa'nın 20.08'deki notu:
   · **Kart hover'ında çıkan ayrıntılar** (kategori · başlık · kısa açıklama ·
@@ -474,11 +494,11 @@ BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
   Geçici ana sayfa `getSite()`'ı çağırıyor — zincir böylece gerçekten kurulu,
   aksi hâlde okuyucular yazılmış ama hiç çalışmamış olurdu.
 
-- [~] **F3-03** **Wix'teki metinleri taşı** — Wix'tekilerin tamamı taşındı, iki dosya bekliyor
+- [x] **F3-03** **Wix'teki metinleri taşı** ✅ **21.08.2026**
   Hakkımızda metni, misyon, vizyon, alıntılar, iletişim bilgileri, 4 dönemin ekip
-  listeleri, 7 etkinliğin başlık ve açıklamaları. HTML varlıkları (`&uuml;` vb.)
-  düzgün Türkçe karaktere çevrilecek.
-  *Bitti sayılır:* Wix'teki hiçbir metin kaybolmadı.
+  listeleri, etkinliklerin başlık ve açıklamaları. HTML varlıkları (`&uuml;` vb.)
+  düzgün Türkçe karaktere çevrildi.
+  *Bitti sayılır:* Wix'teki hiçbir metin kaybolmadı. ✅
 
   **Yöntem:** Wix içeriği istemci tarafında render ediliyor, ham HTML'de yok.
   Sayfalar tarayıcıda gerçekten açılıp okundu.
@@ -492,26 +512,40 @@ BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
   ⚠️ **Plan 7 etkinlik diyordu, Wix'te 4 var.** Sayfalama dahil kontrol edildi;
   başka kayıt yok. Plandaki rakam hatalıymış.
 
-  🔲 Bekleyenler
-  · `anasayfa.json` — hero başlığı/açıklaması ve CTA metinleri. Wix ana sayfasında
-    karşılığı yok; yazılması gerekiyor.
-  · `sponsorluk.json` — **geçici içerikle duruyor.** Paketler ve iki PDF
-    (YES Sponsorluk Detay Dosyası, Tanıtım Dosyası) Mustafa'dan gelecek,
-    `public/dosyalar/` altına konacak.
+  ✅ **`degerler` Mustafa'nın kendi metniyle değişti (21.08.2026).** Önceki dört
+  değer (Cesaret · Açıklık · Gelişim · Etki) hikâye ve misyondan türetilmiş
+  taslaktı; yerlerini **İnovasyon · Gelişim · Liderlik · Sinerji** aldı. İkonlar
+  sırasıyla `lightbulb`, `trending-up`, `compass`, `heart-handshake` — dördü de
+  `degerIkonu` enum'unda zaten vardı, şema değişmedi.
 
-- [~] **F3-04** **Görselleri topla ve optimize et** — etkinlik kapakları ve logo bitti
-  Ekip fotoğrafları, etkinlik kapakları, galeri arşivi, logo, sponsorluk PDF'leri.
-  Wix medya kütüphanesinden indirilecek. **Stok fotoğraf yok** — görseli olmayan
-  etkinlik tipografik kartla temsil edilir.
-  *Bitti sayılır:* Hiçbir görsel Wix'ten sıcak bağlantı (hotlink) değil.
+  🔲 **Devreden: Wix kaynağı OLMAYAN iki metin.** Bunlar F3-03'ü açık tutmuyor
+  (görevin kabul kriteri "Wix'ten metin kaybolmadı"), ama yayın öncesi Mustafa'nın
+  onayından geçmeli — ikisi de dosyalarında `_todo` ile işaretli:
+  · `anasayfa.json → hero` ve `katil` — Wix ana sayfasında karşılığı yoktu,
+    `hakkimizda.json`daki hikâye ve misyondan türetilerek yazıldı. **Taslak.**
+  · `sponsorluk.json → giris` — yazıldı, onay bekliyor.
+
+- [x] **F3-04** **Görselleri topla ve optimize et** ✅ **21.08.2026**
+  *Bitti sayılır:* Hiçbir görsel Wix'ten sıcak bağlantı (hotlink) değil. ✅
 
   ✅ `public/gorseller/etkinlikler/` — 4 kapak, toplam **864 KB**, hiçbiri hotlink değil.
   `yeditepe-entrepreneurship-summit` **3176 KB PNG → 312 KB JPEG**: alfa kanalı
   tamamen opaktı ve 50 bin renkli fotografik bir görseldi, PNG orada yanlış formattı.
   ✅ `public/logo/` — beyaz kilit + header için kırpılmış 262×262 monogram.
+  ✅ `public/dosyalar/yuent-tanitim-dosyasi.pdf` — Mustafa gerçek dosya olduğunu
+  doğruladı (21.08.2026). Sponsorluk detay dosyası siteye **konmuyor** (18.08 kararı).
+  ✅ **Logo SVG'sinden vazgeçildi (21.08.2026).** Gelen dosya boş çıkmıştı; PNG'lerle
+  devam ediliyor ve bu madde kapandı. Vektör gerçekten gerekirse F7-09'da
+  (`site.webmanifest` ve ikonlar) yeniden gündeme gelir.
+  ✅ `create-next-app`'ten kalma 5 kullanılmayan şablon SVG'si silindi
+  (`next`, `vercel`, `file`, `globe`, `window`) — hiçbiri koda bağlı değildi ama
+  canlıya gidiyordu.
 
-  🔲 Ekip fotoğrafları (Wix'te var mı kontrol edilmedi), galeri arşivi,
-  sponsorluk PDF'leri, logonun SVG sürümü.
+  🔲 **Devredenler — ikisi de başka görevin işi, F3-04'ü bekletmiyor:**
+  · **Ekip fotoğrafları** — karar verildi: baş harf kartı kullanılıyor (F4-03).
+    Fotoğraf gelirse ayrı bir tur olur.
+  · **Galeri arşivi** — galeri sayfası 21.08.2026'da geri alındı; görseller artık
+    **F4-08'in** engeli.
 
 - [x] **F3-05** **MDX kurulumu** — `@next/mdx` + `remark-gfm`, özel bileşenler. ✅
   `@next/mdx` 16.3.1 · `remark-gfm` 4.0.1 · `remark-frontmatter` 5.0.0
@@ -688,119 +722,34 @@ BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
 
 - [ ] **F4-08** **`/galeri`** — 🔻 **sadeleşti (18.08.2026):** albüm ve etkinlik
   filtresi **yok**. Galeri, kulüpten karışık kareler gösteren tek bir showroom.
-  ~~Düz ızgara + lightbox~~ → **3B polaroid küresi (20.08.2026, aşağıda).**
-  `content/galeri/galeri.json` içinde src+alt listesi.
+  Düz ızgara + lightbox. `content/galeri/galeri.json` içinde src+alt listesi.
   `next/image`, sayfa başına en fazla 2 `priority`, gerisi lazy.
   *(YTÜ'nün B5 hatası: 14 görsele birden `priority` — tekrarlanmayacak.)*
 
-  ---
+  **El yazısı fontu seçildi: Caveat.** 20.08.2026'daki tasarım turundan geriye
+  kalan tek karar bu; turun kendisi 21.08.2026'da geri alındı ve yazılan kod
+  silindi. Font tercihi duruyor çünkü seçimi Türkçe glif testine dayanıyor ve
+  yeniden yapılması gereksiz iş olur.
 
-  ### 🎨 Tasarım oturumu — 20.08.2026 · **KOD YAZILMADI, TASARIM AÇIK**
+  Test edilen glifler `ğ Ğ ı İ ş Ş ç Ç ö Ö ü Ü`; ölçüm göz kararı değil,
+  `fontTools` ile doğrudan `cmap` tablosundan. **Türkçesi eksik olduğu için
+  elenenler:** Satisfy · Yuji Syuku · Rock Salt · Tangerine · Reenie Beanie ·
+  Niconne · Sofia (ilk altısı `ğ Ğ İ ş Ş` taşımıyor, Sofia'da ayrıca `ı` da
+  yok). Bu fontlarla yazılan bir başlıkta eksik harfler yedek fonta düşer ve
+  tek satırda iki ayrı yazı tipi görünür.
 
-  > Bu blok yarım kalmış bir tasarım konuşmasının kaydıdır. Yeni bir oturumda
-  > devam eden kişi buradan başlasın: kararlar kesin, "açık sorular" cevapsız.
+  **Caveat'ın seçilme gerekçesi:** küçük puntoda (11–12 px) bağlı el yazısının
+  okunabilmesi için ağırlığın 600'e çekilebilmesi gerekiyordu; kısa listedeki
+  diğerleri (Dancing Script · Cedarville Cursive · Marck Script) tek ağırlıklı.
 
-  **Referans:** [collectui.com/designs/gallery-ui-design-inspiration/a1fcd655-c824-4474-80b7-c80e28738e02](https://collectui.com/designs/gallery-ui-design-inspiration/a1fcd655-c824-4474-80b7-c80e28738e02)
-  — Gabriel (@gabriell_lab). Tasarımcının kendi tarifi: *"A floating gallery of
-  polaroid-style images forms a clean 3D sphere on a white background."*
-  Yani ızgara değil: **polaroid çerçeveli fotoğraflardan oluşan, dönen bir 3B
-  küre.** Öndeki kareler büyük ve düz, kenara gidenler küçülüp açılanıyor.
-
-  #### ✅ Verilen kararlar
-
-  1. **Düzen:** Plandaki düz ızgara yerine 3B polaroid küresi.
-  2. **Zemin:** Referanstaki beyaz değil, **bizim koyu temamız + `IzgaraKatmani`**.
-     Küre bizim atmosferimizin içinde duracak.
-  3. **Teknik yön: saf CSS 3B + küçük JS.** Her fotoğraf küre koordinatlarıyla
-     `rotateY/rotateX/translateZ` ile yerleştirilir, kapsayıcı döner; derinlik
-     hissini `perspective` verir. **three.js KURULMAYACAK** — `SITE_PLAN.md` §4'teki
-     "hareketin tamamı saf CSS, `motion` kurulmadı" kararı korunuyor. JS yalnızca
-     sürükleme ve otomatik dönüş için. Kabul edilen sınır: ~40–50 kareden sonra
-     mobilde akıcılık düşebilir.
-  4. **Polaroid çerçevesinin sol alt köşesinde** küçük bir not: **tarih + etkinlik
-     adı**, el yazısı fontuyla. (Polaroid'in kalın alt kenarına düşülmüş not
-     metaforu.)
-  5. Metinleri **Mustafa fotoğraf fotoğraf verecek.**
-
-  #### ❓ Cevaplanmamış sorular — yeni oturum bunlarla başlamalı
-
-  1. **Kareye tıklayınca ne olacak?** Lightbox açılsın mı, yoksa küre sadece
-     dönsün mü?
-  2. **Küre kendiliğinden dönsün mü**, yoksa yalnızca sürüklenince mi?
-     (`prefers-reduced-motion` açıkken otomatik dönüş kapanacak — bu kesin.)
-  3. **JS kapalıyken yedek düzen nasıl görünecek?** Faz 4'ün ortak kabul kriteri
-     "JS kapalıyken içerik okunabiliyor" olduğu için düz ızgaraya düşmek
-     **zorunlu**; tartışılacak olan o ızgaranın görünümü.
-  4. **El yazısı fontu seçilmedi.** Kısa liste ve gerekçeler aşağıda.
-
-  #### 🔤 El yazısı fontu — Türkçe testi yapıldı
-
-  Test edilen glifler: `ğ Ğ ı İ ş Ş ç Ç ö Ö ü Ü`. Ölçüm `fontTools` ile
-  doğrudan `cmap` tablosundan yapıldı, göz kararı değil.
-
-  **❌ Elenenler — beşi de aynı beş glifi taşımıyor (`ğ Ğ İ ş Ş`):**
-  Satisfy · Yuji Syuku · Rock Salt · Tangerine · Reenie Beanie · Niconne ·
-  **Sofia** (bunda ayrıca `ı` da yok). Bu fontlarla "Şirket ve Girişim Ofisi
-  Gezileri" yazılırsa eksik harfler yedek fonta düşer ve tek satırda iki ayrı
-  yazı tipi görünür.
-
-  **✅ Türkçesi tam olanlar (11):**
-
-  | Font | Glif | Ağırlık | Not |
-  |---|---|---|---|
-  | **Caveat** | 753 | **değişken 400–700** | Önerilen. Bağlı yazı ile okunaklılık arasında en iyi denge; 11–12 px'te 600'e çekilebiliyor |
-  | **Dancing Script** | 559 | **değişken** | Senin listenden en dengeli olanı; Caveat'tan daha süslü |
-  | **Marck Script** | 483 | tek | Dancing Script'e yakın, daha yatık ve hızlı yazılmış hissi |
-  | **Cedarville Cursive** | 389 | tek | En "gerçek insan eli" duranı; bedeli incelik, küçük puntoda zayıf |
-  | Great Vibes | 1081 | tek | Klasik kaligrafi — çok zarif ama 11–12 px'te tüy gibi ipince kalıyor |
-  | Allura | 587 | tek | Great Vibes ile aynı sorun |
-  | Parisienne | 405 | tek | Rakamları fazla süslü — denemede "2023" neredeyse "9093" okunuyordu |
-  | Oooh Baby | 588 | tek | İnce kaligrafi, küçük puntoda okunmuyor |
-  | Yellowtail | 405 | tek | Dolu gövdeli ama fazla "retro tabela" |
-  | Kalam | 1026 | tek | Dik, kalem hissi; "not" değil "yazı" gibi duruyor |
-  | Patrick Hand | 550 | tek | En okunaklı ama en az kişisel, matbaa el yazısı gibi |
-
-  **Karar bekleyen kısa liste:** Caveat *(öneri)* · Dancing Script ·
-  Cedarville Cursive · Marck Script.
-  Seçilen font `public/fonts/` altına **woff2 olarak** konacak ve `src/lib/fonts.ts`'e
-  eklenecek — Google Fonts CDN'i kullanılmıyor (F2-03 kuralı).
-
-  **Testi yeniden üretmek için:** fontlar `github.com/google/fonts` deposundan
-  (`ofl/<ad>/` veya `apache/<ad>/`) indirilip `fontTools.ttLib` ile `cmap`
-  taranıyor. Karşılaştırma sayfası fontları polaroid çerçevesi içinde, koyu
-  zeminde ve gerçek etkinlik adıyla çiziyor — punto her font için ayrı ayarlı,
-  çünkü script fontların x-yüksekliği çok farklı ve aynı puntoda karşılaştırmak
-  yanıltıcı oluyor.
-
-  #### 🔧 Kod tarafında gerekecek değişiklikler
-
-  - **`galeriGorseliSchema` genişleyecek:** şu an yalnızca `src` + `alt` var;
-    `tarih` ve `etkinlik` alanları eklenecek. İkisi de opsiyonel olmalı —
-    her karenin künyesi olmayabilir, künyesiz kare çerçeveyi boş gösterir.
-  - **`src/lib/fonts.ts`** — üçüncü bir aile (`--font-el-yazisi`).
-  - Yeni bileşen(ler): küre + polaroid kartı + JS'siz yedek ızgara.
-
-  #### ⚠️ Not: tarih yayınlama kuralıyla ilişkisi
-
-  Sitede **etkinlik tarihleri bilerek yayınlanmıyor** (18.08.2026 kararı,
-  `etkinlikSchema`'dan `tarih`/`durum` alanları bu yüzden kaldırıldı). Galeride
-  tarih göstermek bu kuralla **çelişmiyor**: galeri geçmiş kareleri anlatıyor,
-  "2024 · Hult Prize Campus" geçmişi işaretliyor, gelecek bir etkinlik duyurmuyor.
-  Yine de Mustafa'nın onayıyla ilerlendi.
-
-  #### 🚧 Fiilî engeller
-
-  - `public/gorseller/galeri/` **boş**, `content/galeri/galeri.json` de boş dizi.
-    Sayfa geçici karelerle yazılabilir ama gerçek hâli ancak fotoğraflar gelince
-    görülür.
-  - El yazısı fontu dosyası henüz repoya konmadı (seçim yapılmadı).
-
-  #### 📋 Süreç notu
-
-  Bu iş **architectural** sınıfında: yeni bir hareket sistemi kuruyor, kayıtlı bir
-  mimari kararla (§4 "saf CSS") kesişiyor, yeni bir varlık (font) ve şema
-  değişikliği getiriyor. Yani kod yazmadan önce
-  `docs/superpowers/specs/` altına bir tasarım belgesi yazılıp onaylanmalı.
+  **Repoda hazır duruyor:** `public/fonts/Caveat-Variable.woff2` (77 KB,
+  değişken ağırlık 400–700, Latin-1 + Latin Ext-A altkümesi),
+  `src/lib/fonts.ts → caveat`, `fonts/Caveat-OFL.txt` (lisans). Google Fonts
+  CDN'i kullanılmıyor (F2-03 kuralı). **Kök düzene bilerek bağlanmadı** —
+  kullanacak sayfa `caveat.variable`ı kendi kapsayıcısına vermeli, yoksa
+  77 KB her sayfada ön yüklenir. ⚠️ `globals.css`'teki `--font-elyazisi`
+  token'ı `@theme inline` içinde: ham CSS'ten `var(--font-elyazisi)` okumak
+  **boş döner**, `--font-caveat` doğrudan okunmalı.
 
 - [ ] **F4-09** **`/blog` + `/blog/[slug]`**
 

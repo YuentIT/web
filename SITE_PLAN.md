@@ -157,6 +157,27 @@ Kulüp yönetimiyle teyit edildi (17.08.2026):
 > v3 + Radix varsayıyor, bizde v4 + Base UI var — oradan bir şey alınırsa elle
 > uyarlanır.
 
+> **Güncelleme — 21.08.2026: kapı açıldı, `motion` kuruldu (`13.1.1`).** Yukarıdaki
+> "ilk gerçek ihtiyaçta kurulur" maddesi işledi. İhtiyaç: ana sayfadaki sayı
+> bandının sıfırdan hedefe sayması. Bu, `@keyframes` ile çıkmıyor — sayının
+> **metin içeriği** her karede değişmeli, CSS ise metin üretmiyor.
+>
+> Kaynak Animate UI'ın `counting-number` bileşeni; projeye uyarlanmış hâli
+> `src/components/ui/counting-number.tsx`. **Şimdilik tek kullanıcısı o bant.**
+> Paket geldiği için başka yere serbestçe `motion` serpilmiyor: buradaki
+> "hareketin tamamı saf CSS" kuralı hâlâ geçerli, `motion` yalnızca CSS'in
+> yapamadığı iş için açılıyor.
+>
+> Uyarlamada üç tuzak çıktı, ikisi kaynağın kendi hatası:
+> 1. Kaynak bileşen sunucuda `0` basıyor — JS çalışmazsa sayfada temelli sıfır
+>    kalırdı. Bizde sunucu son rakamı basıyor.
+> 2. Sayma `mount`'ta başlıyordu; bant ilk ekranın altında olduğu için kullanıcı
+>    oraya varmadan bitiyordu. Artık `IntersectionObserver` ile başlıyor.
+> 3. `MotionValue.set()` **ekrana yansımıyor**: `motion` değeri DOM'a kendi kare
+>    döngüsünde yazıyor ve o döngü yalnızca aktif animasyon varken dönüyor.
+>    Başlangıç değeri bu yüzden DOM'a doğrudan yazılıyor; yoksa sayaç başlarken
+>    rakam hedeften sıfıra sıçrıyor.
+
 ### 4.1 Bilerek yapmadıklarımız
 
 - 3D / Spline yok · Harici CMS aboneliği yok · Stok fotoğraf yok

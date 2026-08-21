@@ -6,6 +6,7 @@ import { Hero } from "@/components/anasayfa/hero";
 import { IsikBolgesi } from "@/components/anasayfa/isik-bolgesi";
 import { IzgaraKatmani } from "@/components/atmosfer/izgara-katmani";
 import { KayanSerit } from "@/components/anasayfa/kayan-serit";
+import { SayanSayilar } from "@/components/anasayfa/sayan-sayilar";
 import { Container } from "@/components/layout/container";
 import { EtkinlikIzgarasi } from "@/components/icerik/etkinlik-izgarasi";
 import { getAnasayfa, getEtkinlikler, getHakkimizda } from "@/lib/content";
@@ -111,19 +112,7 @@ export default async function Home() {
             {anasayfa.sayilarlaBiz.length > 0 ? (
               <section className="pt-13">
                 <Container size="wide">
-                  <dl className="grid gap-6 border-t border-border pt-7 sm:grid-cols-2 lg:grid-cols-3">
-                    {anasayfa.sayilarlaBiz.map((sayi) => (
-                      <div key={sayi.etiket}>
-                        <dt className="sr-only">{sayi.etiket}</dt>
-                        <dd className="font-heading text-[clamp(2.125rem,5vw,3.625rem)] leading-none font-bold tracking-[-0.04em]">
-                          {sayi.deger}
-                        </dd>
-                        <p className="mt-2.5 text-[0.6875rem] tracking-[0.14em] text-text-subtle uppercase">
-                          {sayi.etiket}
-                        </p>
-                      </div>
-                    ))}
-                  </dl>
+                  <SayanSayilar sayilar={anasayfa.sayilarlaBiz} />
                 </Container>
               </section>
             ) : null}
