@@ -124,26 +124,39 @@ Hâlâ 404 veren rotalar (Faz 4 boyunca açılacak):
 MUSTAFA'DAN BEKLENENLER — 21.08.2026'da tazelendi. Hiçbiri mevcut sayfaları
 bozmuyor, hepsi eksik içerik. Öncelik sırasıyla:
 
-  1. SOSYAL SORUMLULUK PROJELERİ — gerçek metin + kapak görseli.
-     Tek "yalancı" içerik bu: `content/etkinlikler/sosyal-sorumluluk-projeleri.mdx`
-     `[YER TUTUCU]` metinleriyle **canlıda görünüyor** (Mustafa böyle istedi).
-     Gereken: kısa açıklama (2 satır) · 3 paragraf gövde · 3 özellik maddesi ·
-     kapak görseli. Kodda değişiklik gerekmiyor, dosya baştan yazılacak.
+  1. ETKİNLİK METİNLERİNİN YENİ KONSEPTE GÖRE GÖZDEN GEÇİRİLMESİ — 9 etkinliğin
+     metni Wix'ten birebir taşınmış hâlde (5'i 21.08'de taşındı). Kulüp yeni
+     konsept hazırlıyordu; metinler yenilenecekse hover ve detay düzeni turuyla
+     (aşağıdaki "SONRADAN YENİLENECEK") birlikte ele alınmalı.
 
-  2. YENİ 5 ETKİNLİĞİN KAPAK GÖRSELLERİ — how-to-change-the-game,
-     yeditepe-entrepreneur-talks, lgk-liderlik-kampi, ihtiyac-haritasi,
-     sosyal-etkinlikler. Zorunlu değil: kapak yoksa kart başlığın ilk iki
-     harfini tipografik olarak basıyor ("stok fotoğraf yok" kuralı).
-     ⚠️ Ama **Sosyal Etkinlikler ile Sosyal Sorumluluk Projeleri'nin ikisi de
-     "SO" gösteriyor** ve yan yana geldiklerinde ayırt edilmiyor — bu ikisinin
-     görseli diğerlerinden daha acil.
-     `public/gorseller/etkinlikler/` altına konup frontmatter'a `kapakGorsel`
-     olarak eklenecek.
+  2. GALERİ GÖRSELLERİ → `public/gorseller/galeri/` (düz liste, klasörsüz).
+     F4-08'in engeli. Her karenin Türkçe alt metni de gerekiyor.
 
-  3. ETKİNLİK METİNLERİNİN YENİ KONSEPTE GÖRE GÖZDEN GEÇİRİLMESİ — 9 etkinliğin
-     metni şu an Wix'ten birebir taşınmış hâlde (5'i 21.08'de taşındı). Kulüp
-     yeni konsept hazırlıyordu; metinler yenilenecekse hover ve detay düzeni
-     turuyla (aşağıdaki "SONRADAN YENİLENECEK") birlikte ele alınmalı.
+  3. EKİP FOTOĞRAFLARI — 77 kişi, şu an baş harf kartı. Karar zaten "baş harf"
+     olduğu için bu bir eksik değil, isteğe bağlı iyileştirme.
+
+  ✅ 21.08.2026'da kapananlar:
+     · Ana sayfa metinleri (hero, dönen kelimeler, açıklama, katıl bölümü)
+     · /hakkimizda "Değerlerimiz" — Mustafa'nın metniyle değişti
+     · Sosyal Sorumluluk Projeleri — gerçek metin ve kapak görseli geldi,
+       yer tutucu kalktı
+     · **10 etkinliğin 10'unun da kapak görseli var** (6'sı 21.08'de eklendi)
+     · Logonun SVG'si — vazgeçildi, PNG'lerle devam
+     · 2025-2026 koordinatörleri ve 2023-2024 / 2024-2025 dönemleri — eklenmeyecek
+
+  ⚠️ GÖRSEL TESLİMİNDE DİKKAT — 21.08.2026'da yaşandı: Mustafa'nın verdiği altı
+  kapağın beşi `.jpg` uzantılıydı ama **içerikleri JPEG değildi** — dördü AVIF,
+  biri HEIC (iPhone'dan aktarılmışlar). HEIC olanı hiçbir tarayıcı göstermiyor
+  ve `sharp` bile açamıyordu; `next/image` optimizasyonu o dosyada patlardı.
+  Altısı da gerçek JPEG'e çevrildi (HEIC olan Windows'un WIC çözücüsüyle açılıp
+  1200 px'e küçültüldü: 1781 KB → 208 KB). Ayrıca Türkçe karakterli iki dosya
+  adı (`ihtiyaç-haritası.jpg`, `liderlik-kampı.jpg`) ASCII'ye çevrildi: Vercel
+  Linux'ta derliyor ve dosya adlarında büyük/küçük harf ile Unicode
+  normalizasyonu Windows'takinden farklı davranabiliyor.
+  **Yeni görsel gelince önce formatını doğrula:** ilk 12 bayta bak, `ffd8ff`
+  değilse JPEG değildir.
+
+SONRADAN YENİLENECEK") birlikte ele alınmalı.
 
   4. GALERİ GÖRSELLERİ → `public/gorseller/galeri/` (düz liste, klasörsüz).
      F4-08'in engeli, F3-04'ün değil. Her karenin Türkçe alt metni de gerekiyor.
