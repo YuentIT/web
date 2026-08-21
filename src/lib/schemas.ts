@@ -316,19 +316,6 @@ export const galeriGorseliSchema = z.object({
   src: gorselYolu,
   /** Erişilebilirlik şartı: her karenin ne gösterdiği Türkçe yazılır. */
   alt: dolu,
-  /**
-   * Polaroid'in alt şeridine el yazısıyla düşülen not (F4-08).
-   *
-   * İkisi de **opsiyonel ve bu kasıtlı**: fotoğraflar metinlerden önce
-   * gelebiliyor. Alan boşken not satırı çizilmiyor ama şerit kalınlığını
-   * koruyor — polaroid'i polaroid yapan şey o boşluk.
-   *
-   * `tarih` ISO saklanıp ekranda `12.03.2024` diye basılıyor. Etkinliklerde
-   * tarih yayınlamama kuralı (yukarıda) burada geçerli değil: o kural
-   * yaklaşan etkinlikleri önden duyurmamak içindi, bunlar geçmiş kareler.
-   */
-  tarih: z.iso.date().optional(),
-  etkinlik: dolu.optional(),
 });
 
 export const galeriSchema = z.object({

@@ -55,15 +55,21 @@ export const archivoExpanded = localFont({
 });
 
 /**
- * Polaroid notları (F4-08). Tek dosya, değişken ağırlık 400–700.
+ * El yazısı. Tek dosya, değişken ağırlık 400–700.
  *
- * Not 11–12 px'te basılıyor; o boyda bağlı bir el yazısının okunabilmesi için
- * ağırlığın 600'e çekilebilmesi gerekiyordu. Aday listesindeki tek ağırlığa
- * sahip fontlarda bu imkân yok — Caveat bu yüzden seçildi.
+ * **Bugün hiçbir yerde kullanılmıyor.** F4-08 (galeri) için seçilmişti; o iş
+ * 21.08.2026'da geri alındı ve geriye yalnızca bu font tercihi bırakıldı.
+ * Export duruyor ki seçim ve altküme çalışması yeniden yapılmasın.
+ *
+ * Seçim gerekçesi: not 11–12 px'te basılacaktı; o boyda bağlı bir el yazısının
+ * okunabilmesi için ağırlığın 600'e çekilebilmesi gerekiyordu. Aday
+ * listesindeki tek ağırlığa sahip fontlarda bu imkân yok — Caveat bu yüzden
+ * seçildi. Türkçe glifler (`ğĞıİşŞçÇöÖüÜ`) altküme sonrası doğrulandı.
  *
  * **Kök düzene bilerek eklenmedi.** Archivo'lar `layout.tsx`'te duruyor çünkü
- * her sayfada gerekli; bu 77 KB ise yalnızca `/galeri`'nin süsü. Değişken o
- * sayfanın kapsayıcısına veriliyor, böylece font yalnızca o rotada yükleniyor.
+ * her sayfada gerekli; bu 77 KB ise tek bir sayfanın süsü olacaktı. Kullanacak
+ * sayfa `caveat.variable`ı kendi kapsayıcısına vermeli, böylece font yalnızca
+ * o rotada yüklenir.
  *
  * Altkümede yalnızca `calt`, `liga` ve `locl` var. `calt` tek başına 31 KB
  * ama Caveat'ın harfleri birbirine bağlaması ondan geliyor — fontun seçilme
