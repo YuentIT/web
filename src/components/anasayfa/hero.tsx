@@ -4,6 +4,7 @@ import Link from "next/link";
 import { KaydirmaIpucu } from "@/components/atmosfer/kaydirma-ipucu";
 import { Container } from "@/components/layout/container";
 import { buttonVariants } from "@/components/ui/button";
+import { TextLoop } from "@/components/ui/text-loop";
 import { cn } from "@/lib/utils";
 import type { Anasayfa } from "@/types";
 
@@ -21,26 +22,6 @@ import type { Anasayfa } from "@/types";
  */
 const CTA_SINIFI =
   "h-12 px-6 text-xs font-extrabold tracking-[0.08em] uppercase";
-
-/**
- * Bir başlık satırını, `vurgu` geçtiği yerde aksan rengine boyayarak çizer.
- * Geçmiyorsa satır olduğu gibi döner — vurgu görünüm meselesi, metnin kendisi
- * her hâlükârda eksiksiz kalıyor.
- */
-function VurguluSatir({ satir, vurgu }: { satir: string; vurgu?: string }) {
-  if (!vurgu) return <>{satir}</>;
-
-  const konum = satir.indexOf(vurgu);
-  if (konum === -1) return <>{satir}</>;
-
-  return (
-    <>
-      {satir.slice(0, konum)}
-      <span className="text-brand-accent">{vurgu}</span>
-      {satir.slice(konum + vurgu.length)}
-    </>
-  );
-}
 
 /**
  * Ana sayfa hero'su (F4-01 · 19.08.2026 görsel yön).
@@ -68,6 +49,10 @@ export function Hero({
   serit?: React.ReactNode;
 }) {
   const satirlar = hero.baslik.split("\n");
+  // Başlığın erişilebilir adı **sabit**: dönen kelime iki saniyede bir
+  // değiştiği için ekran okuyucuya bırakılsaydı başlık sürekli yeniden
+  // okunurdu. Listenin ilk kelimesi başlığı tek başına taşıyor.
+  const okunanBaslik = `${satirlar.join(" ")} ${hero.donenKelimeler[0]}`;
 
   return (
     <section className="relative flex min-h-[calc(100svh-4rem)] flex-col">
@@ -94,12 +79,17 @@ export function Hero({
 
         <h1
           data-yuent-rise
+          aria-label={okunanBaslik}
           className="mt-6 font-heading text-[clamp(1.875rem,5.6vw,4.25rem)] leading-[0.9] font-bold tracking-[-0.042em] uppercase"
         >
           {satirlar.map((satir, i) => (
             // Dış span maske, iç span hareket eden yüzey: `overflow-hidden`
             // olmadan satır yukarıdan değil boşluktan gelmiş gibi görünür.
-            <span key={satir} className="block overflow-hidden">
+            <span
+              key={satir}
+              aria-hidden="true"
+              className="yuent-glif-payi block overflow-hidden"
+            >
               <span
                 className="block"
                 style={{
@@ -108,10 +98,25 @@ export function Hero({
                   }s backwards`,
                 }}
               >
-                <VurguluSatir satir={satir} vurgu={hero.vurgu} />
+                {satir}
               </span>
             </span>
           ))}
+
+          {/* Dönen satır, sabit satırların gecikme zincirini sürdürüyor: önce
+              üsttekiler yükseliyor, sonra bu beliriyor. Burada `overflow-hidden`
+              YOK — maskeyi `TextLoop` kendi içinde, Ç ve Ş'nin çengelini
+              kesmeyecek şekilde kuruyor. */}
+          <span
+            className="block text-brand-accent"
+            style={{
+              animation: `yuent-rise 1s cubic-bezier(0.16, 1, 0.3, 1) ${
+                0.05 + satirlar.length * 0.13
+              }s backwards`,
+            }}
+          >
+            <TextLoop kelimeler={hero.donenKelimeler} />
+          </span>
         </h1>
 
         <p className="mt-6 max-w-lg leading-relaxed text-text-muted">

@@ -1,10 +1,10 @@
 {
-  "_todo": "TASLAK — hero metinleri Mustafa'nın revizyonunu bekliyor; hakkimizda.json'daki hikâye ve misyondan türetildi, uydurulmadı. sayilarlaBiz artık hakkimizda.json'daki istatistiklerin aynısı (21.08.2026 kararı): aynı dört rakam sitede bilerek iki yerde duruyor, sunumları farklı — burada sayaç, /hakkimizda'da roket.",
+  "_todo": "Ana sayfanın tüm metinleri Mustafa tarafından onaylandı (21.08.2026): hero başlığı ve dönen kelimeler, hero açıklaması, katıl bölümü ve buton metinleri. sayilarlaBiz, hakkimizda.json'daki istatistiklerin aynısı — aynı dört rakam sitede bilerek iki yerde, sunumları farklı (burada sayaç, /hakkimizda'da roket).",
   "hero": {
     "ustBaslik": "Yeditepe Üniversitesi",
-    "baslik": "Fikrinin\narkasından koşmaya\ncesaret edenler için",
-    "vurgu": "edenler",
-    "aciklama": "Girişimcilik, liderlik ve sosyal girişimcilik alanında eğitimler, zirveler ve sosyal sorumluluk projeleri düzenliyoruz. İlham alırken ilham olmak temel hedefimiz.",
+    "baslik": "İzlemekle Kalma,",
+    "donenKelimeler": ["Sahneye Çık", "Yön Ver", "Öncü Ol", "İz Bırak"],
+    "aciklama": "Burada sınırları başkaları değil, biz belirliyoruz. Kendi yolumuzu çizerken en büyük gücü yine birbirimizden alıyoruz. İlham alırken ilham olmak için çalışıyoruz.",
     "birincilCta": {
       "metin": "Bize Katıl",
       "href": "/katil"
@@ -43,11 +43,11 @@
     "kisi": "Lauren Amarante"
   },
   "katil": {
-    "ustBaslik": "İlham alırken ilham olmak",
+    "ustBaslik": "İlham alırken ilham olmak için",
     "baslik": "YUENT ailesine katıl",
     "aciklama": "İlham alırken ilham olmak yalnızca bir cümle değil, çalışma biçimimiz: öğrendiğimizi paylaşıyor, düzenlediğimiz her eğitimi, zirveyi ve sosyal sorumluluk projesini birlikte üretiyoruz. Fikrinin arkasından koşmaya cesaret ediyorsan, burada seni dinleyecek ve yanında yürüyecek bir ekip var.",
     "cta": {
-      "metin": "Bize Katılın",
+      "metin": "Bize Katıl",
       "href": "/katil"
     }
   }

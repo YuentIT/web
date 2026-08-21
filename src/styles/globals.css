@@ -355,6 +355,29 @@
   inherits: false;
 }
 
+/* ---------------------------------------------------------------------------
+   Glif payı — maskelenmiş metinlerde Türkçe harflerin kesilmemesi için
+
+   Düz `overflow: hidden` bu tipografide kabul edilemez: hero başlığı 0.9 satır
+   yüksekliğiyle çiziliyor ve maskenin kenarları harflerin dışına taşan
+   parçalarını kesiyor. 68 px'te ölçüldü: **üstten 7 px, alttan 5.8 px.**
+   Üstteki `İ Ö Ü`nün noktalarını, alttaki virgülü ve `Ç Ş`nin çengelini yiyor —
+   ekranda harfler yukarıdan ve aşağıdan preslenmiş gibi duruyor.
+
+   Çözüm: kesme çizgisini iki yönde de dışarı it, aynı kadar negatif kenar
+   boşluğuyla geri al. Kutunun dış ölçüsü değişmiyor, yani satır aralığı ve
+   hizalama aynı kalıyor; yalnızca kırpma alanı büyüyor. `em` cinsinden olması
+   şart: başlık `clamp` ile 30-68 px arasında değişiyor, sabit piksel payı
+   küçük puntoda fazla, büyük puntoda az kalırdı.
+
+   Yükselme animasyonu `translateY(105%)`ten başladığı için bu pay hareketi ele
+   vermiyor — metin maskenin çok altından geliyor.
+--------------------------------------------------------------------------- */
+.yuent-glif-payi {
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+}
+
 @keyframes yuent-rise {
   from {
     transform: translateY(105%);

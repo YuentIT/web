@@ -43,10 +43,26 @@ Sıradaki       : F4-12 (/katil), F4-13 (/basvuru) — ikisi de `FormCta` hazır
                  butonlar kendiliğinden açılır. Sonra F4-15 (404/error) ve
                  F4-08 (galeri — Mustafa'dan görsel bekliyor).
 
-ONAY BEKLEYEN İKİ METİN (F3-03'ü açık tutmuyor, yayın öncesi bakılmalı):
-  · `anasayfa.json → hero` ve `katil` — Wix'te karşılığı yoktu, hikâye ve
-    misyondan türetilerek yazıldı. Taslak.
-  · `sponsorluk.json → giris` — yazıldı, onay bekliyor.
+ANA SAYFA METİNLERİ ONAYLANDI — 21.08.2026. `anasayfa.json`da taslak kalmadı:
+  hero başlığı ve dönen kelimeler, hero açıklaması, katıl bölümünün üç parçası
+  ve buton metinleri Mustafa'nın kendi metni. Üç "Bize Katıl" butonu artık aynı
+  çekimde (önce alttaki "Bize Katılın" diye ayrışıyordu).
+
+ONAY BEKLEYEN TEK METİN:
+  · `sponsorluk.json → giris` — yazıldı, onay bekliyor. Sayfası (F4-10) henüz
+    yazılmadığı için canlıda görünmüyor.
+
+HERO BAŞLIĞI DEĞİŞTİ — 21.08.2026, Mustafa'nın metni:
+  Sabit satır "İzlemekle Kalma," + dönen satır
+  [Sahneye Çık → Yön Ver → Öncü Ol → İz Bırak], aksan renginde, ~2,2 sn arayla.
+  Şemada `hero.vurgu` **kalktı**, yerine `hero.donenKelimeler` geldi (min 1,
+  max 6). Bileşen `src/components/ui/text-loop.tsx` — motion-primitives
+  `TextLoop`'unun uyarlaması, `motion` paketinin ikinci kullanıcısı.
+  Listenin **ilk kelimesi ayrıcalıklı**: sunucu onu basıyor, hareket kısıtında
+  o duruyor ve H1'in `aria-label`ı ondan kuruluyor ("İzlemekle Kalma, Sahneye
+  Çık"). Dönen kısım `aria-hidden` — iki saniyede bir değişen bir kelime ekran
+  okuyucuda başlığı sürekli yeniden okuturdu. SEO tarafını Mustafa "önemli
+  değil" diye geçti.
 
 `motion` KURULDU — 21.08.2026: SITE_PLAN §4'teki "ilk gerçek ihtiyaçta kurulur"
   maddesi işledi. Tek kullanıcısı ana sayfadaki sayaç
@@ -126,6 +142,17 @@ SONRADAN YENİLENECEK — Mustafa'nın 20.08'deki notu:
     çalışıyor ve doğrulandı ama kalıcı tasarım değil.
   İkisi de F4-05/F4-06'yı geri açmıyor: sayfalar bitti sayılıyor, bu bir
   sonraki görsel tur. Yeni etkinlik metinleri geldiğinde birlikte ele alınacak.
+
+KAPANMIŞ KONULAR — tekrar açılmayacak:
+  · **2025-2026 dönemine koordinatör eklenmeyecek** (Mustafa, 21.08.2026).
+    Güncel dönem sekiz kişilik yönetim kurulundan ibaret ve bu hâliyle onaylandı.
+    Arşiv dönemlerinde 10-23 koordinatör olması eksiklik göstergesi değil; karar
+    `content/donemler/2025-2026.json` içine `_not` olarak da yazıldı.
+  · **Logonun SVG'si** — 21.08.2026'da vazgeçildi, PNG'lerle devam ediliyor.
+  · **2023-2024 ve 2024-2025 dönemleri arşive eklenmeyecek** (Mustafa,
+    21.08.2026). O yıllara ait kayıt yok; Wix'te de yoktu, taşımada kaybolmadı.
+    Arşiv 2022-2023'ten 2025-2026'ya atlıyor ve **bu boşluk kasıtlı.** Dönem
+    seçicide iki yıllık atlama görünce eksik sanma.
 
 BİLEREK ÇÖZÜLMEDEN BIRAKILANLAR (acil değil):
   · Ana sayfadaki seçki şu an dört etkinliğin dördünü de içeriyor, yani

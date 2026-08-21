@@ -91,11 +91,18 @@ export const anasayfaSchema = z.object({
      */
     baslik: dolu,
     /**
-     * `baslik` içinde aksan rengiyle gösterilecek kelime/öbek. Metinde
-     * geçmiyorsa sessizce yok sayılır — vurgu, başlığın okunmasını değil
-     * yalnızca görünümünü etkiliyor.
+     * Başlığın **dönen ikinci satırı** (21.08.2026). `baslik` sabit kısmı
+     * taşıyor ("İzlemekle Kalma,"), buradaki kelimeler sırayla onun altında
+     * değişiyor.
+     *
+     * İlk kelime ayrıcalıklı: sunucu onu basıyor, hareket kısıtı altında o
+     * duruyor ve başlığın erişilebilir adı ondan kuruluyor. Yani listenin
+     * başına başlığı tek başına taşıyabilecek kelime yazılmalı.
+     *
+     * Üst sınır 6: daha fazlası tek bir kelimeyi görme olasılığını o kadar
+     * düşürüyor ki başlık mesaj vermeyi bırakıyor.
      */
-    vurgu: z.string().optional(),
+    donenKelimeler: z.array(dolu).min(1).max(6),
     aciklama: dolu,
     birincilCta: ctaSchema,
     ikincilCta: ctaSchema.optional(),
